@@ -1,0 +1,73 @@
+<resources>
+    <!--parent="Theme.AppCompat.Light.DarkActionBar"-->
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="PrimaryTheme">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">?attr/wallpaperStatusColor</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="PrimaryTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="wallPaperBackgroundColor">@color/colorPrimary</item>
+        <item name="wallpaperToolbarTextColor">@color/theme_primary_toolbar_text</item>
+        <item name="wallPaperBadgeColor">@color/theme_primary_badge</item>
+        <item name="wallpaperStatusColor">@color/theme_primary_status</item>
+        <item name="wallPaperTextCommonColor">@color/theme_primary_text_common</item>
+        <item name="wallPaperTextContentColor">@color/theme_primary_text_content</item>
+        <item name="wallpaperThemeColor">@color/theme_primary_theme</item>
+        <item name="wallPaperFloatBtnColor">@color/theme_primary_float_btn</item>
+
+        <item name="navIcon">@mipmap/ic_actionbar_menu</item>
+        <item name="navBackIcon">@mipmap/ic_action_return</item>
+        <item name="overFlowIcon">@mipmap/ic_actionbar_menu_more</item>
+        <item name="menuSearch">@mipmap/ic_actionbar_search</item>
+        <item name="menuNotice">@mipmap/ic_actionbar_notice</item>
+        <item name="menuShare">@mipmap/ic_action_share</item>
+        <item name="menuSend">@mipmap/ic_send_white</item>
+
+    </style>
+
+    <style name="Custom.Theme.ToolBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:actionOverflowButtonStyle">@style/ActionButton.Overflow</item>
+    </style>
+
+    <style name="ActionButton.Overflow" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">
+        <item name="android:src">?attr/overFlowIcon</item>
+        <item name="android:color">@android:color/white</item>
+    </style>
+
+    <style name="toolbar_textAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">@dimen/textSize_18</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Theme.ToolBar.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textSize">@dimen/textSize_16</item>
+        <item name="android:textColorPrimary">@color/text_common</item>
+    </style>
+
+    <style name="GuidDialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <!--<style name="Custom.Theme.ToolBar" parent="Theme.AppCompat.Light.NoActionBar">-->
+        <!--<item name="android:actionOverflowButtonStyle">@style/ActionButton.Overflow</item>-->
+
+    <!--</style>-->
+
+    <!--<style name="ActionButton.Overflow" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">-->
+        <!--<item name="android:src">?attr/overFlowIcon</item>-->
+        <!--<item name="android:color">@android:color/white</item>-->
+    <!--</style>-->
+
+</resources>

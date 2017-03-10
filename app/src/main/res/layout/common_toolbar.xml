@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/wallpaperThemeColor"
+    android:elevation="@dimen/space_4"
+    android:orientation="vertical"
+    app:contentInsetStartWithNavigation="0dp"
+    app:popupTheme="@style/Theme.ToolBar.Base"
+    app:theme="@style/Custom.Theme.ToolBar"
+    app:titleTextAppearance="@style/toolbar_textAppearance"
+    app:titleTextColor="?attr/wallpaperToolbarTextColor"
+    tools:targetApi="lollipop">
+
+    <TextView
+        android:id="@+id/tvTitleName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/toolbar_textAppearance"
+        android:textColor="?attr/wallpaperToolbarTextColor" />
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/rlTitle"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal"-->
+    <!--tools:visibility="visible">-->
+
+    <!--&lt;!&ndash;<com.jun.elephant.ui.widget.MySimpleDraweeView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/user_img_iv"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="@dimen/space_35"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="@dimen/space_35"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_centerVertical="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;app:backgroundImage="@color/main_bg"&ndash;&gt;-->
+    <!--&lt;!&ndash;app:roundAsCircle="true" />&ndash;&gt;-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:orientation="vertical"-->
+    <!--android:paddingLeft="@dimen/space_8">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tvTitleName"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:textAppearance="@style/toolbar_textAppearance"-->
+    <!--android:textColor="?attr/wallpaperToolbarTextColor" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tvTitleDesc"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:ellipsize="end"-->
+    <!--android:gravity="bottom"-->
+    <!--android:maxLines="1"-->
+    <!--android:textColor="?attr/wallpaperToolbarTextColor"-->
+    <!--android:textSize="@dimen/textSize_11"-->
+    <!--android:visibility="gone"-->
+    <!--tools:text="hello" />-->
+    <!--</LinearLayout>-->
+    <!--</RelativeLayout>-->
+</android.support.v7.widget.Toolbar>

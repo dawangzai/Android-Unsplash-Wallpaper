@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Wallpaper</string>
+
+    <string name="bottom_tab_1">首页</string>
+    <string name="bottom_tab_2">分类</string>
+    <string name="bottom_tab_3">我</string>
+</resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--<color name="colorPrimary">#6E9AC1</color>-->
+    <!--<color name="colorPrimaryDark">#6E9AC1</color>-->
+    <color name="colorPrimary">#273644</color>
+    <color name="colorPrimaryDark">#222e38</color>
+    <color name="colorAccent">#6E9AC1</color>
+
+    <color name="main_bg">#E9EAED</color>
+
+    <color name="bg_ffffff">#ffffff</color>
+
+    <!--<color name="theme_primary_theme">#6E9AC1</color>-->
+    <!--<color name="theme_primary_status">#6E9AC1</color>-->
+    <!--<color name="theme_primary_background">#f5f5f5</color>-->
+    <!--<color name="theme_primary_badge">#6E9AC1</color>-->
+    <!--<color name="theme_primary_text_common">#535353</color>-->
+    <!--<color name="theme_primary_text_content">#727272</color>-->
+    <!--<color name="theme_primary_float_btn">#6E9AC1</color>-->
+    <!--<color name="theme_primary_toolbar_text">#fff</color>-->
+
+    <color name="theme_primary_theme">#273644</color>
+    <color name="theme_primary_status">#222e38</color>
+    <color name="theme_primary_background">#f5f5f5</color>
+    <color name="theme_primary_badge">#6E9AC1</color>
+    <color name="theme_primary_text_common">#535353</color>
+    <color name="theme_primary_text_content">#727272</color>
+    <color name="theme_primary_float_btn">#6E9AC1</color>
+    <color name="theme_primary_toolbar_text">#fff</color>
+
+    <color name="text_common">#535353</color>
+    <color name="text_content">#727272</color>
+    <color name="text_white">#fff</color>
+    <color name="text_nav">#b2ebf2</color>
+    <color name="text_gray">#cdcdcd</color>
+    <color name="text_323232">#323232</color>
+
+    <color name="color_03e5bd">#03e5bd</color>
+</resources>

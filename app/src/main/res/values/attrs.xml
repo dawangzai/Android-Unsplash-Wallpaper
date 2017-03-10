@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="wallpaperStatusColor" format="color" />
+    <attr name="wallpaperThemeColor" format="color" />
+    <attr name="wallpaperToolbarTextColor" format="color" />
+    <attr name="wallPaperBackgroundColor" format="color" />
+    <attr name="wallPaperBadgeColor" format="color" />
+    <attr name="wallPaperTextCommonColor" format="color" />
+    <attr name="wallPaperTextContentColor" format="color" />
+    <attr name="wallPaperFloatBtnColor" format="color" />
+
+    <attr name="navIcon" format="reference" />
+    <attr name="navBackIcon" format="reference" />
+    <attr name="overFlowIcon" format="reference" />
+    <attr name="menuSearch" format="reference" />
+    <attr name="menuNotice" format="reference" />
+    <attr name="menuShare" format="reference" />
+    <attr name="menuSend" format="reference" />
+</resources>
