@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,9 +13,6 @@ import com.cleverzheng.wallpaper.ui.collection.CollectionFragment;
 import com.cleverzheng.wallpaper.ui.collection.CollectionPresenter;
 import com.cleverzheng.wallpaper.ui.newest.NewestFragment;
 import com.cleverzheng.wallpaper.ui.newest.NewestPresenter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +27,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     PagerBottomTabLayout bottomTab;
 
     private int currentItem = 0;
+    private static final int NUM_ITEMS = 2;
 
     private NewestPresenter newestPresenter;
     private NewestFragment newestFragment;
@@ -48,22 +45,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void initData() {
         setMainToolbar("美图");
         initBottomTab();
-        List<Fragment> fragmentList = new ArrayList<>();
-        newestFragment = NewestFragment.newInstance();
-        collectionFragment = CollectionFragment.getInstance();
-        fragmentList.add(newestFragment);
-        fragmentList.add(collectionFragment);
-        PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), fragmentList);
+        PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
+//        List<Fragment> fragmentList = new ArrayList<>();
+//        newestFragment = NewestFragment.getInstance();
+//        collectionFragment = CollectionFragment.getInstance();
+//        fragmentList.add(newestFragment);
+//        fragmentList.add(collectionFragment);
+//        PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), fragmentList);
         vpContent.setAdapter(adapter);
         vpContent.setCurrentItem(currentItem);
 
-        if (newestPresenter == null) {
-            newestPresenter = new NewestPresenter(newestFragment, this);
-        }
-
-        if (collectionPresenter == null) {
-            collectionPresenter = new CollectionPresenter(collectionFragment, this);
-        }
+//        if (newestPresenter == null) {
+//            newestPresenter = new NewestPresenter(newestFragment, this);
+//        }
+//
+//        if (collectionPresenter == null) {
+//            collectionPresenter = new CollectionPresenter(collectionFragment, this);
+//        }
     }
 
     private void initBottomTab() {
@@ -93,25 +91,37 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private class PagerAdapter extends FragmentPagerAdapter {
-        List<Fragment> fragments;
 
         public PagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
-        public PagerAdapter(FragmentManager fm, List<Fragment> fragments) {
-            super(fm);
-            this.fragments = fragments;
-        }
-
         @Override
         public Fragment getItem(int position) {
-            return fragments.get(position);
+            switch (position) {
+                case 0:
+                    return getNewestFragment();
+                case 1:
+                    return getCollectionFragment();
+            }
+            return null;
         }
 
         @Override
         public int getCount() {
-            return fragments.size();
+            return NUM_ITEMS;
+        }
+
+        private Fragment getNewestFragment() {
+            newestFragment = NewestFragment.getInstance();
+            newestPresenter = new NewestPresenter(newestFragment, MainActivity.this);
+            return newestFragment;
+        }
+
+        private Fragment getCollectionFragment() {
+            collectionFragment = CollectionFragment.getInstance();
+            collectionPresenter = new CollectionPresenter(collectionFragment, MainActivity.this);
+            return collectionFragment;
         }
     }
 }

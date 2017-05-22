@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.cleverzheng.wallpaper.R;
 import com.cleverzheng.wallpaper.base.BaseFragment;
+import com.cleverzheng.wallpaper.base.ViewPagerFragment;
 import com.cleverzheng.wallpaper.bean.CollectionBean;
 import com.cleverzheng.wallpaper.bean.PhotoBean;
 import com.cleverzheng.wallpaper.global.Constant;
@@ -30,7 +31,7 @@ import butterknife.ButterKnife;
  * @description：
  */
 
-public class CollectionFragment extends BaseFragment implements CollectionContract.View {
+public class CollectionFragment extends ViewPagerFragment implements CollectionContract.View {
     @BindView(R.id.rvCollection)
     RecyclerView rvCollection;
     @BindView(R.id.refreshLayout)
@@ -59,8 +60,14 @@ public class CollectionFragment extends BaseFragment implements CollectionContra
     public void setPresent(CollectionContract.Presenter present) {
         if (present != null) {
             this.mPresenter = present;
-            mPresenter.start();
+//            mPresenter.start();
         }
+    }
+
+    @Override
+    protected void onFragmentVisibleChange(boolean isVisible) {
+        super.onFragmentVisibleChange(isVisible);
+        mPresenter.start();
     }
 
     @Override

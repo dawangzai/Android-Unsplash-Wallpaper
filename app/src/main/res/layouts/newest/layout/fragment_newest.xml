@@ -5,14 +5,24 @@
     android:background="@color/main_bg"
     android:orientation="vertical">
 
-    <com.cleverzheng.wallpaper.view.layout.MyRefreshLayout
+    <!--<com.cleverzheng.wallpaper.view.layout.MyRefreshLayout-->
+    <!--android:id="@+id/refreshLayout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:id="@+id/rvNewest"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent" />-->
+    <!--</com.cleverzheng.wallpaper.view.layout.MyRefreshLayout>-->
+
+    <com.cleverzheng.wallpaper.view.layout.RefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvNewest"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </com.cleverzheng.wallpaper.view.layout.MyRefreshLayout>
+    </com.cleverzheng.wallpaper.view.layout.RefreshLayout>
 </LinearLayout>

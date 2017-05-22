@@ -70,4 +70,5 @@ dependencies {
 //    compile 'com.dinuscxj:recyclerrefreshlayout:2.0.3'
 //    compile 'com.mylhyl:commonrefreshlayout:2.0'
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'in.srain.cube:ptr-load-more:1.0.6'
 }

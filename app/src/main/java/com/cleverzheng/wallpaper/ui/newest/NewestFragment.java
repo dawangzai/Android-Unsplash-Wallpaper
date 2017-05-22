@@ -7,6 +7,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.cleverzheng.wallpaper.R;
+import com.cleverzheng.wallpaper.base.ViewPagerFragment;
+import com.cleverzheng.wallpaper.listener.RVOnScrollListener;
 import com.cleverzheng.wallpaper.ui.adapter.NewestListAdapter;
 import com.cleverzheng.wallpaper.base.BaseFragment;
 import com.cleverzheng.wallpaper.bean.PhotoBean;
@@ -15,11 +17,14 @@ import com.cleverzheng.wallpaper.utils.LogUtil;
 import com.cleverzheng.wallpaper.utils.StringUtil;
 import com.cleverzheng.wallpaper.view.RecyclerOnScrollListener;
 import com.cleverzheng.wallpaper.view.layout.MyRefreshLayout;
+import com.cleverzheng.wallpaper.view.layout.RefreshLayout;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import in.srain.cube.views.ptr.PtrDefaultHandler2;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 
 /**
  * @author：cleverzheng
@@ -28,12 +33,13 @@ import butterknife.ButterKnife;
  * @description：最新页面View的实现类
  */
 
-public class NewestFragment extends BaseFragment implements NewestContract.View {
+public class NewestFragment extends ViewPagerFragment implements NewestContract.View {
 
     @BindView(R.id.rvNewest)
     RecyclerView rvNewest;
     @BindView(R.id.refreshLayout)
-    MyRefreshLayout refreshLayout;
+    RefreshLayout refreshLayout;
+//    MyRefreshLayout refreshLayout;
 
     private NewestContract.Presenter mPresenter;
 
@@ -43,7 +49,7 @@ public class NewestFragment extends BaseFragment implements NewestContract.View 
     private int page = 1; //记录页数
     private String firstRefreshPhotoId;
 
-    public static NewestFragment newInstance() {
+    public static NewestFragment getInstance() {
         NewestFragment fragment = new NewestFragment();
         return fragment;
     }
@@ -59,8 +65,14 @@ public class NewestFragment extends BaseFragment implements NewestContract.View 
     public void setPresent(NewestContract.Presenter present) {
         if (present != null) {
             this.mPresenter = present;
-            mPresenter.start();
+//            mPresenter.start();
         }
+    }
+
+    @Override
+    protected void onFragmentVisibleChange(boolean isVisible) {
+        super.onFragmentVisibleChange(isVisible);
+        mPresenter.start();
     }
 
     @Override
@@ -80,30 +92,42 @@ public class NewestFragment extends BaseFragment implements NewestContract.View 
     @Override
     public void initListener() {
         super.initListener();
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        refreshLayout.setPtrHandler(new PtrDefaultHandler2() {
             @Override
-            public void onRefresh() {
-                refreshLayout.setRefreshing(true);
+            public void onLoadMoreBegin(PtrFrameLayout frame) {
+                page = page + 1;
+                mPresenter.loadMoreData(page, Constant.PER_PAGE);
+            }
+
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
                 mPresenter.refreshData(1, Constant.PER_PAGE);
             }
         });
-
-        scrollListener = new RecyclerOnScrollListener(layoutManager) {
-            @Override
-            public void onLoadMore() {
-                page = page + 1;
-                mPresenter.loadMoreData(page, Constant.PER_PAGE);
-                LogUtil.i("cd", "wai");
-                setLoading(true);
-            }
-        };
-        rvNewest.addOnScrollListener(scrollListener);
+//        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                refreshLayout.setRefreshing(true);
+//                mPresenter.refreshData(1, Constant.PER_PAGE);
+//            }
+//        });
+//
+//        scrollListener = new RecyclerOnScrollListener(layoutManager) {
+//            @Override
+//            public void onLoadMore() {
+//                page = page + 1;
+//                mPresenter.loadMoreData(page, Constant.PER_PAGE);
+//                LogUtil.i("cd", "wai");
+//                setLoading(true);
+//            }
+//        };
+//        rvNewest.addOnScrollListener(scrollListener);
     }
 
     @Override
     public void refresh(List<PhotoBean> photoList) {
+        refreshLayout.refreshComplete();
         dismissLoading();
-        refreshLayout.setRefreshing(false);
         PhotoBean photoBean = photoList.get(0);
         String id = photoBean.getId();
         if (!StringUtil.isEmpty(firstRefreshPhotoId)
@@ -120,7 +144,7 @@ public class NewestFragment extends BaseFragment implements NewestContract.View 
 
     @Override
     public void loadMore(List<PhotoBean> photoList) {
-        scrollListener.setLoading(false);
+        refreshLayout.refreshComplete();
         if (mAdapter != null) {
             mAdapter.loadMoreData(photoList);
         }
