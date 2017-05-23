@@ -8,12 +8,8 @@ import com.cleverzheng.wallpaper.bean.PhotoBean;
 import java.util.List;
 
 /**
- * @author：cleverzheng
- * @date：2017/2/21:18:00
- * @email：zhengwang043@gmail.com
- * @description：
+ * Created by wangzai on 2017/2/21.
  */
-
 public interface CollectionContract {
     interface View extends BaseView<Presenter> {
         void refresh(List<CollectionBean> collectionBeanList); //下拉刷新

@@ -17,15 +17,11 @@ import com.cleverzheng.wallpaper.utils.ToastUtil;
 import com.cleverzheng.wallpaper.view.dialog.LoadingDialog;
 
 /**
- * @author：cleverzheng
- * @date：2017/2/22:9:58
- * @email：zhengwang043@gmail.com
- * @description：Activity的基类
+ * Created by wangzai on 2017/2/22.
  */
-
 public class BaseActivity extends AppCompatActivity implements BaseFunction {
 
-    private static final String TAG = "cd";
+    private static final String TAG = "WallpaperLog";
 
     private boolean isFindTitle = false;
     private Toolbar toolbar;
@@ -40,7 +36,6 @@ public class BaseActivity extends AppCompatActivity implements BaseFunction {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         LogUtil.i(TAG, "------Activity--onCreate------");
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -80,37 +75,37 @@ public class BaseActivity extends AppCompatActivity implements BaseFunction {
 
     }
 
-    @Override
-    public void showLoading() {
-        if (this != null && !this.isFinishing()) {
-            if (loadingDialog == null) {
-                loadingDialog = new LoadingDialog(BaseActivity.this);
-            }
-            if (!loadingDialog.isShowing()) {
-                loadingDialog.show();
-            }
-        }
-    }
+//    @Override
+//    public void showLoading() {
+//        if (this != null && !this.isFinishing()) {
+//            if (loadingDialog == null) {
+//                loadingDialog = new LoadingDialog(BaseActivity.this);
+//            }
+//            if (!loadingDialog.isShowing()) {
+//                loadingDialog.show();
+//            }
+//        }
+//    }
 
     @Override
     public void initListener() {
 
     }
 
-    @Override
-    public void dismissLoading() {
-        if (this != null && !this.isFinishing()) {
-            if (loadingDialog != null && loadingDialog.isShowing()) {
-                loadingDialog.dismiss();
-                loadingDialog = null;
-            }
-        }
-    }
-
-    @Override
-    public void loadFailed() {
-
-    }
+//    @Override
+//    public void dismissLoading() {
+//        if (this != null && !this.isFinishing()) {
+//            if (loadingDialog != null && loadingDialog.isShowing()) {
+//                loadingDialog.dismiss();
+//                loadingDialog = null;
+//            }
+//        }
+//    }
+//
+//    @Override
+//    public void loadFailed() {
+//
+//    }
 
     /**
      * 设置Title
@@ -180,5 +175,9 @@ public class BaseActivity extends AppCompatActivity implements BaseFunction {
                 });
             }
         }
+    }
+
+    protected String getTAG() {
+        return TAG;
     }
 }

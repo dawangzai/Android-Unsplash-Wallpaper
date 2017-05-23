@@ -2,6 +2,9 @@ package com.cleverzheng.wallpaper.ui.photodetail;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.cleverzheng.wallpaper.R;
 import com.cleverzheng.wallpaper.base.BaseFragment;
@@ -31,8 +34,16 @@ public class PhotoDetailFragment extends BaseFragment implements PhotoDetailCont
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_photodetail);
-        ButterKnife.bind(this, getContentView());
+//        setContentView(R.layout.fragment_photodetail);
+//        ButterKnife.bind(this, getContentView());
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_persondetail, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
@@ -51,7 +62,7 @@ public class PhotoDetailFragment extends BaseFragment implements PhotoDetailCont
 
     @Override
     public void setPhoto(String photoUrl) {
-        dismissLoading();
+//        dismissLoading();
         ImageLoaderOp.setImage(dvPhoto, photoUrl);
     }
 }

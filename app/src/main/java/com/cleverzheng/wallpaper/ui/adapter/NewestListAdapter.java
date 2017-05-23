@@ -21,12 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author：cleverzheng
- * @date：2017/2/28:18:09
- * @email：zhengwang043@gmail.com
- * @description：
+ * Created by wangzai on 2017/2/28.
  */
-
 public class NewestListAdapter extends RecyclerView.Adapter<NewestListAdapter.ViewHolder> {
     private Context context;
     private List<PhotoBean> photoList;

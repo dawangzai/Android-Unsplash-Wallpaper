@@ -18,12 +18,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
- * @author：cleverzheng
- * @date：2017/2/12:11:02
- * @email：zhengwang043@gmail.com
- * @description：最新页面Presenter的实现类
+ * Created by wangzai on 2017/2/12.
  */
-
 public class NewestPresenter implements NewestContract.Presenter {
     private NewestContract.View newestView;
 
@@ -45,7 +41,6 @@ public class NewestPresenter implements NewestContract.Presenter {
     @Override
     public void refreshData(int page, int per_page) {
         if (photoApi != null) {
-            activity.showLoading();
             photoApi.getNewestPhotoList(page, per_page)
                     .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Subscriber<List<PhotoBean>>() {
@@ -61,7 +56,7 @@ public class NewestPresenter implements NewestContract.Presenter {
 
                         @Override
                         public void onNext(List<PhotoBean> photoBeen) {
-                            ((MainActivity) activity).dismissLoading();
+//                            ((MainActivity) activity).dismissLoading();
                             if (photoBeen != null && photoBeen.size() > 0) {
                                 newestView.refresh(photoBeen);
                             }
