@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.cleverzheng.wallpaper.base.BaseActivity;
 import com.cleverzheng.wallpaper.ui.collection.CollectionFragment;
 import com.cleverzheng.wallpaper.ui.collection.CollectionPresenter;
+import com.cleverzheng.wallpaper.ui.me.MeFragment;
+import com.cleverzheng.wallpaper.ui.me.MePresenter;
 import com.cleverzheng.wallpaper.ui.newest.NewestFragment;
 import com.cleverzheng.wallpaper.ui.newest.NewestPresenter;
 
@@ -34,8 +36,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private NewestPresenter newestPresenter;
     private NewestFragment newestFragment;
+    private MeFragment meFragment;
     private CollectionFragment collectionFragment;
     private CollectionPresenter collectionPresenter;
+    private MePresenter mePresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +55,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         List<Fragment> fragmentList = new ArrayList<>();
         newestFragment = NewestFragment.newInstance();
         collectionFragment = CollectionFragment.getInstance();
+        meFragment = MeFragment.getInstances();
         fragmentList.add(newestFragment);
         fragmentList.add(collectionFragment);
+        fragmentList.add(meFragment);
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), fragmentList);
         vpContent.setAdapter(adapter);
         vpContent.setCurrentItem(currentItem);
@@ -63,6 +69,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         if (collectionPresenter == null) {
             collectionPresenter = new CollectionPresenter(collectionFragment, this);
+        }
+
+        if (mePresenter == null) {
+            mePresenter = new MePresenter(meFragment);
         }
     }
 

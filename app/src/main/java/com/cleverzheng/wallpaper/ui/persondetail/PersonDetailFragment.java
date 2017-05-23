@@ -60,7 +60,7 @@ public class PersonDetailFragment extends BaseFragment implements PersonDetailCo
     private SimpleFragmentPagerAdapter adapter;
     private int currentPage = 0; //vp的当前页
     private PersonPhotosFragment personPhotosFragment;
-    PersonCollectionFragment personCollectionFragment;
+    private PersonCollectionFragment personCollectionFragment;
 
     public static PersonDetailFragment getInstance() {
         PersonDetailFragment personDetailFragment = new PersonDetailFragment();

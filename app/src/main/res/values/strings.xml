@@ -4,4 +4,9 @@
     <string name="bottom_tab_1">首页</string>
     <string name="bottom_tab_2">分类</string>
     <string name="bottom_tab_3">我</string>
+
+    <string-array name="me_menu">
+        <item>我的下载</item>
+        <item>我的收藏</item>
+    </string-array>
 </resources>
