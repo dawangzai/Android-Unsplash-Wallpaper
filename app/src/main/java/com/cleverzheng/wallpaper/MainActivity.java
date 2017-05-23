@@ -29,7 +29,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     PagerBottomTabLayout bottomTab;
 
     private int currentItem = 0;
-    private static final int NUM_ITEMS = 2;
+    private static final int NUM_ITEMS = 3;
 
     private NewestPresenter newestPresenter;
     private NewestFragment newestFragment;
@@ -97,6 +97,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     return getNewestFragment();
                 case 1:
                     return getCollectionFragment();
+                case 2:
+                    return getMeFragment();
             }
             return null;
         }
@@ -116,6 +118,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             collectionFragment = CollectionFragment.getInstance();
             collectionPresenter = new CollectionPresenter(collectionFragment, MainActivity.this);
             return collectionFragment;
+        }
+
+        private Fragment getMeFragment() {
+            meFragment = MeFragment.getInstances();
+            MePresenter mePresenter = new MePresenter(meFragment);
+            return meFragment;
         }
     }
 }
