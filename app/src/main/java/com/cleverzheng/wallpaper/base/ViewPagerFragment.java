@@ -4,63 +4,76 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.cleverzheng.wallpaper.utils.LogUtil;
+
 /**
  * Created by wangzai on 2017/5/22.
  */
 
 public class ViewPagerFragment extends BaseFragment {
-    /**
-     * rootView是否初始化标志，防止回调函数在rootView为空的时候触发
-     */
-    private boolean hasCreateView;
 
     /**
-     * 当前Fragment是否处于可见状态标志，防止因ViewPager的缓存机制而导致回调函数的触发
+     * 在onViewCreate方法中给它赋值
      */
-    private boolean isFragmentVisible;
+    private View rootView;
 
-    /**
-     * onCreateView()里返回的view，修饰为protected,所以子类继承该类时，在onCreateView里必须对该变量进行初始化
-     */
-    protected View rootView;
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (rootView == null) {
-            return;
-        }
-        hasCreateView = true;
-        if (isVisibleToUser) {
-            onFragmentVisibleChange(true);
-            isFragmentVisible = true;
-            return;
-        }
-        if (isFragmentVisible) {
-            onFragmentVisibleChange(false);
-            isFragmentVisible = false;
-        }
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initVariable();
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        if (!hasCreateView && getUserVisibleHint()) {
-            onFragmentVisibleChange(true);
-            isFragmentVisible = true;
-        }
-    }
-
-    private void initVariable() {
-        hasCreateView = false;
-        isFragmentVisible = false;
-    }
+    private boolean firstFragmentAlreadyVisible = false;
+    private boolean isAlreadyVisible = false;
+//    /**
+//     * rootView是否初始化标志，防止回调函数在rootView为空的时候触发
+//     */
+//    private boolean hasCreateView;
+//
+//    /**
+//     * 当前Fragment是否处于可见状态标志，防止因ViewPager的缓存机制而导致回调函数的触发
+//     */
+//    private boolean isFragmentVisible;
+//
+//    /**
+//     * onCreateView()里返回的view，修饰为protected,所以子类继承该类时，在onCreateView里必须对该变量进行初始化
+//     */
+//    protected View rootView;
+//
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        LogUtil.i("WallpaperLog", "------setUserVisibleHint------" + isVisibleToUser);
+//        if (rootView == null) {
+//            return;
+//        }
+//        hasCreateView = true;
+//        if (isVisibleToUser) {
+//            onFragmentVisibleChange(true);
+//            isFragmentVisible = true;
+//            return;
+//        }
+//        if (isFragmentVisible) {
+//            onFragmentVisibleChange(false);
+//            isFragmentVisible = false;
+//        }
+//    }
+//
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        initVariable();
+//    }
+//
+//    @Override
+//    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//        LogUtil.i("WallpaperLog", "------onViewCreated------");
+//        rootView = view;
+//        if (!hasCreateView && getUserVisibleHint()) {
+//            onFragmentVisibleChange(true);
+//            isFragmentVisible = true;
+//        }
+//    }
+//
+//    private void initVariable() {
+//        hasCreateView = false;
+//        isFragmentVisible = false;
+//    }
 
     /**************************************************************
      *  自定义的回调方法，子类可根据需求重写
@@ -75,5 +88,36 @@ public class ViewPagerFragment extends BaseFragment {
      *                  false 可见  -> 不可见
      */
     protected void onFragmentVisibleChange(boolean isVisible) {
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (rootView == null) {
+            return;
+        }
+        if (!isAlreadyVisible) {
+            onFragmentVisibleChange(isVisibleToUser);
+            isAlreadyVisible = true;
+        }
+    }
+
+    /**
+     * 在该方法中调用自定义的回调onFragmentVisibleChange()完成第一个Fragment用户可见时的回调
+     *
+     * @param view
+     * @param savedInstanceState
+     */
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        rootView = view;
+//        if (!firstFragmentAlreadyVisible) {
+//            if (!isAlreadyVisible) {
+//                onFragmentVisibleChange(true);
+//                isAlreadyVisible = true;
+//            }
+//            firstFragmentAlreadyVisible = true;
+//        }
     }
 }

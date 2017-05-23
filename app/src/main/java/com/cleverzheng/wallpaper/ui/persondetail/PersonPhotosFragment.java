@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.cleverzheng.wallpaper.R;
 import com.cleverzheng.wallpaper.base.BaseFragment;
@@ -40,8 +43,16 @@ public class PersonPhotosFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_person_photos);
-        ButterKnife.bind(this, getContentView());
+//        setContentView(R.layout.fragment_person_photos);
+//        ButterKnife.bind(this, getContentView());
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_person_photos, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override

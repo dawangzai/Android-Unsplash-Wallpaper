@@ -9,12 +9,12 @@ package com.cleverzheng.wallpaper.base;
 
 public interface BaseFunction {
     void initData();
-
-    void showLoading();
-
+//
+//    void showLoading();
+//
     void initListener();
-
-    void dismissLoading();
-
-    void loadFailed();
+//
+//    void dismissLoading();
+//
+//    void loadFailed();
 }

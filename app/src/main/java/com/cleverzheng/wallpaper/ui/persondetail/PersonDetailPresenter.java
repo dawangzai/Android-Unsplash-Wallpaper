@@ -43,7 +43,7 @@ public class PersonDetailPresenter implements PersonDetailContract.Presenter {
     @Override
     public void getUserInfo() {
         if (userApi != null) {
-            activity.showLoading();
+//            activity.showLoading();
             userApi.getUserInfo(username)
                     .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Subscriber<UserBean>() {
@@ -59,7 +59,7 @@ public class PersonDetailPresenter implements PersonDetailContract.Presenter {
 
                         @Override
                         public void onNext(UserBean userBean) {
-                            activity.dismissLoading();
+//                            activity.dismissLoading();
                             if (userBean != null) {
                                 mView.setUserInfo(userBean);
                             }
@@ -71,7 +71,7 @@ public class PersonDetailPresenter implements PersonDetailContract.Presenter {
     @Override
     public void getPersonPhotos() {
         if (userApi != null) {
-            activity.showLoading();
+//            activity.showLoading();
             userApi.getUserPhotoList(username)
                     .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Subscriber<List<PhotoBean>>() {
@@ -87,7 +87,7 @@ public class PersonDetailPresenter implements PersonDetailContract.Presenter {
 
                         @Override
                         public void onNext(List<PhotoBean> photoBeen) {
-                            activity.dismissLoading();
+//                            activity.dismissLoading();
                             mView.setPersonPhotos(photoBeen);
                         }
                     });
@@ -97,7 +97,7 @@ public class PersonDetailPresenter implements PersonDetailContract.Presenter {
     @Override
     public void getPersonCollections() {
         if (userApi != null) {
-            activity.showLoading();
+//            activity.showLoading();
             userApi.getUserCollectionList(username)
                     .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Subscriber<List<CollectionBean>>() {
@@ -113,7 +113,7 @@ public class PersonDetailPresenter implements PersonDetailContract.Presenter {
 
                         @Override
                         public void onNext(List<CollectionBean> collectionBeanList) {
-                            activity.dismissLoading();
+//                            activity.dismissLoading();
                             mView.setPersonCollections(collectionBeanList);
                         }
                     });

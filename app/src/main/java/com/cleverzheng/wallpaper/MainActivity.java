@@ -46,22 +46,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setMainToolbar("美图");
         initBottomTab();
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
-//        List<Fragment> fragmentList = new ArrayList<>();
-//        newestFragment = NewestFragment.getInstance();
-//        collectionFragment = CollectionFragment.getInstance();
-//        fragmentList.add(newestFragment);
-//        fragmentList.add(collectionFragment);
-//        PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), fragmentList);
         vpContent.setAdapter(adapter);
         vpContent.setCurrentItem(currentItem);
-
-//        if (newestPresenter == null) {
-//            newestPresenter = new NewestPresenter(newestFragment, this);
-//        }
-//
-//        if (collectionPresenter == null) {
-//            collectionPresenter = new CollectionPresenter(collectionFragment, this);
-//        }
     }
 
     private void initBottomTab() {

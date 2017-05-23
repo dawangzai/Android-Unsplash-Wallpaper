@@ -67,8 +67,12 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     compile 'com.pnikosis:materialish-progress:1.7'
     compile 'com.jpardogo.materialtabstrip:library:1.1.1'
-//    compile 'com.dinuscxj:recyclerrefreshlayout:2.0.3'
-//    compile 'com.mylhyl:commonrefreshlayout:2.0'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'in.srain.cube:ptr-load-more:1.0.6'
+
+//    compile 'android.arch.lifecycle:extensions:1.0.0-alpha1'
+//    compile 'android.arch.persistence.room:runtime:1.0.0-alpha1'
+//    annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha1"
+//    annotationProcessor "android.arch.persistence.room:compiler:1.0.0-alpha1"
+
 }
