@@ -15,12 +15,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * @author：cleverzheng
- * @date：2017/2/21:17:13
- * @email：zhengwang043@gmail.com
- * @description：照片详情
+ * Created by wangzai on 2017/2/21.
  */
-
 public class PhotoDetailActivity extends BaseActivity {
     @BindView(R.id.contentFrame)
     FrameLayout contentFrame;
@@ -30,6 +26,7 @@ public class PhotoDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photodetail);
         ButterKnife.bind(this);
+        setCommonToolbar("美图");
     }
 
     @Override

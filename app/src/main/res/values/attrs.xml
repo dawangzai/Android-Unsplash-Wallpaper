@@ -2,7 +2,7 @@
 <resources>
     <attr name="wallpaperStatusColor" format="color" />
     <attr name="wallpaperThemeColor" format="color" />
-    <attr name="wallpaperToolbarTextColor" format="color" />
+    <!--<attr name="wallpaperToolbarTextColor" format="color" />-->
     <attr name="wallPaperBackgroundColor" format="color" />
     <attr name="wallPaperBadgeColor" format="color" />
     <attr name="wallPaperTextCommonColor" format="color" />
@@ -16,4 +16,8 @@
     <attr name="menuNotice" format="reference" />
     <attr name="menuShare" format="reference" />
     <attr name="menuSend" format="reference" />
+
+    <attr name="wallpaperThemePrimary" format="color" />
+    <attr name="wallpaperThemePrimaryDark" format="color" />
+    <attr name="wallpaperToolbarTextColor" format="color" />
 </resources>

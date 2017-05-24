@@ -15,7 +15,7 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="wallPaperBackgroundColor">@color/colorPrimary</item>
-        <item name="wallpaperToolbarTextColor">@color/theme_primary_toolbar_text</item>
+        <!--<item name="wallpaperToolbarTextColor">@color/theme_primary_toolbar_text</item>-->
         <item name="wallPaperBadgeColor">@color/theme_primary_badge</item>
         <item name="wallpaperStatusColor">@color/theme_primary_status</item>
         <item name="wallPaperTextCommonColor">@color/theme_primary_text_common</item>
@@ -30,6 +30,10 @@
         <item name="menuNotice">@mipmap/ic_actionbar_notice</item>
         <item name="menuShare">@mipmap/ic_action_share</item>
         <item name="menuSend">@mipmap/ic_send_white</item>
+
+        <item name="wallpaperThemePrimary">@color/colorPrimary</item>
+        <item name="wallpaperThemePrimaryDark">@color/colorPrimaryDark</item>
+        <item name="wallpaperToolbarTextColor">@color/colorTextToolbar</item>
 
     </style>
 
@@ -61,13 +65,13 @@
     </style>
 
     <!--<style name="Custom.Theme.ToolBar" parent="Theme.AppCompat.Light.NoActionBar">-->
-        <!--<item name="android:actionOverflowButtonStyle">@style/ActionButton.Overflow</item>-->
+    <!--<item name="android:actionOverflowButtonStyle">@style/ActionButton.Overflow</item>-->
 
     <!--</style>-->
 
     <!--<style name="ActionButton.Overflow" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">-->
-        <!--<item name="android:src">?attr/overFlowIcon</item>-->
-        <!--<item name="android:color">@android:color/white</item>-->
+    <!--<item name="android:src">?attr/overFlowIcon</item>-->
+    <!--<item name="android:color">@android:color/white</item>-->
     <!--</style>-->
 
 </resources>

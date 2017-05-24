@@ -1,21 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <!--<com.cleverzheng.wallpaper.view.layout.MyRefreshLayout-->
-    <!--android:id="@+id/refreshLayout"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:background="@color/main_bg">-->
-
-    <!--<android.support.v7.widget.RecyclerView-->
-    <!--android:id="@+id/rvCollection"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent" />-->
-
-    <!--</com.cleverzheng.wallpaper.view.layout.MyRefreshLayout>-->
+    android:layout_height="match_parent">
 
     <com.cleverzheng.wallpaper.view.layout.RefreshLayout
         android:id="@+id/refreshLayout"
@@ -38,4 +24,4 @@
         layout="@layout/view_error"
         android:visibility="invisible" />
 
-</LinearLayout>
+</FrameLayout>

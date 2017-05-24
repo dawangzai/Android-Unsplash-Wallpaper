@@ -38,6 +38,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private CollectionPresenter collectionPresenter;
     private MePresenter mePresenter;
 
+    private Controller controller;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,14 +54,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
         vpContent.setAdapter(adapter);
         vpContent.setCurrentItem(currentItem);
-
-        if (mePresenter == null) {
-            mePresenter = new MePresenter(meFragment);
-        }
+        vpContent.setOffscreenPageLimit(NUM_ITEMS);
     }
 
     private void initBottomTab() {
-        Controller controller = bottomTab.builder()
+        controller = bottomTab.builder()
                 .addTabItem(android.R.drawable.ic_menu_camera, getString(R.string.bottom_tab_1))
                 .addTabItem(android.R.drawable.ic_menu_compass, getString(R.string.bottom_tab_2))
                 .addTabItem(android.R.drawable.ic_menu_search, getString(R.string.bottom_tab_3))
@@ -69,16 +68,33 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             public void onSelected(int index, Object tag) {
                 currentItem = index;
                 vpContent.setCurrentItem(currentItem);
-                Toast.makeText(MainActivity.this, index + "-----" + "onSelected", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRepeatClick(int index, Object tag) {
-                Toast.makeText(MainActivity.this, index + "-----" + "onRepeatClick", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    @Override
+    public void initListener() {
+        vpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                controller.setSelect(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
 
     @Override
     public void onClick(View v) {
@@ -122,7 +138,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         private Fragment getMeFragment() {
             meFragment = MeFragment.getInstances();
-            MePresenter mePresenter = new MePresenter(meFragment);
+            mePresenter = new MePresenter(meFragment);
             return meFragment;
         }
     }

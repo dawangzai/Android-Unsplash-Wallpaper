@@ -25,9 +25,8 @@ public class BaseActivity extends AppCompatActivity implements BaseFunction {
 
     private boolean isFindTitle = false;
     private Toolbar toolbar;
-    private TextView tvTitleName;
+    private TextView tvToolbarCustom;
 
-    private LoadingDialog loadingDialog;
     private boolean isExit = false;
     private long exitTime;
     private FragmentManager fragmentManager;
@@ -75,40 +74,13 @@ public class BaseActivity extends AppCompatActivity implements BaseFunction {
 
     }
 
-//    @Override
-//    public void showLoading() {
-//        if (this != null && !this.isFinishing()) {
-//            if (loadingDialog == null) {
-//                loadingDialog = new LoadingDialog(BaseActivity.this);
-//            }
-//            if (!loadingDialog.isShowing()) {
-//                loadingDialog.show();
-//            }
-//        }
-//    }
-
     @Override
     public void initListener() {
 
     }
 
-//    @Override
-//    public void dismissLoading() {
-//        if (this != null && !this.isFinishing()) {
-//            if (loadingDialog != null && loadingDialog.isShowing()) {
-//                loadingDialog.dismiss();
-//                loadingDialog = null;
-//            }
-//        }
-//    }
-//
-//    @Override
-//    public void loadFailed() {
-//
-//    }
-
     /**
-     * 设置Title
+     * 设置主页的标题栏，没有返回图标
      *
      * @param title
      */
@@ -117,17 +89,26 @@ public class BaseActivity extends AppCompatActivity implements BaseFunction {
         if (toolbar != null) {
             toolbar.setTitle(title);
         }
-//        tvTitleName.setText(title);
     }
 
+    /**
+     * 设置通用的标题栏，有返回图标
+     *
+     * @param title
+     */
     protected void setCommonToolbar(String title) {
         findToolbarView();
         if (toolbar != null) {
             toolbar.setTitle(title);
-            setSupportActionBar(toolbar);
+//            setSupportActionBar(toolbar);
             toolbar.setNavigationIcon(R.mipmap.ic_action_return);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
         }
-//        tvTitleName.setText(title);
     }
 
     @Override
@@ -163,17 +144,17 @@ public class BaseActivity extends AppCompatActivity implements BaseFunction {
     private void findToolbarView() {
         if (!isFindTitle) {
             toolbar = (Toolbar) findViewById(R.id.toolbar);
-            tvTitleName = (TextView) findViewById(R.id.tvTitleName);
+            tvToolbarCustom = (TextView) findViewById(R.id.tvToolbarCustom);
             isFindTitle = true;
 
-            if (toolbar != null) {
-                toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        finish();
-                    }
-                });
-            }
+//            if (toolbar != null) {
+//                toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        finish();
+//                    }
+//                });
+//            }
         }
     }
 

@@ -9,6 +9,8 @@ package com.cleverzheng.wallpaper.global;
 
 public class Constant {
 
+    public static final String TAG_LOG = "WallpaperLog";
+
     public final static int PER_PAGE = 10; //每页加载10条数据
 
     public static class Intent {

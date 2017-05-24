@@ -5,12 +5,8 @@ import android.util.Log;
 import com.orhanobut.logger.Logger;
 
 /**
- * 作者：cleverzheng
- * 时间：2017/01/17
- * 邮箱：zhengwang043@gmail.com
- * 说明：Log工具类
+ * Created by wangzai on 2017/01/17.
  */
-
 public class LogUtil {
     public static boolean DEBUG;
 

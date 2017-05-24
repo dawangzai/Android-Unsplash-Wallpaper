@@ -15,12 +15,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * @author：cleverzheng
- * @date：2017/2/21:17:14
- * @email：zhengwang043@gmail.com
- * @description：照片详情
+ * Created by wangzai on 2017/2/21.
  */
-
 public class PhotoDetailFragment extends BaseFragment implements PhotoDetailContract.View {
     @BindView(R.id.dvPhoto)
     MyDraweeView dvPhoto;
@@ -34,14 +30,12 @@ public class PhotoDetailFragment extends BaseFragment implements PhotoDetailCont
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.fragment_photodetail);
-//        ButterKnife.bind(this, getContentView());
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_persondetail, container, false);
+        View view = inflater.inflate(R.layout.fragment_photodetail, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
@@ -57,12 +51,10 @@ public class PhotoDetailFragment extends BaseFragment implements PhotoDetailCont
     @Override
     public void initData() {
         super.initData();
-        setBackToolbar("美图");
     }
 
     @Override
     public void setPhoto(String photoUrl) {
-//        dismissLoading();
         ImageLoaderOp.setImage(dvPhoto, photoUrl);
     }
 }

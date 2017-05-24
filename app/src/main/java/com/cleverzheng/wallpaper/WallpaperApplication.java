@@ -7,12 +7,8 @@ import com.cleverzheng.wallpaper.utils.LogUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 /**
- * @author：cleverzheng
- * @date：2017/2/4:15:40
- * @email：zhengwang043@gmail.com
- * @description：
+ * Created by wangzai on 2017/2/4.
  */
-
 public class WallpaperApplication extends Application {
     private static WallpaperApplication appContext;
 

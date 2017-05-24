@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.cleverzheng.wallpaper.MainActivity;
-import com.cleverzheng.wallpaper.base.BaseActivity;
 import com.cleverzheng.wallpaper.bean.PhotoBean;
 import com.cleverzheng.wallpaper.global.Constant;
 import com.cleverzheng.wallpaper.network.Network;

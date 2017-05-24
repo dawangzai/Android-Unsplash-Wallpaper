@@ -12,6 +12,7 @@ public class MePresenter implements MeContract.Presenter {
 
     public MePresenter(MeFragment meFragment) {
         this.mView = meFragment;
+        mView.setPresent(this);
     }
 
     @Override

@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cleverzheng.wallpaper.R;
+import com.cleverzheng.wallpaper.global.Constant;
 import com.cleverzheng.wallpaper.listener.OnNetworkErrorListener;
 import com.cleverzheng.wallpaper.utils.LogUtil;
 import com.cleverzheng.wallpaper.view.dialog.LoadingDialog;
@@ -22,8 +23,6 @@ import com.cleverzheng.wallpaper.view.dialog.LoadingDialog;
  * Created by wangzai on 2017/2/18.
  */
 public class BaseFragment extends Fragment implements BaseFunction {
-
-    private static final String TAG = "WallpaperLog";
 
     private View viewLoading;
     private View viewError;
@@ -35,13 +34,9 @@ public class BaseFragment extends Fragment implements BaseFunction {
     private Context context;
     private Activity activity;
 
-    private boolean isFindTitle = false;
-    private Toolbar toolbar;
-    private TextView tvTitleName;
-
     @Override
     public void onAttach(Context context) {
-        LogUtil.i(TAG, "------Fragment--onAttach------");
+        LogUtil.i(getTAG(), "------Fragment--onAttach------");
         super.onAttach(context);
         this.context = context;
         this.activity = getActivity();
@@ -49,35 +44,29 @@ public class BaseFragment extends Fragment implements BaseFunction {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        LogUtil.i(TAG, "------Fragment--onCreate------");
+        LogUtil.i(getTAG(), "------Fragment--onCreate------");
         super.onCreate(savedInstanceState);
 
     }
 
-//    @Nullable
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        LogUtil.i(TAG, "------Fragment--onCreateView------");
-//        initData();
-//        initListener();
-//        this.container = container;
-//        return contentView;
-//    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        LogUtil.i(TAG, "------Fragment--onCreateView------");
+        LogUtil.i(getTAG(), "------Fragment--onCreateView------");
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        LogUtil.i(TAG, "------Fragment--onActivityCreated------");
+        LogUtil.i(getTAG(), "------Fragment--onActivityCreated------");
         super.onActivityCreated(savedInstanceState);
+        initData();
         initListener();
     }
 
+    /**
+     * 找状态控件
+     */
     private void findStateView() {
         if (viewLoading == null || viewError == null) {
             viewLoading = getView().findViewById(R.id.viewLoading);
@@ -91,16 +80,15 @@ public class BaseFragment extends Fragment implements BaseFunction {
         }
     }
 
-
     @Override
     public void onStart() {
-        LogUtil.i(TAG, "------Fragment--onStart------");
+        LogUtil.i(getTAG(), "------Fragment--onStart------");
         super.onStart();
     }
 
     @Override
     public void onResume() {
-        LogUtil.i(TAG, "------Fragment--onResume------");
+        LogUtil.i(getTAG(), "------Fragment--onResume------");
         super.onResume();
     }
 
@@ -109,29 +97,14 @@ public class BaseFragment extends Fragment implements BaseFunction {
 
     }
 
-    //    @Override
-//    public void showLoading() {
-//        if (loadingDialog == null) {
-//            loadingDialog = new LoadingDialog(context);
-//        }
-//        if (!loadingDialog.isShowing()) {
-//            loadingDialog.show();
-//        }
-//    }
-//
     @Override
     public void initListener() {
 
     }
-//
-//    @Override
-//    public void dismissLoading() {
-//        if (loadingDialog != null && loadingDialog.isShowing()) {
-//            loadingDialog.dismiss();
-//            loadingDialog = null;
-//        }
-//    }
 
+    /**
+     * 显示加载动画
+     */
     protected void showLoadingView() {
         findStateView();
         if (getActivity() == null || viewLoading == null) {
@@ -140,6 +113,9 @@ public class BaseFragment extends Fragment implements BaseFunction {
         viewLoading.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * 隐藏加载动画
+     */
     protected void hideLoadingView() {
         findStateView();
         if (getActivity() == null || viewLoading == null) {
@@ -181,31 +157,6 @@ public class BaseFragment extends Fragment implements BaseFunction {
 
     }
 
-//    @Override
-//    public void loadFailed() {
-//
-//    }
-
-    /**
-     * 设置带返回键的Toolbar
-     *
-     * @param title
-     */
-    protected void setBackToolbar(String title) {
-        findToolbarView();
-        if (toolbar != null) {
-            toolbar.setTitle(title);
-            toolbar.setNavigationIcon(R.mipmap.ic_action_return);
-            ((AppCompatActivity) activity).setSupportActionBar(toolbar);
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    activity.finish();
-                }
-            });
-        }
-    }
-
     public Context getFragmentContext() {
         if (context != null) {
             return context;
@@ -214,23 +165,7 @@ public class BaseFragment extends Fragment implements BaseFunction {
         }
     }
 
-    public Activity getFragmentActivity() {
-        if (activity != null) {
-            return activity;
-        } else {
-            return null;
-        }
-    }
-
-    private void findToolbarView() {
-        if (!isFindTitle) {
-            toolbar = (Toolbar) contentView.findViewById(R.id.toolbar);
-            tvTitleName = (TextView) contentView.findViewById(R.id.tvTitleName);
-            isFindTitle = true;
-        }
-    }
-
     protected String getTAG() {
-        return TAG;
+        return Constant.TAG_LOG;
     }
 }

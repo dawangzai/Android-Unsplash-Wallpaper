@@ -1,5 +1,6 @@
 package com.cleverzheng.wallpaper.ui.newest;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -16,6 +17,7 @@ import com.cleverzheng.wallpaper.ui.adapter.NewestListAdapter;
 import com.cleverzheng.wallpaper.base.BaseFragment;
 import com.cleverzheng.wallpaper.bean.PhotoBean;
 import com.cleverzheng.wallpaper.global.Constant;
+import com.cleverzheng.wallpaper.ui.test.TestActivity;
 import com.cleverzheng.wallpaper.utils.LogUtil;
 import com.cleverzheng.wallpaper.utils.StringUtil;
 import com.cleverzheng.wallpaper.view.RecyclerOnScrollListener;
@@ -54,8 +56,6 @@ public class NewestFragment extends ViewPagerFragment implements NewestContract.
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.fragment_newest);
-//        ButterKnife.bind(this, getContentView());
     }
 
     @Nullable
@@ -76,11 +76,13 @@ public class NewestFragment extends ViewPagerFragment implements NewestContract.
 
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
-        LogUtil.i(getTAG(), "------newestfragment------onFragmentVisibleChange------"+isVisible);
+        LogUtil.i(getTAG(), "------newestfragment------onFragmentVisibleChange------" + isVisible);
         super.onFragmentVisibleChange(isVisible);
         if (isVisible) {
             showLoadingView();
-            mPresenter.start();
+//            mPresenter.start();
+            Intent intent = new Intent(getActivity(), TestActivity.class);
+            startActivity(intent);
         }
     }
 

@@ -23,6 +23,8 @@
 
         <activity android:name=".ui.persondetail.PersonDetailActivity" />
 
+        <activity android:name=".ui.test.TestActivity" />
+
     </application>
 
 </manifest>
