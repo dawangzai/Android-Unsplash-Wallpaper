@@ -12,9 +12,6 @@ import com.cleverzheng.wallpaper.network.Network;
 
 import java.util.List;
 
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 
 /**
@@ -44,48 +41,48 @@ public class CollectionPresenter implements CollectionContract.Presenter {
     @Override
     public void refreshData(int page, int per_page) {
         if (collectionApi != null) {
-            collectionApi.getCollectionList(page, per_page)
-                    .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Subscriber<List<CollectionBean>>() {
-                        @Override
-                        public void onCompleted() {
-
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-
-                        }
-
-                        @Override
-                        public void onNext(List<CollectionBean> collectionBeen) {
-                            collectionView.refresh(collectionBeen);
-                        }
-                    });
+//            collectionApi.getCollectionList(page, per_page)
+//                    .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(new Subscriber<List<CollectionBean>>() {
+//                        @Override
+//                        public void onCompleted() {
+//
+//                        }
+//
+//                        @Override
+//                        public void onError(Throwable e) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onNext(List<CollectionBean> collectionBeen) {
+//                            collectionView.refresh(collectionBeen);
+//                        }
+//                    });
         }
     }
 
     @Override
     public void loadMoreData(int page, int per_page) {
         if (collectionApi != null) {
-            collectionApi.getCollectionList(page, per_page)
-                    .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Subscriber<List<CollectionBean>>() {
-                        @Override
-                        public void onCompleted() {
-
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-
-                        }
-
-                        @Override
-                        public void onNext(List<CollectionBean> collectionBeen) {
-                            collectionView.loadMore(collectionBeen);
-                        }
-                    });
+//            collectionApi.getCollectionList(page, per_page)
+//                    .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(new Subscriber<List<CollectionBean>>() {
+//                        @Override
+//                        public void onCompleted() {
+//
+//                        }
+//
+//                        @Override
+//                        public void onError(Throwable e) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onNext(List<CollectionBean> collectionBeen) {
+//                            collectionView.loadMore(collectionBeen);
+//                        }
+//                    });
         }
     }
 }

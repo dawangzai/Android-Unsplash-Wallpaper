@@ -10,9 +10,6 @@ import com.cleverzheng.wallpaper.utils.StringUtil;
 
 import java.util.List;
 
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 
 /**
@@ -44,32 +41,32 @@ public class PhotoDetailPresenter implements PhotoDetailContract.Presenter {
         if (StringUtil.isEmpty(photoId)) {
             return;
         }
-        photoApi.getSinglePhoto(photoId)
-                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<PhotoBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(PhotoBean photoBean) {
-                        if (photoBean != null) {
-                            UrlsBean urls = photoBean.getUrls();
-                            if (urls != null) {
-                                String regular = urls.getRegular();
-                                if (!StringUtil.isEmpty(regular)) {
-                                    photoDetailView.setPhoto(regular);
-                                }
-                            }
-                        }
-                    }
-                });
+//        photoApi.getSinglePhoto(photoId)
+//                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Subscriber<PhotoBean>() {
+//                    @Override
+//                    public void onCompleted() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(PhotoBean photoBean) {
+//                        if (photoBean != null) {
+//                            UrlsBean urls = photoBean.getUrls();
+//                            if (urls != null) {
+//                                String regular = urls.getRegular();
+//                                if (!StringUtil.isEmpty(regular)) {
+//                                    photoDetailView.setPhoto(regular);
+//                                }
+//                            }
+//                        }
+//                    }
+//                });
     }
 
     @Override

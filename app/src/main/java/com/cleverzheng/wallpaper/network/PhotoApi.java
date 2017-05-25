@@ -1,15 +1,16 @@
 package com.cleverzheng.wallpaper.network;
 
+import com.cleverzheng.wallpaper.api.ApiResponse;
 import com.cleverzheng.wallpaper.bean.PhotoBean;
 
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
-import rx.Observable;
 
 /**
  * @author：cleverzheng

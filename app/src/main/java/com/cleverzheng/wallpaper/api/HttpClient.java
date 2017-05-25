@@ -1,4 +1,4 @@
-package com.cleverzheng.wallpaper.network;
+package com.cleverzheng.wallpaper.api;
 
 import android.util.Log;
 
@@ -17,50 +17,37 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * @author ：cleverzheng
- * @date ：2017/1/17:16:21
- * @email ：zhengwang043@gmail.com
- * @description ：
+ * Created by wangzai on 2017/5/25.
  */
 
-public class Network {
-    private static Network mNetworks;
+public class HttpClient {
+    private static HttpClient mClient;
 
     private static final int DEFAULT_TIMEOUT = 5;
 
-    private static Retrofit retrofit;
-    private static PhotoApi mPhotoApi;
-    private static CollectionApi mCollectionApi;
-    private static UserApi mUserApi;
+    private static Retrofit mRetrofit;
+    private static PhotoService mPhotoService;
 
-    public static Network getInstance() {
-        if (mNetworks == null) {
-            mNetworks = new Network();
+    public static HttpClient getInstance() {
+        if (mClient == null) {
+            mClient = new HttpClient();
         }
-        return mNetworks;
+        return mClient;
     }
 
-    public PhotoApi getPhotoApi() {
-        return mPhotoApi == null ? configRetrofit(PhotoApi.class, true) : mPhotoApi;
-    }
-
-    public CollectionApi getCollectionApi() {
-        return mCollectionApi == null ? configRetrofit(CollectionApi.class, true) : mCollectionApi;
-    }
-
-    public UserApi getUserApi() {
-        return mUserApi == null ? configRetrofit(UserApi.class, true) : mUserApi;
+    public PhotoService getPhotoService() {
+        return mPhotoService == null ? configRetrofit(PhotoService.class, true) : mPhotoService;
     }
 
     private <T> T configRetrofit(Class<T> service, boolean isGetToken) {
-        retrofit = new Retrofit.Builder()
+        mRetrofit = new Retrofit.Builder()
                 .baseUrl(BuildConfig.BASE_URL)
                 .client(configClient(true))
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 
-        return retrofit.create(service);
+        return mRetrofit.create(service);
     }
 
     private OkHttpClient configClient(final boolean isGetToken) {
@@ -85,6 +72,7 @@ public class Network {
 //                if (!TextUtils.isEmpty(mToken)) {
 //                    builder.addHeader("Authorization", "Bearer " + mToken);
 //                }
+//                b05bfc46a0de4842346cb5ce7c766b3a8c9da071ec77f3b5f719406829c2fb31
                 builder.addHeader("Authorization", "Client-ID " + "b05bfc46a0de4842346cb5ce7c766b3a8c9da071ec77f3b5f719406829c2fb31");
 
                 Request request = builder.build();
@@ -103,6 +91,7 @@ public class Network {
                 }
             });
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+//            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
             okHttpClient.addInterceptor(loggingInterceptor);
         }
 
@@ -111,5 +100,4 @@ public class Network {
 
         return okHttpClient.build();
     }
-
 }

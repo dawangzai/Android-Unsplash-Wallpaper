@@ -80,9 +80,9 @@ public class NewestFragment extends ViewPagerFragment implements NewestContract.
         super.onFragmentVisibleChange(isVisible);
         if (isVisible) {
             showLoadingView();
-//            mPresenter.start();
-            Intent intent = new Intent(getActivity(), TestActivity.class);
-            startActivity(intent);
+            mPresenter.start();
+//            Intent intent = new Intent(getActivity(), TestActivity.class);
+//            startActivity(intent);
         }
     }
 
