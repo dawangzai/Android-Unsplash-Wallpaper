@@ -5,25 +5,22 @@ import android.app.Activity;
 import com.cleverzheng.wallpaper.bean.CollectionBean;
 import com.cleverzheng.wallpaper.bean.PhotoBean;
 import com.cleverzheng.wallpaper.bean.UserBean;
-import com.cleverzheng.wallpaper.network.Network;
-import com.cleverzheng.wallpaper.network.UserApi;
+import com.cleverzheng.wallpaper.http.HttpClient;
+import com.cleverzheng.wallpaper.http.callback.OnResultCallback;
+import com.cleverzheng.wallpaper.http.observer.HttpObserver;
 
 import java.util.List;
 
 
-
 /**
- * @author：cleverzheng
- * @date：2017/2/25:11:04
- * @email：zhengwang043@gmail.com
- * @description：
+ * Created by wangzai on 2017/2/25.
  */
 
 public class PersonDetailPresenter implements PersonDetailContract.Presenter {
     private PersonDetailFragment mView;
     private PersonDetailActivity activity;
     private String username;
-    private UserApi userApi;
+    private HttpClient httpClient;
 
     public PersonDetailPresenter(Activity activity, PersonDetailFragment personDetailFragment, String username) {
         this.activity = (PersonDetailActivity) activity;
@@ -34,87 +31,57 @@ public class PersonDetailPresenter implements PersonDetailContract.Presenter {
 
     @Override
     public void start() {
-        userApi = Network.getInstance().getUserApi();
+        httpClient = HttpClient.getInstance();
         getUserInfo();
     }
 
     @Override
     public void getUserInfo() {
-        if (userApi != null) {
-//            activity.showLoading();
-//            userApi.getUserInfo(username)
-//                    .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe(new Subscriber<UserBean>() {
-//                        @Override
-//                        public void onCompleted() {
-//
-//                        }
-//
-//                        @Override
-//                        public void onError(Throwable e) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onNext(UserBean userBean) {
-////                            activity.dismissLoading();
-//                            if (userBean != null) {
-//                                mView.setUserInfo(userBean);
-//                            }
-//                        }
-//                    });
-        }
+        HttpObserver<UserBean> observer = new HttpObserver<>(new OnResultCallback<UserBean>() {
+            @Override
+            public void onSuccess(UserBean userBean) {
+                if (userBean != null) {
+                    mView.setUserInfo(userBean);
+                }
+            }
+
+            @Override
+            public void onFailed(int code, String errorMsg) {
+
+            }
+        });
+        httpClient.getUserInfo(observer, username);
     }
 
     @Override
     public void getPersonPhotos() {
-        if (userApi != null) {
-//            activity.showLoading();
-//            userApi.getUserPhotoList(username)
-//                    .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe(new Subscriber<List<PhotoBean>>() {
-//                        @Override
-//                        public void onCompleted() {
-//
-//                        }
-//
-//                        @Override
-//                        public void onError(Throwable e) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onNext(List<PhotoBean> photoBeen) {
-////                            activity.dismissLoading();
-//                            mView.setPersonPhotos(photoBeen);
-//                        }
-//                    });
-        }
+        HttpObserver<List<PhotoBean>> observer = new HttpObserver<>(new OnResultCallback<List<PhotoBean>>() {
+            @Override
+            public void onSuccess(List<PhotoBean> photoBeen) {
+                mView.setPersonPhotos(photoBeen);
+            }
+
+            @Override
+            public void onFailed(int code, String errorMsg) {
+
+            }
+        });
+        httpClient.getUserPhotoList(observer, username);
     }
 
     @Override
     public void getPersonCollections() {
-        if (userApi != null) {
-//            activity.showLoading();
-//            userApi.getUserCollectionList(username)
-//                    .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe(new Subscriber<List<CollectionBean>>() {
-//                        @Override
-//                        public void onCompleted() {
-//
-//                        }
-//
-//                        @Override
-//                        public void onError(Throwable e) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onNext(List<CollectionBean> collectionBeanList) {
-////                            activity.dismissLoading();
-//                            mView.setPersonCollections(collectionBeanList);
-//                        }
-//                    });
-        }
+        HttpObserver<List<CollectionBean>> observer = new HttpObserver<>(new OnResultCallback<List<CollectionBean>>() {
+            @Override
+            public void onSuccess(List<CollectionBean> collectionBeanList) {
+                mView.setPersonCollections(collectionBeanList);
+            }
+
+            @Override
+            public void onFailed(int code, String errorMsg) {
+
+            }
+        });
+        httpClient.getUserCollectionList(observer, username);
     }
 }

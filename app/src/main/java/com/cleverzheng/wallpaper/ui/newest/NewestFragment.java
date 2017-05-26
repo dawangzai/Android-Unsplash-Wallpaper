@@ -1,9 +1,7 @@
 package com.cleverzheng.wallpaper.ui.newest;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,16 +10,11 @@ import android.view.ViewGroup;
 
 import com.cleverzheng.wallpaper.R;
 import com.cleverzheng.wallpaper.base.ViewPagerFragment;
-import com.cleverzheng.wallpaper.listener.RVOnScrollListener;
 import com.cleverzheng.wallpaper.ui.adapter.NewestListAdapter;
-import com.cleverzheng.wallpaper.base.BaseFragment;
 import com.cleverzheng.wallpaper.bean.PhotoBean;
 import com.cleverzheng.wallpaper.global.Constant;
-import com.cleverzheng.wallpaper.ui.test.TestActivity;
 import com.cleverzheng.wallpaper.utils.LogUtil;
 import com.cleverzheng.wallpaper.utils.StringUtil;
-import com.cleverzheng.wallpaper.view.RecyclerOnScrollListener;
-import com.cleverzheng.wallpaper.view.layout.MyRefreshLayout;
 import com.cleverzheng.wallpaper.view.layout.RefreshLayout;
 
 import java.util.List;
@@ -81,8 +74,6 @@ public class NewestFragment extends ViewPagerFragment implements NewestContract.
         if (isVisible) {
             showLoadingView();
             mPresenter.start();
-//            Intent intent = new Intent(getActivity(), TestActivity.class);
-//            startActivity(intent);
         }
     }
 

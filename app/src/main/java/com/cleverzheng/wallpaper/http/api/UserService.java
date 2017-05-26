@@ -1,4 +1,4 @@
-package com.cleverzheng.wallpaper.network;
+package com.cleverzheng.wallpaper.http.api;
 
 import com.cleverzheng.wallpaper.bean.CollectionBean;
 import com.cleverzheng.wallpaper.bean.PhotoBean;
@@ -7,18 +7,15 @@ import com.cleverzheng.wallpaper.bean.UserBean;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 /**
- * @author：cleverzheng
- * @date：2017/2/15:14:32
- * @email：zhengwang043@gmail.com
- * @description：和用户有关的Api
+ * Created by wangzai on 2017/5/26.
  */
 
-public interface UserApi {
-
+public interface UserService {
     /**
      * 查询用户的公开信息
      *
@@ -26,7 +23,7 @@ public interface UserApi {
      * @return
      */
     @GET("users/{username}")
-    Observable<UserBean> getUserInfo(@Path("username") String username);
+    Observable<Response<UserBean>> getUserInfo(@Path("username") String username);
 
     /**
      * 查询用户的照片列表
@@ -35,7 +32,7 @@ public interface UserApi {
      * @return
      */
     @GET("users/{username}/photos")
-    Observable<List<PhotoBean>> getUserPhotoList(@Path("username") String username);
+    Observable<Response<List<PhotoBean>>> getUserPhotoList(@Path("username") String username);
 
     /**
      * 查询用户的照片集合列表
@@ -44,5 +41,5 @@ public interface UserApi {
      * @return
      */
     @GET("users/{username}/collections")
-    Observable<List<CollectionBean>> getUserCollectionList(@Path("username") String username);
+    Observable<Response<List<CollectionBean>>> getUserCollectionList(@Path("username") String username);
 }

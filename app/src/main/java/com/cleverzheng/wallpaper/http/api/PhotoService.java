@@ -1,5 +1,4 @@
-package com.cleverzheng.wallpaper.api;
-
+package com.cleverzheng.wallpaper.http.api;
 
 import com.cleverzheng.wallpaper.bean.PhotoBean;
 
@@ -22,7 +21,7 @@ public interface PhotoService {
      * @return
      */
     @GET("photos/")
-    Observable<ApiResponse<List<PhotoBean>>> getNewestPhotoList(@Query("page") int page, @Query("per_page") int per_page);
+    Observable<Response<List<PhotoBean>>> getNewestPhotoList(@Query("page") int page, @Query("per_page") int per_page);
 
     /**
      * 获取单张图片
@@ -30,5 +29,5 @@ public interface PhotoService {
      * @return
      */
     @GET("photos/{id}")
-    Observable<ApiResponse<PhotoBean>> getSinglePhoto(@Path("id") String id);
+    Observable<Response<PhotoBean>> getSinglePhoto(@Path("id") String id);
 }

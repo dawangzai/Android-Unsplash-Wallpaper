@@ -1,12 +1,5 @@
 package com.cleverzheng.wallpaper.bean;
 
-/**
- * @author：cleverzheng
- * @date：2017/1/21:14:23
- * @email：zhengwang043@gmail.com
- * @description：
- */
-
 public class LinksBean {
     private String self;
     private String html;

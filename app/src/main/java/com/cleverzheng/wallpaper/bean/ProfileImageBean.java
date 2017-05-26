@@ -1,12 +1,5 @@
 package com.cleverzheng.wallpaper.bean;
 
-/**
- * @author：cleverzheng
- * @date：2017/1/21:14:25
- * @email：zhengwang043@gmail.com
- * @description：
- */
-
 public class ProfileImageBean {
     private String small;
     private String medium;

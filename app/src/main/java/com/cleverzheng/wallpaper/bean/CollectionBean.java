@@ -2,15 +2,6 @@ package com.cleverzheng.wallpaper.bean;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
-/**
- * @author：cleverzheng
- * @date：2017/2/15:14:57
- * @email：zhengwang043@gmail.com
- * @description：
- */
-
 public class CollectionBean {
 
     private int id;

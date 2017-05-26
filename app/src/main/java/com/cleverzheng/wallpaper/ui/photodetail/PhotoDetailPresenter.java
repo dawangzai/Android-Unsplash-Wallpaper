@@ -4,25 +4,20 @@ import android.util.Log;
 
 import com.cleverzheng.wallpaper.bean.PhotoBean;
 import com.cleverzheng.wallpaper.bean.UrlsBean;
-import com.cleverzheng.wallpaper.network.Network;
-import com.cleverzheng.wallpaper.network.PhotoApi;
+import com.cleverzheng.wallpaper.http.HttpClient;
+import com.cleverzheng.wallpaper.http.callback.OnResultCallback;
+import com.cleverzheng.wallpaper.http.observer.HttpObserver;
 import com.cleverzheng.wallpaper.utils.StringUtil;
 
-import java.util.List;
-
-
-
 /**
- * @author：cleverzheng
- * @date：2017/2/21:17:14
- * @email：zhengwang043@gmail.com
- * @description：
+ * Created by wangzai on 2017/2/21.
  */
 
 public class PhotoDetailPresenter implements PhotoDetailContract.Presenter {
 
     private PhotoDetailContract.View photoDetailView;
     private String photoId;
+    private HttpClient httpClient;
 
     public PhotoDetailPresenter(PhotoDetailContract.View photoDetailView, String photoId) {
         this.photoDetailView = photoDetailView;
@@ -37,36 +32,29 @@ public class PhotoDetailPresenter implements PhotoDetailContract.Presenter {
 
     @Override
     public void getSinglePhoto() {
-        PhotoApi photoApi = Network.getInstance().getPhotoApi();
         if (StringUtil.isEmpty(photoId)) {
             return;
         }
-//        photoApi.getSinglePhoto(photoId)
-//                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Subscriber<PhotoBean>() {
-//                    @Override
-//                    public void onCompleted() {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(PhotoBean photoBean) {
-//                        if (photoBean != null) {
-//                            UrlsBean urls = photoBean.getUrls();
-//                            if (urls != null) {
-//                                String regular = urls.getRegular();
-//                                if (!StringUtil.isEmpty(regular)) {
-//                                    photoDetailView.setPhoto(regular);
-//                                }
-//                            }
-//                        }
-//                    }
-//                });
+        HttpObserver<PhotoBean> observer = new HttpObserver<>(new OnResultCallback<PhotoBean>() {
+            @Override
+            public void onSuccess(PhotoBean photoBean) {
+                if (photoBean != null) {
+                    UrlsBean urls = photoBean.getUrls();
+                    if (urls != null) {
+                        String regular = urls.getRegular();
+                        if (!StringUtil.isEmpty(regular)) {
+                            photoDetailView.setPhoto(regular);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailed(int code, String errorMsg) {
+
+            }
+        });
+        httpClient.getSinglePhoto(observer, photoId);
     }
 
     @Override

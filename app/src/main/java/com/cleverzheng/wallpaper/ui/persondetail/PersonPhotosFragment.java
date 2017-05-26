@@ -2,8 +2,6 @@ package com.cleverzheng.wallpaper.ui.persondetail;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,7 +11,6 @@ import android.view.ViewGroup;
 import com.cleverzheng.wallpaper.R;
 import com.cleverzheng.wallpaper.base.BaseFragment;
 import com.cleverzheng.wallpaper.bean.PhotoBean;
-import com.cleverzheng.wallpaper.network.Network;
 import com.cleverzheng.wallpaper.ui.adapter.PersonPhotosAdapter;
 
 import java.util.List;

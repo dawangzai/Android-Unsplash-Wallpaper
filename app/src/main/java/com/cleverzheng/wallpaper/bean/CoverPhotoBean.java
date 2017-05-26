@@ -2,13 +2,6 @@ package com.cleverzheng.wallpaper.bean;
 
 import java.util.List;
 
-/**
- * @author：cleverzheng
- * @date：2017/2/15:15:00
- * @email：zhengwang043@gmail.com
- * @description：
- */
-
 public class CoverPhotoBean {
     private String id;
     private int width;
