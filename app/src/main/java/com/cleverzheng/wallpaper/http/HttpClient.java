@@ -3,15 +3,19 @@ package com.cleverzheng.wallpaper.http;
 import android.util.Log;
 
 import com.cleverzheng.wallpaper.BuildConfig;
+import com.cleverzheng.wallpaper.WallpaperApplication;
 import com.cleverzheng.wallpaper.bean.CollectionBean;
 import com.cleverzheng.wallpaper.bean.PhotoBean;
 import com.cleverzheng.wallpaper.bean.UserBean;
 import com.cleverzheng.wallpaper.http.api.CollectionService;
 import com.cleverzheng.wallpaper.http.api.PhotoService;
 import com.cleverzheng.wallpaper.http.api.UserService;
-import com.cleverzheng.wallpaper.http.exception.ApiException;
+import com.cleverzheng.wallpaper.http.exception.NetworkException;
 import com.cleverzheng.wallpaper.http.observer.HttpObserver;
+import com.cleverzheng.wallpaper.utils.NetworkUtil;
+import com.cleverzheng.wallpaper.utils.ToastUtil;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -20,6 +24,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.Cache;
+import okhttp3.CacheControl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -65,7 +71,7 @@ public class HttpClient {
 
     private <T> T configRetrofit(Class<T> service) {
         mRetrofit = new Retrofit.Builder()
-                .baseUrl("https://api.unsplash.com/")
+                .baseUrl(BuildConfig.BASE_URL)
                 .client(configClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -77,20 +83,64 @@ public class HttpClient {
     private OkHttpClient configClient() {
         OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder();
         okHttpClient.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS); //设置超时时间
+        if (BuildConfig.LOG_DEBUG) {
+            okHttpClient.addInterceptor(logConfig());
+        }
+        okHttpClient.addNetworkInterceptor(interceptorConfig());
+        okHttpClient.cache(cacheConfig());
 
-        //为所有请求添加头部 Header 配置的拦截器
+        return okHttpClient.build();
+    }
+
+    /**
+     * 配置的拦截器
+     *
+     * @return
+     */
+    private Interceptor interceptorConfig() {
         Interceptor headerIntercept = new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
+
+                CacheControl.Builder cacheBuilder = new CacheControl.Builder();
+                cacheBuilder.maxAge(0, TimeUnit.SECONDS);
+                cacheBuilder.maxStale(365,TimeUnit.DAYS);
+                CacheControl cacheControl = cacheBuilder.build();
+
                 Request.Builder builder = chain.request().newBuilder();
-                builder.addHeader("Authorization", "Client-ID " + BuildConfig.CLIENT_ID);
+                if (NetworkUtil.isConnected()) {
+                    builder.addHeader("Authorization", "Client-ID " + BuildConfig.CLIENT_ID);
+                } else {
+                    builder.cacheControl(cacheControl);
+                    ToastUtil.showShortSafe("暂无网络");//子线程安全显示Toast
+                }
 
-                Request request = builder.build();
-
-                return chain.proceed(request);
+                Response response = chain.proceed(builder.build());
+                if (NetworkUtil.isConnected()) {
+                    int maxAge = 60 * 60; // read from cache for 1 minute
+                    response.newBuilder()
+                            .removeHeader("Pragma")
+                            .header("Cache-Control", "public, max-age=" + maxAge)
+                            .build();
+                } else {
+                    int maxStale = 60 * 60 * 24 * 28; // tolerate 4-weeks stale
+                    response.newBuilder()
+                            .removeHeader("Pragma")
+                            .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
+                            .build();
+                }
+                return response;
             }
         };
+        return headerIntercept;
+    }
 
+    /**
+     * 打印日志配置
+     *
+     * @return
+     */
+    private HttpLoggingInterceptor logConfig() {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
@@ -98,12 +148,19 @@ public class HttpClient {
             }
         });
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        if (BuildConfig.LOG_DEBUG) {
-            okHttpClient.addInterceptor(loggingInterceptor);
-        }
-        okHttpClient.addNetworkInterceptor(headerIntercept);
+        return loggingInterceptor;
+    }
 
-        return okHttpClient.build();
+    /**
+     * 缓存配置
+     *
+     * @return
+     */
+    private Cache cacheConfig() {
+        File cacheDir = new File(WallpaperApplication.getInstance().getCacheDir(), "responses");
+        int cacheSize = 10 * 1024 * 1024;
+        Cache cache = new Cache(cacheDir, cacheSize);
+        return cache;
     }
 
     private class HttpResultFunction<T> implements Function<retrofit2.Response<T>, T> {
@@ -113,7 +170,7 @@ public class HttpClient {
             if (code == 200) {
                 return response.body();
             } else {
-                throw new ApiException(code, response.message());
+                throw new NetworkException(code, response.message());
             }
         }
     }

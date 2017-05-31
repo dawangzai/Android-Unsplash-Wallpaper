@@ -116,7 +116,7 @@ public class BaseActivity extends AppCompatActivity implements BaseFunction {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (isExit) {
                 if ((System.currentTimeMillis() - exitTime) > 2000) {
-                    ToastUtil.showShort(this, "再按一次退出程序");
+                    ToastUtil.showShort("再按一次退出程序");
                     exitTime = System.currentTimeMillis();
                 } else {
                     finish();
