@@ -102,29 +102,23 @@ public class HttpClient {
             @Override
             public Response intercept(Chain chain) throws IOException {
 
-                CacheControl.Builder cacheBuilder = new CacheControl.Builder();
-                cacheBuilder.maxAge(0, TimeUnit.SECONDS);
-                cacheBuilder.maxStale(365,TimeUnit.DAYS);
-                CacheControl cacheControl = cacheBuilder.build();
-
-                Request.Builder builder = chain.request().newBuilder();
-                if (NetworkUtil.isConnected()) {
-                    builder.addHeader("Authorization", "Client-ID " + BuildConfig.CLIENT_ID);
-                } else {
-                    builder.cacheControl(cacheControl);
-                    ToastUtil.showShortSafe("暂无网络");//子线程安全显示Toast
+                Request.Builder requestBuilder = chain.request().newBuilder();
+                requestBuilder.addHeader("Authorization", "Client-ID " + BuildConfig.CLIENT_ID);
+                if (!NetworkUtil.isConnected()) {
+                    requestBuilder.cacheControl(CacheControl.FORCE_CACHE);
+                    ToastUtil.showShortSafe("暂无网络");
                 }
 
-                Response response = chain.proceed(builder.build());
+                Response response = chain.proceed(requestBuilder.build());
                 if (NetworkUtil.isConnected()) {
                     int maxAge = 60 * 60; // read from cache for 1 minute
-                    response.newBuilder()
+                    response = response.newBuilder()
                             .removeHeader("Pragma")
                             .header("Cache-Control", "public, max-age=" + maxAge)
                             .build();
                 } else {
                     int maxStale = 60 * 60 * 24 * 28; // tolerate 4-weeks stale
-                    response.newBuilder()
+                    response = response.newBuilder()
                             .removeHeader("Pragma")
                             .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
                             .build();

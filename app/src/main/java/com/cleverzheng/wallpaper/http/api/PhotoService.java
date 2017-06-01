@@ -21,7 +21,7 @@ public interface PhotoService {
      *
      * @return
      */
-    @Headers("Cache-Control: public, max-age=3600")
+//    @Headers("Cache-Control: public, max-age=3600")
     @GET("photos/")
     Observable<Response<List<PhotoBean>>> getNewestPhotoList(@Query("page") int page, @Query("per_page") int per_page);
 
