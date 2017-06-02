@@ -13,6 +13,7 @@ import com.cleverzheng.wallpaper.http.api.UserService;
 import com.cleverzheng.wallpaper.http.exception.NetworkException;
 import com.cleverzheng.wallpaper.http.observer.HttpObserver;
 import com.cleverzheng.wallpaper.utils.NetworkUtil;
+import com.cleverzheng.wallpaper.utils.StringUtil;
 import com.cleverzheng.wallpaper.utils.ToastUtil;
 
 import java.io.File;
@@ -86,7 +87,12 @@ public class HttpClient {
         if (BuildConfig.LOG_DEBUG) {
             okHttpClient.addInterceptor(logConfig());
         }
-        okHttpClient.addNetworkInterceptor(interceptorConfig());
+
+        if (NetworkUtil.isConnected()) {
+            okHttpClient.addNetworkInterceptor(interceptorConfig());
+        } else {
+            okHttpClient.addInterceptor(interceptorConfig());
+        }
         okHttpClient.cache(cacheConfig());
 
         return okHttpClient.build();
@@ -108,20 +114,29 @@ public class HttpClient {
                     requestBuilder.cacheControl(CacheControl.FORCE_CACHE);
                     ToastUtil.showShortSafe("暂无网络");
                 }
+                Request request = requestBuilder.build();
 
-                Response response = chain.proceed(requestBuilder.build());
+                Response response = chain.proceed(request);
+                CacheControl cacheControl = request.cacheControl();
                 if (NetworkUtil.isConnected()) {
-                    int maxAge = 60 * 60; // read from cache for 1 minute
                     response = response.newBuilder()
                             .removeHeader("Pragma")
-                            .header("Cache-Control", "public, max-age=" + maxAge)
+                            .header("Cache-Control", cacheControl.toString())
                             .build();
                 } else {
-                    int maxStale = 60 * 60 * 24 * 28; // tolerate 4-weeks stale
-                    response = response.newBuilder()
-                            .removeHeader("Pragma")
-                            .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
-                            .build();
+                    int i = cacheControl.maxStaleSeconds();
+                    boolean b = cacheControl.onlyIfCached();
+                    if (true) {
+                        //没有网络，做界面UI提醒
+                        response = response.newBuilder()
+                                .header("X-refresh-ui", "true")
+                                .build();
+                    } else {
+                        //没有网络，不做界面UI处理
+                        response = response.newBuilder()
+                                .header("X-refresh-ui", "false")
+                                .build();
+                    }
                 }
                 return response;
             }
