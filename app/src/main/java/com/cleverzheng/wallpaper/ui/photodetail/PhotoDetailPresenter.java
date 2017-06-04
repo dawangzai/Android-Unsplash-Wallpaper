@@ -1,7 +1,5 @@
 package com.cleverzheng.wallpaper.ui.photodetail;
 
-import android.util.Log;
-
 import com.cleverzheng.wallpaper.bean.PhotoBean;
 import com.cleverzheng.wallpaper.bean.UrlsBean;
 import com.cleverzheng.wallpaper.http.HttpClient;
@@ -17,7 +15,6 @@ public class PhotoDetailPresenter implements PhotoDetailContract.Presenter {
 
     private PhotoDetailContract.View photoDetailView;
     private String photoId;
-    private HttpClient httpClient;
 
     public PhotoDetailPresenter(PhotoDetailContract.View photoDetailView, String photoId) {
         this.photoDetailView = photoDetailView;
@@ -54,7 +51,7 @@ public class PhotoDetailPresenter implements PhotoDetailContract.Presenter {
 
             }
         });
-        httpClient.getSinglePhoto(observer, photoId);
+        HttpClient.getInstance().getSinglePhoto(observer, photoId);
     }
 
     @Override
