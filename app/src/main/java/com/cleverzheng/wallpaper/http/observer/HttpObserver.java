@@ -1,7 +1,7 @@
 package com.cleverzheng.wallpaper.http.observer;
 
 import com.cleverzheng.wallpaper.http.callback.OnResultCallback;
-import com.cleverzheng.wallpaper.http.exception.ApiException;
+import com.cleverzheng.wallpaper.http.exception.NetworkException;
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
@@ -13,6 +13,7 @@ import io.reactivex.disposables.Disposable;
 
 public class HttpObserver<T> implements Observer<T> {
     private OnResultCallback mCallBack;
+    private Disposable mDisposable;
 
     public HttpObserver(OnResultCallback<T> onResultCallback) {
         this.mCallBack = onResultCallback;
@@ -20,7 +21,7 @@ public class HttpObserver<T> implements Observer<T> {
 
     @Override
     public void onSubscribe(@NonNull Disposable d) {
-
+        this.mDisposable = d;
     }
 
     @Override
@@ -38,7 +39,7 @@ public class HttpObserver<T> implements Observer<T> {
             code = Integer.parseInt(msg.split("#")[0]);
             mCallBack.onFailed(code, msg.split("#")[1]);
         } else {
-            code = ApiException.Code_Default;
+            code = NetworkException.Code_Default;
             mCallBack.onFailed(code, msg);
         }
     }
@@ -46,5 +47,14 @@ public class HttpObserver<T> implements Observer<T> {
     @Override
     public void onComplete() {
 
+    }
+
+    /**
+     * 取消接收http响应
+     */
+    public void unSubscribe() {
+        if (mDisposable != null && !mDisposable.isDisposed()) {
+            mDisposable.dispose();
+        }
     }
 }

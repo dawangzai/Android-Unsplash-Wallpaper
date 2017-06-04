@@ -4,14 +4,14 @@ package com.cleverzheng.wallpaper.http.exception;
  * Created by wangzai on 2017/5/26.
  */
 
-public class ApiException extends RuntimeException {
+public class NetworkException extends RuntimeException {
     public static final int Code_Default = 1003;
 
-    public ApiException(int code, String message) {
+    public NetworkException(int code, String message) {
         this(getApiExceptionMessage(code, message));
     }
 
-    public ApiException(String apiExceptionMessage) {
+    public NetworkException(String apiExceptionMessage) {
         super(apiExceptionMessage);
     }
 
