@@ -11,7 +11,9 @@ import com.cleverzheng.wallpaper.http.api.CollectionService;
 import com.cleverzheng.wallpaper.http.api.PhotoService;
 import com.cleverzheng.wallpaper.http.api.UserService;
 import com.cleverzheng.wallpaper.http.exception.NetworkException;
+import com.cleverzheng.wallpaper.http.interceptor.NetworkCacheInterceptor;
 import com.cleverzheng.wallpaper.http.observer.HttpObserver;
+import com.cleverzheng.wallpaper.utils.LogUtil;
 import com.cleverzheng.wallpaper.utils.NetworkUtil;
 import com.cleverzheng.wallpaper.utils.StringUtil;
 import com.cleverzheng.wallpaper.utils.ToastUtil;
@@ -27,6 +29,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
+import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -89,59 +92,17 @@ public class HttpClient {
         }
 
         if (NetworkUtil.isConnected()) {
-            okHttpClient.addNetworkInterceptor(interceptorConfig());
+            if (NetworkUtil.isAvailableByPing()) {
+                okHttpClient.addNetworkInterceptor(new NetworkCacheInterceptor());
+            } else {
+                okHttpClient.addInterceptor(new NetworkCacheInterceptor());
+            }
         } else {
-            okHttpClient.addInterceptor(interceptorConfig());
+            okHttpClient.addInterceptor(new NetworkCacheInterceptor());
         }
         okHttpClient.cache(cacheConfig());
 
         return okHttpClient.build();
-    }
-
-    /**
-     * 配置的拦截器
-     *
-     * @return
-     */
-    private Interceptor interceptorConfig() {
-        Interceptor headerIntercept = new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-
-                Request.Builder requestBuilder = chain.request().newBuilder();
-                requestBuilder.addHeader("Authorization", "Client-ID " + BuildConfig.CLIENT_ID);
-                if (!NetworkUtil.isConnected()) {
-                    requestBuilder.cacheControl(CacheControl.FORCE_CACHE);
-                    ToastUtil.showShortSafe("暂无网络");
-                }
-                Request request = requestBuilder.build();
-
-                Response response = chain.proceed(request);
-                CacheControl cacheControl = request.cacheControl();
-                if (NetworkUtil.isConnected()) {
-                    response = response.newBuilder()
-                            .removeHeader("Pragma")
-                            .header("Cache-Control", cacheControl.toString())
-                            .build();
-                } else {
-                    int i = cacheControl.maxStaleSeconds();
-                    boolean b = cacheControl.onlyIfCached();
-                    if (true) {
-                        //没有网络，做界面UI提醒
-                        response = response.newBuilder()
-                                .header("X-refresh-ui", "true")
-                                .build();
-                    } else {
-                        //没有网络，不做界面UI处理
-                        response = response.newBuilder()
-                                .header("X-refresh-ui", "false")
-                                .build();
-                    }
-                }
-                return response;
-            }
-        };
-        return headerIntercept;
     }
 
     /**
@@ -153,7 +114,7 @@ public class HttpClient {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-                Log.i("test", "retrofitBack = " + message);
+                LogUtil.i("WallpaperLog", message);
             }
         });
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -176,8 +137,26 @@ public class HttpClient {
         @Override
         public T apply(@NonNull retrofit2.Response<T> response) throws Exception {
             int code = response.code();
+            int networkStatus = -1;
+            Headers headers = response.headers();
+            String networkStatusTemp = headers.get("x-network-status");
+            if (!StringUtil.isEmpty(networkStatusTemp)) {
+                networkStatus = Integer.parseInt(networkStatusTemp);
+            }
             if (code == 200) {
-                return response.body();
+                if (networkStatus == 1) {
+                    ToastUtil.showShortSafe("网络不可用");
+                    return response.body();
+                } else if (networkStatus == 2) {
+                    throw new NetworkException(code, "网络不可用");
+                } else if (networkStatus == 3) {
+                    ToastUtil.showShortSafe("没有网络");
+                    return response.body();
+                } else if (networkStatus == 4) {
+                    throw new NetworkException(code, "没有网络");
+                } else {
+                    return response.body();
+                }
             } else {
                 throw new NetworkException(code, response.message());
             }
