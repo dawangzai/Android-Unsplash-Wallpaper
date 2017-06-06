@@ -45,7 +45,6 @@ public class NewestPresenter implements NewestContract.Presenter {
 
             @Override
             public void onFailed(int code, String errorMsg) {
-
             }
         });
         httpClient.getNewestPhotoList(observer, page, per_page);

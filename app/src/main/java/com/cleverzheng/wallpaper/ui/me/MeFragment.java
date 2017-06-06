@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cleverzheng.wallpaper.R;
-import com.cleverzheng.wallpaper.base.BaseFragment;
 import com.cleverzheng.wallpaper.base.ViewPagerFragment;
 import com.cleverzheng.wallpaper.ui.adapter.MeGvAdapter;
 import com.cleverzheng.wallpaper.view.widget.MyDraweeView;

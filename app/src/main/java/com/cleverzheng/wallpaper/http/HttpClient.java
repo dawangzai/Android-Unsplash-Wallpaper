@@ -137,28 +137,11 @@ public class HttpClient {
         @Override
         public T apply(@NonNull retrofit2.Response<T> response) throws Exception {
             int code = response.code();
-            int networkStatus = -1;
-            Headers headers = response.headers();
-            String networkStatusTemp = headers.get("x-network-status");
-            if (!StringUtil.isEmpty(networkStatusTemp)) {
-                networkStatus = Integer.parseInt(networkStatusTemp);
-            }
             if (code == 200) {
-                if (networkStatus == 1) {
-                    ToastUtil.showShortSafe("网络不可用");
-                    return response.body();
-                } else if (networkStatus == 2) {
-                    throw new NetworkException(code, "网络不可用");
-                } else if (networkStatus == 3) {
-                    ToastUtil.showShortSafe("没有网络");
-                    return response.body();
-                } else if (networkStatus == 4) {
-                    throw new NetworkException(code, "没有网络");
-                } else {
-                    return response.body();
-                }
+                return response.body();
             } else {
-                throw new NetworkException(code, response.message());
+                LogUtil.i("WallpaperLog", response.message());
+                throw new NetworkException(code, NetworkException.EXCEPTION_MESSAGE_UNKNOWN);
             }
         }
     }

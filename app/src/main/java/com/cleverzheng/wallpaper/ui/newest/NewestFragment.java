@@ -68,6 +68,15 @@ public class NewestFragment extends ViewPagerFragment implements NewestContract.
     }
 
     @Override
+    public void loadDataSuccess() {
+        showContentView();
+    }
+
+    @Override
+    public void loadDataFailed() {
+    }
+
+    @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
         LogUtil.i(getTAG(), "------newestfragment------onFragmentVisibleChange------" + isVisible);
         super.onFragmentVisibleChange(isVisible);

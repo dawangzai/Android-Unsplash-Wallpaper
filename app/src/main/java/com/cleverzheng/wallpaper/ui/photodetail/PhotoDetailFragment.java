@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cleverzheng.wallpaper.R;
-import com.cleverzheng.wallpaper.base.BaseFragment;
+import com.cleverzheng.wallpaper.base.BaseFragmentFragment;
 import com.cleverzheng.wallpaper.operator.ImageLoaderOp;
 import com.cleverzheng.wallpaper.view.widget.MyDraweeView;
 
@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 /**
  * Created by wangzai on 2017/2/21.
  */
-public class PhotoDetailFragment extends BaseFragment implements PhotoDetailContract.View {
+public class PhotoDetailFragment extends BaseFragmentFragment implements PhotoDetailContract.View {
     @BindView(R.id.dvPhoto)
     MyDraweeView dvPhoto;
     private PhotoDetailContract.Presenter presenter;

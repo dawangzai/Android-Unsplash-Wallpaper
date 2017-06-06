@@ -5,8 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +20,7 @@ import com.cleverzheng.wallpaper.view.dialog.LoadingDialog;
 /**
  * Created by wangzai on 2017/2/18.
  */
-public class BaseFragment extends Fragment implements BaseFunction {
+public class BaseFragmentFragment extends Fragment implements BaseFragmentFunction {
 
     private View viewLoading;
     private View viewError;

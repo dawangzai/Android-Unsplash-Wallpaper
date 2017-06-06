@@ -5,4 +5,8 @@ package com.cleverzheng.wallpaper.base;
  */
 public interface BaseView<T> {
     void setPresent(T present);
+
+    void loadDataSuccess();
+
+    void loadDataFailed();
 }

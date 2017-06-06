@@ -7,14 +7,8 @@ package com.cleverzheng.wallpaper.base;
  * @description：
  */
 
-public interface BaseFunction {
+public interface BaseActivityFunction {
     void initData();
-//
-//    void showLoading();
-//
+
     void initListener();
-//
-//    void dismissLoading();
-//
-//    void loadFailed();
 }

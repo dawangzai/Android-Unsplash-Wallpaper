@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cleverzheng.wallpaper.R;
-import com.cleverzheng.wallpaper.base.BaseFragment;
+import com.cleverzheng.wallpaper.base.BaseFragmentFragment;
 import com.cleverzheng.wallpaper.bean.PhotoBean;
 import com.cleverzheng.wallpaper.ui.adapter.PersonPhotosAdapter;
 
@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
  * @description：个人照片
  */
 
-public class PersonPhotosFragment extends BaseFragment {
+public class PersonPhotosFragment extends BaseFragmentFragment {
     private PersonDetailContract.Presenter mPresent;
     @BindView(R.id.rvPersonPhoto)
     RecyclerView rvPersonPhoto;

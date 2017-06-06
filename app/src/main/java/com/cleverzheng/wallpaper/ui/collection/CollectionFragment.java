@@ -2,25 +2,18 @@ package com.cleverzheng.wallpaper.ui.collection;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.cleverzheng.wallpaper.R;
-import com.cleverzheng.wallpaper.base.BaseFragment;
 import com.cleverzheng.wallpaper.base.ViewPagerFragment;
 import com.cleverzheng.wallpaper.bean.CollectionBean;
-import com.cleverzheng.wallpaper.bean.PhotoBean;
 import com.cleverzheng.wallpaper.global.Constant;
 import com.cleverzheng.wallpaper.ui.adapter.CollectionListAdapter;
 import com.cleverzheng.wallpaper.utils.LogUtil;
-import com.cleverzheng.wallpaper.utils.StringUtil;
-import com.cleverzheng.wallpaper.view.RecyclerOnScrollListener;
-import com.cleverzheng.wallpaper.view.layout.MyRefreshLayout;
 import com.cleverzheng.wallpaper.view.layout.RefreshLayout;
 
 import java.util.List;

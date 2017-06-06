@@ -9,7 +9,7 @@ import android.view.View;
  * Created by wangzai on 2017/5/22.
  */
 
-public class ViewPagerFragment extends BaseFragment {
+public class ViewPagerFragment extends BaseFragmentFragment {
 
     /**
      * 在onViewCreate方法中给它赋值
