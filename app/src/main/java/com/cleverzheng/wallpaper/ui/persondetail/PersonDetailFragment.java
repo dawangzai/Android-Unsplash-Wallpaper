@@ -2,13 +2,11 @@ package com.cleverzheng.wallpaper.ui.persondetail;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,7 +16,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import com.cleverzheng.wallpaper.R;
-import com.cleverzheng.wallpaper.base.BaseFragment;
+import com.cleverzheng.wallpaper.base.BaseFragmentFragment;
 import com.cleverzheng.wallpaper.bean.CollectionBean;
 import com.cleverzheng.wallpaper.bean.PhotoBean;
 import com.cleverzheng.wallpaper.bean.ProfileImageBean;
@@ -36,13 +34,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * @author：cleverzheng
- * @date：2017/2/24:22:21
- * @email：zhengwang043@gmail.com
- * @description：用户详情
+ * Created by wangzai on 2017/2/24.
  */
-
-public class PersonDetailFragment extends BaseFragment implements PersonDetailContract.View {
+public class PersonDetailFragment extends BaseFragmentFragment implements PersonDetailContract.View {
     private static final String TAB_PHOTO = "个人照片";
     private static final String TAB_COLLECTION = "照片合集";
 
@@ -75,6 +69,16 @@ public class PersonDetailFragment extends BaseFragment implements PersonDetailCo
             this.mPresent = present;
             mPresent.start();
         }
+    }
+
+    @Override
+    public void loadDataSuccess() {
+
+    }
+
+    @Override
+    public void loadDataFailed(String message) {
+
     }
 
     public PersonDetailContract.Presenter getPresent() {

@@ -2,6 +2,9 @@ package com.cleverzheng.wallpaper.http.observer;
 
 import com.cleverzheng.wallpaper.http.callback.OnResultCallback;
 import com.cleverzheng.wallpaper.http.exception.NetworkException;
+import com.cleverzheng.wallpaper.utils.LogUtil;
+import com.cleverzheng.wallpaper.utils.StringUtil;
+import com.cleverzheng.wallpaper.utils.ToastUtil;
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
@@ -33,14 +36,18 @@ public class HttpObserver<T> implements Observer<T> {
 
     @Override
     public void onError(@NonNull Throwable e) {
-        String msg = e.getMessage();
-        int code;
-        if (msg.contains("#")) {
-            code = Integer.parseInt(msg.split("#")[0]);
-            mCallBack.onFailed(code, msg.split("#")[1]);
-        } else {
-            code = NetworkException.Code_Default;
+        String message = e.getMessage();
+        if (message.contains("#")) {
+            String[] msgTemp = message.split("#");
+            int code = Integer.parseInt(msgTemp[0]);
+            String msg = msgTemp[1];
             mCallBack.onFailed(code, msg);
+            LogUtil.i("WallpaperLog", message);
+            ToastUtil.showShortSafe(msg);
+        } else {
+            LogUtil.i("WallpaperLog", message);
+            ToastUtil.showShortSafe(NetworkException.EXCEPTION_MESSAGE_UNKNOWN);
+            mCallBack.onFailed(NetworkException.EXCEPTION_CODE_UNKNOWN, NetworkException.EXCEPTION_MESSAGE_UNKNOWN);
         }
     }
 

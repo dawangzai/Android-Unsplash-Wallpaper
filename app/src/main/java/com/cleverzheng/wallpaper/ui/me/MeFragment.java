@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cleverzheng.wallpaper.R;
-import com.cleverzheng.wallpaper.base.BaseFragment;
 import com.cleverzheng.wallpaper.base.ViewPagerFragment;
 import com.cleverzheng.wallpaper.ui.adapter.MeGvAdapter;
 import com.cleverzheng.wallpaper.view.widget.MyDraweeView;
@@ -56,6 +55,16 @@ public class MeFragment extends ViewPagerFragment implements MeContract.View, Ad
 
     public void setPresent(MeContract.Presenter present) {
         this.present = present;
+    }
+
+    @Override
+    public void loadDataSuccess() {
+
+    }
+
+    @Override
+    public void loadDataFailed(String message) {
+
     }
 
     @Override

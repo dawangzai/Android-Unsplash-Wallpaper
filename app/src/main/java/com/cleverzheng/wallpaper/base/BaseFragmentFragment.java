@@ -5,31 +5,24 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cleverzheng.wallpaper.R;
 import com.cleverzheng.wallpaper.global.Constant;
 import com.cleverzheng.wallpaper.listener.OnNetworkErrorListener;
 import com.cleverzheng.wallpaper.utils.LogUtil;
-import com.cleverzheng.wallpaper.view.dialog.LoadingDialog;
 
 /**
  * Created by wangzai on 2017/2/18.
  */
-public class BaseFragment extends Fragment implements BaseFunction {
+public class BaseFragmentFragment extends Fragment implements BaseFragmentFunction {
 
     private View viewLoading;
     private View viewError;
-    private View contentView;
-    private ViewGroup container;
-
-    private LoadingDialog loadingDialog;
+    private TextView tvErrorMsg;
 
     private Context context;
     private Activity activity;
@@ -75,6 +68,7 @@ public class BaseFragment extends Fragment implements BaseFunction {
                 viewLoading.setVisibility(View.INVISIBLE);
             }
             if (viewError != null) {
+                tvErrorMsg = (TextView) viewError.findViewById(R.id.tvErrorMsg);
                 viewError.setVisibility(View.INVISIBLE);
             }
         }
@@ -110,6 +104,7 @@ public class BaseFragment extends Fragment implements BaseFunction {
         if (getActivity() == null || viewLoading == null) {
             return;
         }
+        hideErrorView();
         viewLoading.setVisibility(View.VISIBLE);
     }
 
@@ -129,15 +124,14 @@ public class BaseFragment extends Fragment implements BaseFunction {
         if (getActivity() == null || viewError == null) {
             return;
         }
-        LinearLayout llError = (LinearLayout) viewError.findViewById(R.id.llError);
-        TextView tvErrorMsg = (TextView) viewError.findViewById(R.id.tvErrorMsg);
         tvErrorMsg.setText(errorMsg);
-        llError.setOnClickListener(new View.OnClickListener() {
+        viewError.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onRetry();
             }
         });
+        hideLoadingView();
         viewError.setVisibility(View.VISIBLE);
     }
 
@@ -147,14 +141,6 @@ public class BaseFragment extends Fragment implements BaseFunction {
             return;
         }
         viewError.setVisibility(View.INVISIBLE);
-    }
-
-    protected void showContentView() {
-
-    }
-
-    protected void hideContentView() {
-
     }
 
     public Context getFragmentContext() {

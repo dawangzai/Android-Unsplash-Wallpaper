@@ -28,20 +28,6 @@ android {
 //            buildConfigField "boolean", "LOG_DEBUG", "false"
 //        }
     }
-
-    sourceSets {
-        main {
-            res.srcDirs = [
-                    'src/main/res/layouts/me',
-                    'src/main/res/layouts/persondetail',
-                    'src/main/res/layouts/collection',
-                    'src/main/res/layouts/photodetail',
-                    'src/main/res/layouts/newest',
-                    'src/main/res/layouts',
-                    'src/main/res'
-            ]
-        }
-    }
 }
 
 dependencies {
@@ -59,14 +45,11 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'io.reactivex.rxjava2:rxjava:2.1.0'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'com.orhanobut:logger:1.15'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
     compile 'com.afollestad.material-dialogs:core:0.9.2.3'
-    compile 'me.majiajie:pager-bottom-tab-strip:1.0.0'
     compile 'com.facebook.fresco:fresco:1.1.0'
     compile 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
-    compile 'com.pnikosis:materialish-progress:1.7'
     compile 'com.jpardogo.materialtabstrip:library:1.1.1'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'in.srain.cube:ptr-load-more:1.0.6'

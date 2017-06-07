@@ -39,13 +39,14 @@ public class NewestPresenter implements NewestContract.Presenter {
             @Override
             public void onSuccess(List<PhotoBean> photoBeen) {
                 if (photoBeen != null && photoBeen.size() > 0) {
+                    newestView.loadDataSuccess();
                     newestView.refresh(photoBeen);
                 }
             }
 
             @Override
-            public void onFailed(int code, String errorMsg) {
-
+            public void onFailed(int code, String message) {
+                newestView.loadDataFailed(message);
             }
         });
         httpClient.getNewestPhotoList(observer, page, per_page);

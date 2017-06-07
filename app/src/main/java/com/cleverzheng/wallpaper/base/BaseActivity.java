@@ -14,12 +14,11 @@ import com.cleverzheng.wallpaper.R;
 import com.cleverzheng.wallpaper.utils.ActivityUtil;
 import com.cleverzheng.wallpaper.utils.LogUtil;
 import com.cleverzheng.wallpaper.utils.ToastUtil;
-import com.cleverzheng.wallpaper.view.dialog.LoadingDialog;
 
 /**
  * Created by wangzai on 2017/2/22.
  */
-public class BaseActivity extends AppCompatActivity implements BaseFunction {
+public class BaseActivity extends AppCompatActivity implements BaseActivityFunction {
 
     private static final String TAG = "WallpaperLog";
 
