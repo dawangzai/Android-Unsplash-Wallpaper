@@ -49,6 +49,16 @@ public class PhotoDetailFragment extends BaseFragmentFragment implements PhotoDe
     }
 
     @Override
+    public void loadDataSuccess() {
+        
+    }
+
+    @Override
+    public void loadDataFailed(String message) {
+
+    }
+
+    @Override
     public void initData() {
         super.initData();
     }

@@ -1,7 +1,5 @@
 package com.cleverzheng.wallpaper.http;
 
-import android.util.Log;
-
 import com.cleverzheng.wallpaper.BuildConfig;
 import com.cleverzheng.wallpaper.WallpaperApplication;
 import com.cleverzheng.wallpaper.bean.CollectionBean;
@@ -15,11 +13,8 @@ import com.cleverzheng.wallpaper.http.interceptor.NetworkCacheInterceptor;
 import com.cleverzheng.wallpaper.http.observer.HttpObserver;
 import com.cleverzheng.wallpaper.utils.LogUtil;
 import com.cleverzheng.wallpaper.utils.NetworkUtil;
-import com.cleverzheng.wallpaper.utils.StringUtil;
-import com.cleverzheng.wallpaper.utils.ToastUtil;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -28,12 +23,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.Cache;
-import okhttp3.CacheControl;
-import okhttp3.Headers;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;

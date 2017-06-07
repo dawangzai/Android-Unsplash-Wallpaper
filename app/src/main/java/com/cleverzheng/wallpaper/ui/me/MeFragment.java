@@ -58,6 +58,16 @@ public class MeFragment extends ViewPagerFragment implements MeContract.View, Ad
     }
 
     @Override
+    public void loadDataSuccess() {
+
+    }
+
+    @Override
+    public void loadDataFailed(String message) {
+
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }

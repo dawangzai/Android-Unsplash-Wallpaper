@@ -1,10 +1,13 @@
 package com.cleverzheng.wallpaper;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.cleverzheng.wallpaper.base.BaseActivity;
@@ -17,17 +20,13 @@ import com.cleverzheng.wallpaper.ui.newest.NewestPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import me.majiajie.pagerbottomtabstrip.Controller;
-import me.majiajie.pagerbottomtabstrip.PagerBottomTabLayout;
-import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectListener;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.vpContent)
     ViewPager vpContent;
-    @BindView(R.id.bottomTab)
-    PagerBottomTabLayout bottomTab;
+    @BindView(R.id.navigation)
+    BottomNavigationView navigation;
 
-    private int currentItem = 0;
     private static final int NUM_ITEMS = 3;
 
     private NewestPresenter newestPresenter;
@@ -37,7 +36,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private CollectionPresenter collectionPresenter;
     private MePresenter mePresenter;
 
-    private Controller controller;
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    vpContent.setCurrentItem(0);
+                    return true;
+                case R.id.navigation_collections:
+                    vpContent.setCurrentItem(1);
+                    return true;
+                case R.id.navigation_me:
+                    vpContent.setCurrentItem(2);
+                    return true;
+            }
+            return false;
+        }
+
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,27 +70,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         initBottomTab();
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
         vpContent.setAdapter(adapter);
-        vpContent.setCurrentItem(currentItem);
+        vpContent.setCurrentItem(0);
         vpContent.setOffscreenPageLimit(NUM_ITEMS);
     }
 
     private void initBottomTab() {
-        controller = bottomTab.builder()
-                .addTabItem(android.R.drawable.ic_menu_camera, getString(R.string.bottom_tab_1))
-                .addTabItem(android.R.drawable.ic_menu_compass, getString(R.string.bottom_tab_2))
-                .addTabItem(android.R.drawable.ic_menu_search, getString(R.string.bottom_tab_3))
-                .build();
-        controller.addTabItemClickListener(new OnTabItemSelectListener() {
-            @Override
-            public void onSelected(int index, Object tag) {
-                currentItem = index;
-                vpContent.setCurrentItem(currentItem);
-            }
-
-            @Override
-            public void onRepeatClick(int index, Object tag) {
-            }
-        });
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
     @Override
@@ -85,7 +88,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             @Override
             public void onPageSelected(int position) {
-                controller.setSelect(position);
+                MenuItem item = navigation.getMenu().getItem(position);
+                item.setChecked(true);
             }
 
             @Override

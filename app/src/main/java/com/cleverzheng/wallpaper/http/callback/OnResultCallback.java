@@ -7,5 +7,5 @@ package com.cleverzheng.wallpaper.http.callback;
 public interface OnResultCallback<T> {
     void onSuccess(T t);
 
-    void onFailed(int code, String errorMsg);
+    void onFailed(int code, String message);
 }

@@ -34,12 +34,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * @author：cleverzheng
- * @date：2017/2/24:22:21
- * @email：zhengwang043@gmail.com
- * @description：用户详情
+ * Created by wangzai on 2017/2/24.
  */
-
 public class PersonDetailFragment extends BaseFragmentFragment implements PersonDetailContract.View {
     private static final String TAB_PHOTO = "个人照片";
     private static final String TAB_COLLECTION = "照片合集";
@@ -73,6 +69,16 @@ public class PersonDetailFragment extends BaseFragmentFragment implements Person
             this.mPresent = present;
             mPresent.start();
         }
+    }
+
+    @Override
+    public void loadDataSuccess() {
+
+    }
+
+    @Override
+    public void loadDataFailed(String message) {
+
     }
 
     public PersonDetailContract.Presenter getPresent() {

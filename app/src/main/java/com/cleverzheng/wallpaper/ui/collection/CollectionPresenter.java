@@ -35,12 +35,13 @@ public class CollectionPresenter implements CollectionContract.Presenter {
         HttpObserver<List<CollectionBean>> observer = new HttpObserver<>(new OnResultCallback<List<CollectionBean>>() {
             @Override
             public void onSuccess(List<CollectionBean> collectionBeen) {
+                collectionView.loadDataSuccess();
                 collectionView.refresh(collectionBeen);
             }
 
             @Override
-            public void onFailed(int code, String errorMsg) {
-
+            public void onFailed(int code, String message) {
+                collectionView.loadDataFailed(message);
             }
         });
         httpClient.getCollectionList(observer, page, per_page);

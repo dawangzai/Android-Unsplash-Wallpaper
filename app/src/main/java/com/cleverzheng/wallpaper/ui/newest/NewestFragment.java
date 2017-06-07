@@ -10,11 +10,13 @@ import android.view.ViewGroup;
 
 import com.cleverzheng.wallpaper.R;
 import com.cleverzheng.wallpaper.base.ViewPagerFragment;
+import com.cleverzheng.wallpaper.listener.OnNetworkErrorListener;
 import com.cleverzheng.wallpaper.ui.adapter.NewestListAdapter;
 import com.cleverzheng.wallpaper.bean.PhotoBean;
 import com.cleverzheng.wallpaper.global.Constant;
 import com.cleverzheng.wallpaper.utils.LogUtil;
 import com.cleverzheng.wallpaper.utils.StringUtil;
+import com.cleverzheng.wallpaper.utils.ToastUtil;
 import com.cleverzheng.wallpaper.view.layout.RefreshLayout;
 
 import java.util.List;
@@ -69,11 +71,19 @@ public class NewestFragment extends ViewPagerFragment implements NewestContract.
 
     @Override
     public void loadDataSuccess() {
-        showContentView();
+        hideErrorView();
+        hideLoadingView();
     }
 
     @Override
-    public void loadDataFailed() {
+    public void loadDataFailed(String message) {
+        showErrorView(message, new OnNetworkErrorListener() {
+            @Override
+            public void onRetry() {
+                showLoadingView();
+                mPresenter.start();
+            }
+        });
     }
 
     @Override
@@ -115,7 +125,6 @@ public class NewestFragment extends ViewPagerFragment implements NewestContract.
 
     @Override
     public void refresh(List<PhotoBean> photoList) {
-        hideLoadingView();
         refreshLayout.refreshComplete();
         PhotoBean photoBean = photoList.get(0);
         String id = photoBean.getId();

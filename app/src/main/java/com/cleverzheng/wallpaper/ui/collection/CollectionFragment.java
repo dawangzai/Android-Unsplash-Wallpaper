@@ -12,6 +12,7 @@ import com.cleverzheng.wallpaper.R;
 import com.cleverzheng.wallpaper.base.ViewPagerFragment;
 import com.cleverzheng.wallpaper.bean.CollectionBean;
 import com.cleverzheng.wallpaper.global.Constant;
+import com.cleverzheng.wallpaper.listener.OnNetworkErrorListener;
 import com.cleverzheng.wallpaper.ui.adapter.CollectionListAdapter;
 import com.cleverzheng.wallpaper.utils.LogUtil;
 import com.cleverzheng.wallpaper.view.layout.RefreshLayout;
@@ -61,6 +62,23 @@ public class CollectionFragment extends ViewPagerFragment implements CollectionC
         if (present != null) {
             this.mPresenter = present;
         }
+    }
+
+    @Override
+    public void loadDataSuccess() {
+        hideErrorView();
+        hideLoadingView();
+    }
+
+    @Override
+    public void loadDataFailed(String message) {
+        showErrorView(message, new OnNetworkErrorListener() {
+            @Override
+            public void onRetry() {
+                showLoadingView();
+                mPresenter.start();
+            }
+        });
     }
 
     @Override

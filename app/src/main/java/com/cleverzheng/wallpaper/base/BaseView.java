@@ -8,5 +8,5 @@ public interface BaseView<T> {
 
     void loadDataSuccess();
 
-    void loadDataFailed();
+    void loadDataFailed(String message);
 }
