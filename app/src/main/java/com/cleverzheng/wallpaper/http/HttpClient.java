@@ -10,14 +10,18 @@ import com.cleverzheng.wallpaper.http.api.PhotoService;
 import com.cleverzheng.wallpaper.http.api.UserService;
 import com.cleverzheng.wallpaper.http.exception.NetworkException;
 import com.cleverzheng.wallpaper.http.interceptor.NetworkCacheInterceptor;
+import com.cleverzheng.wallpaper.http.interceptor.NetworkRetryInterceptor;
 import com.cleverzheng.wallpaper.http.observer.HttpObserver;
 import com.cleverzheng.wallpaper.utils.LogUtil;
 import com.cleverzheng.wallpaper.utils.NetworkUtil;
+import com.cleverzheng.wallpaper.utils.ToastUtil;
 
 import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
@@ -28,6 +32,8 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 /**
  * Created by wangzai on 2017/5/25.
@@ -81,6 +87,7 @@ public class HttpClient {
             okHttpClient.addInterceptor(logConfig());
         }
 
+//        okHttpClient.addInterceptor(new NetworkRetryInterceptor(2));
         if (NetworkUtil.isConnected()) {
             if (NetworkUtil.isAvailableByPing()) {
                 okHttpClient.addNetworkInterceptor(new NetworkCacheInterceptor());
@@ -123,6 +130,27 @@ public class HttpClient {
         return cache;
     }
 
+    private class HttpFunction implements Function<Observable<? extends Throwable>, Observable<?>> {
+        private int maxRetries = 2;
+        private int retryDelayMillis;
+        private int retryCount;
+
+        @Override
+        public Observable<?> apply(@NonNull Observable<? extends Throwable> observable) throws Exception {
+            return observable.flatMap(new Function<Throwable, ObservableSource<?>>() {
+                @Override
+                public ObservableSource<?> apply(@NonNull Throwable throwable) throws Exception {
+                    if (++retryCount <= maxRetries) {
+                        LogUtil.i("WallpaperLog", "重试" + retryCount);
+                        return Observable.timer(retryDelayMillis, TimeUnit.MILLISECONDS);
+                    }
+                    // Max retries hit. Just pass the error along.
+                    return Observable.error(throwable);
+                }
+            });
+        }
+    }
+
     private class HttpResultFunction<T> implements Function<retrofit2.Response<T>, T> {
         @Override
         public T apply(@NonNull retrofit2.Response<T> response) throws Exception {
@@ -139,6 +167,7 @@ public class HttpClient {
     /****************************************PhotoService*******************************************/
     public void getNewestPhotoList(HttpObserver<List<PhotoBean>> observer, int page, int pre_page) {
         getPhotoService().getNewestPhotoList(page, pre_page)
+                .retryWhen(new HttpFunction())
                 .map(new HttpResultFunction<List<PhotoBean>>())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

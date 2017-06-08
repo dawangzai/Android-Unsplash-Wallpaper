@@ -2,8 +2,6 @@ package com.cleverzheng.wallpaper.utils;
 
 import android.util.Log;
 
-import com.orhanobut.logger.Logger;
-
 /**
  * Created by wangzai on 2017/01/17.
  */

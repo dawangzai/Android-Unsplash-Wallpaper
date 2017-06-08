@@ -2,6 +2,7 @@ package com.cleverzheng.wallpaper.http.interceptor;
 
 import com.cleverzheng.wallpaper.BuildConfig;
 import com.cleverzheng.wallpaper.http.exception.NetworkException;
+import com.cleverzheng.wallpaper.utils.LogUtil;
 import com.cleverzheng.wallpaper.utils.NetworkUtil;
 import com.cleverzheng.wallpaper.utils.StringUtil;
 import com.cleverzheng.wallpaper.utils.ToastUtil;
@@ -30,15 +31,16 @@ public class NetworkCacheInterceptor implements Interceptor {
         }
 
         Response response = chain.proceed(requestBuilder.build());
-
         int maxAge = cacheControl.maxAgeSeconds(); //是否使用缓存标志
         if (NetworkUtil.isConnected()) {
             if (NetworkUtil.isAvailableByPing()) {
                 //有网络且网络可用
-                response = response.newBuilder()
-                        .removeHeader("Pragma")
-                        .header("Cache-Control", cacheControl.toString())
-                        .build();
+                if (response.isSuccessful()) {
+                    response = response.newBuilder()
+                            .removeHeader("Pragma")
+                            .header("Cache-Control", cacheControl.toString())
+                            .build();
+                }
             } else {
                 Response cacheResponse = response.cacheResponse(); //拿到缓存中的数据，查看是否为null
                 if (cacheResponse == null) {
