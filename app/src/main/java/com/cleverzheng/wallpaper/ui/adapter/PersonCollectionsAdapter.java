@@ -10,15 +10,13 @@ import android.widget.TextView;
 import com.cleverzheng.wallpaper.R;
 import com.cleverzheng.wallpaper.bean.CollectionBean;
 import com.cleverzheng.wallpaper.bean.CoverPhotoBean;
-import com.cleverzheng.wallpaper.bean.PhotoBean;
 import com.cleverzheng.wallpaper.bean.ProfileImageBean;
 import com.cleverzheng.wallpaper.bean.UrlsBean;
 import com.cleverzheng.wallpaper.bean.UserBean;
 import com.cleverzheng.wallpaper.operator.ImageLoaderOp;
 import com.cleverzheng.wallpaper.ui.persondetail.PersonCollectionFragment;
-import com.cleverzheng.wallpaper.ui.persondetail.PersonPhotosFragment;
 import com.cleverzheng.wallpaper.utils.StringUtil;
-import com.cleverzheng.wallpaper.view.widget.MyDraweeView;
+import com.cleverzheng.wallpaper.view.widget.DraweeImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,17 +110,17 @@ public class PersonCollectionsAdapter extends RecyclerView.Adapter<PersonCollect
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        MyDraweeView dvPhoto;
+        DraweeImageView dvPhoto;
         TextView tvCount;
-        MyDraweeView dvUserHead;
+        DraweeImageView dvUserHead;
         TextView tvUserName;
         TextView tvTitle;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            dvPhoto = (MyDraweeView) itemView.findViewById(R.id.dvPhoto);
+            dvPhoto = (DraweeImageView) itemView.findViewById(R.id.dvPhoto);
 //            tvCount = (TextView) itemView.findViewById(R.id.tvCount);
-            dvUserHead = (MyDraweeView) itemView.findViewById(R.id.dvUserHead);
+            dvUserHead = (DraweeImageView) itemView.findViewById(R.id.dvUserHead);
             tvUserName = (TextView) itemView.findViewById(R.id.tvUserName);
             tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
         }

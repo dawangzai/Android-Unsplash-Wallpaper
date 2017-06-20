@@ -87,7 +87,6 @@ public class HttpClient {
             okHttpClient.addInterceptor(logConfig());
         }
 
-//        okHttpClient.addInterceptor(new NetworkRetryInterceptor(2));
         if (NetworkUtil.isConnected()) {
             if (NetworkUtil.isAvailableByPing()) {
                 okHttpClient.addNetworkInterceptor(new NetworkCacheInterceptor());
@@ -131,8 +130,8 @@ public class HttpClient {
     }
 
     private class HttpFunction implements Function<Observable<? extends Throwable>, Observable<?>> {
-        private int maxRetries = 2;
-        private int retryDelayMillis;
+        private int maxRetries = 2; //重试两次
+        private int retryDelayMillis = 2; //延迟两秒重试
         private int retryCount;
 
         @Override

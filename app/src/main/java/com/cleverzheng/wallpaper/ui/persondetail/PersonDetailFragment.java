@@ -25,7 +25,7 @@ import com.cleverzheng.wallpaper.bean.UserBean;
 import com.cleverzheng.wallpaper.operator.ImageLoaderOp;
 import com.cleverzheng.wallpaper.ui.adapter.SimpleFragmentPagerAdapter;
 import com.cleverzheng.wallpaper.utils.StringUtil;
-import com.cleverzheng.wallpaper.view.widget.MyDraweeView;
+import com.cleverzheng.wallpaper.view.widget.DraweeImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,9 +41,9 @@ public class PersonDetailFragment extends BaseFragmentFragment implements Person
     private static final String TAB_COLLECTION = "照片合集";
 
     @BindView(R.id.dvUserHead)
-    MyDraweeView dvUserHead;
+    DraweeImageView dvUserHead;
     @BindView(R.id.dvBg)
-    MyDraweeView dvBg;
+    DraweeImageView dvBg;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.collapsingToolbar)

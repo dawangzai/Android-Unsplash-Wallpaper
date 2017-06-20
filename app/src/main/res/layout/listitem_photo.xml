@@ -15,7 +15,7 @@
         android:background="@color/bg_ffffff"
         android:orientation="vertical">
 
-        <com.cleverzheng.wallpaper.view.widget.MyDraweeView
+        <com.cleverzheng.wallpaper.view.widget.DraweeImageView
             android:id="@+id/dvPhoto"
             android:layout_width="match_parent"
             android:layout_height="200dp" />
@@ -33,7 +33,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical">
 
-                <com.cleverzheng.wallpaper.view.widget.MyDraweeView
+                <com.cleverzheng.wallpaper.view.widget.DraweeImageView
                     android:id="@+id/dvUserHead"
                     android:layout_width="40dp"
                     android:layout_height="40dp" />

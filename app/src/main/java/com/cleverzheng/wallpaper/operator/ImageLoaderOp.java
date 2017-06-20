@@ -1,26 +1,31 @@
 package com.cleverzheng.wallpaper.operator;
 
-import com.cleverzheng.wallpaper.view.widget.MyDraweeView;
+import com.cleverzheng.wallpaper.view.widget.DraweeImageView;
+import com.cleverzheng.wallpaper.view.widget.ZoomableImageView;
 import com.facebook.drawee.generic.RoundingParams;
 
 /**
- * @author：cleverzheng
- * @date：2017/2/18:8:51
- * @email：zhengwang043@gmail.com
- * @description：
+ * Created by wangzai on 2017/2/18.
  */
-
 public class ImageLoaderOp {
 
-    public static <T extends MyDraweeView> void setImage(T t, String imageUrl) {
+    public static <T extends DraweeImageView> void setImage(T t, String imageUrl) {
         t.setImage(imageUrl);
     }
 
-    public static <T extends MyDraweeView> void setRoundImage(T t, String imageUrl) {
+    public static <T extends DraweeImageView> void setRoundImage(T t, String imageUrl) {
         RoundingParams roundingParams = RoundingParams.fromCornersRadius(5f);
         roundingParams.setRoundAsCircle(true);
         t.getHierarchy().setRoundingParams(roundingParams);
 
+        t.setImage(imageUrl);
+    }
+
+    public static <T extends DraweeImageView> void setDetailImage(T t, String lowResUrl, String highResUrl) {
+        t.setDetailImage(lowResUrl, highResUrl);
+    }
+
+    public static <T extends ZoomableImageView> void setZoomableImage(T t, String imageUrl) {
         t.setImage(imageUrl);
     }
 }

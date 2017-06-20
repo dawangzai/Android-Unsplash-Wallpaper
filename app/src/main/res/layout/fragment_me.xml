@@ -15,7 +15,7 @@
             android:background="@color/bg_ffffff"
             android:gravity="center">
 
-            <com.cleverzheng.wallpaper.view.widget.MyDraweeView
+            <com.cleverzheng.wallpaper.view.widget.DraweeImageView
                 android:id="@+id/dvUserHead"
                 android:layout_width="100dp"
                 android:layout_height="100dp" />
@@ -25,7 +25,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/dvUserHead"
-                android:text="点击登录" />
+                android:text="点击登录"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/tvUserName"
@@ -47,8 +48,7 @@
             android:id="@+id/gvMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:numColumns="3"
-            android:padding="10dp">
+            android:numColumns="3">
 
         </GridView>
     </LinearLayout>

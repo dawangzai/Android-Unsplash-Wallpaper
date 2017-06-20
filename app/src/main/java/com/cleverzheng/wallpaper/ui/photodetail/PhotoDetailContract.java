@@ -12,7 +12,11 @@ import com.cleverzheng.wallpaper.base.BaseView;
 
 public interface PhotoDetailContract {
     interface View extends BaseView<Presenter> {
-        void setPhoto(String photoUrl);
+        void setPhoto(String imageUrl);
+
+        void setPhoto(String lowUrl, String highUrl);
+
+        void setImageSize(int width, int height);
     }
 
     interface Presenter extends BasePresenter {

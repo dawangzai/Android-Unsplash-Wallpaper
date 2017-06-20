@@ -13,8 +13,9 @@ import android.widget.Toast;
 
 import com.cleverzheng.wallpaper.R;
 import com.cleverzheng.wallpaper.base.ViewPagerFragment;
+import com.cleverzheng.wallpaper.operator.ImageLoaderOp;
 import com.cleverzheng.wallpaper.ui.adapter.MeGvAdapter;
-import com.cleverzheng.wallpaper.view.widget.MyDraweeView;
+import com.cleverzheng.wallpaper.view.widget.DraweeImageView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,19 +26,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * @author：cleverzheng
- * @date：2017/4/24:20:34
- * @email：zhengwang043@gmail.com
- * @description：
+ * Created by wangzai on 2017/4/24.
  */
-
 public class MeFragment extends ViewPagerFragment implements MeContract.View, AdapterView.OnItemClickListener {
 
     private static final String ITEM_ICON = "ITEM_ICON";
     private static final String ITEM_DESCRIPTION = "ITEM_DESCRIPTION";
 
     @BindView(R.id.dvUserHead)
-    MyDraweeView dvUserHead;
+    DraweeImageView dvUserHead;
     @BindView(R.id.btnLogin)
     Button btnLogin;
     @BindView(R.id.tvUserName)
@@ -84,19 +81,20 @@ public class MeFragment extends ViewPagerFragment implements MeContract.View, Ad
     public void initData() {
         super.initData();
         setMenu();
+        setUserHead("res://" + getActivity().getPackageName() + "/" + R.mipmap.ic_user);
     }
 
     @Override
     public void setUserHead(String headUrl) {
-
+        ImageLoaderOp.setRoundImage(dvUserHead, headUrl);
     }
 
     @Override
     public void setMenu() {
         String[] arrDescription = getResources().getStringArray(R.array.me_menu);
         int[] arrIcon = new int[]{
-                R.mipmap.ic_me_download_100,
-                R.mipmap.ic_me_like_100
+                R.mipmap.ic_me_download_64,
+                R.mipmap.ic_me_like_64
         };
         List<HashMap<String, Object>> mAdapterData = new ArrayList<>();
         for (int i = 0; i < arrDescription.length; i++) {

@@ -14,12 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * @author：cleverzheng
- * @date：2017/5/20:8:31
- * @email：zhengwang043@gmail.com
- * @description：
+ * Created by wangzai on 2017/5/20.
  */
-
 public class MeGvAdapter extends BaseAdapter {
     private static final String ITEM_ICON = "ITEM_ICON";
     private static final String ITEM_DESCRIPTION = "ITEM_DESCRIPTION";

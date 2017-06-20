@@ -52,10 +52,14 @@
             android:layout_above="@id/llBottom"
             android:gravity="center">
 
-            <com.cleverzheng.wallpaper.view.widget.MyDraweeView
-                android:id="@+id/dvPhoto"
+            <!--<com.cleverzheng.wallpaper.view.widget.DraweeImageView-->
+            <!--android:id="@+id/dvPhoto"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="250dp" />-->
+            <com.cleverzheng.wallpaper.view.widget.ZoomableImageView
+                android:id="@+id/zoomableImageView"
                 android:layout_width="match_parent"
-                android:layout_height="250dp" />
+                android:layout_height="match_parent" />
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

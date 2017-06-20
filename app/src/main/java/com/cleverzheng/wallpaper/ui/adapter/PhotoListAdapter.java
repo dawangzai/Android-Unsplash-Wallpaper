@@ -15,7 +15,7 @@ import com.cleverzheng.wallpaper.bean.UserBean;
 import com.cleverzheng.wallpaper.operator.ImageLoaderOp;
 import com.cleverzheng.wallpaper.ui.newest.NewestFragment;
 import com.cleverzheng.wallpaper.utils.StringUtil;
-import com.cleverzheng.wallpaper.view.widget.MyDraweeView;
+import com.cleverzheng.wallpaper.view.widget.DraweeImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,8 +77,8 @@ public class PhotoListAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.listitem_photo, parent, false);
-            holder.dvPhoto = (MyDraweeView) convertView.findViewById(R.id.dvPhoto);
-            holder.dvUserHead = (MyDraweeView) convertView.findViewById(R.id.dvUserHead);
+            holder.dvPhoto = (DraweeImageView) convertView.findViewById(R.id.dvPhoto);
+            holder.dvUserHead = (DraweeImageView) convertView.findViewById(R.id.dvUserHead);
             holder.tvUserName = (TextView) convertView.findViewById(R.id.tvUserName);
             convertView.setTag(holder);
         } else {
@@ -140,8 +140,8 @@ public class PhotoListAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
-        MyDraweeView dvPhoto;
-        MyDraweeView dvUserHead;
+        DraweeImageView dvPhoto;
+        DraweeImageView dvUserHead;
         TextView tvUserName;
     }
 }

@@ -30,6 +30,7 @@ public interface PhotoService {
      *
      * @return
      */
+    @Headers("Cache-Control: public, max-age=3600")
     @GET("photos/{id}")
     Observable<Response<PhotoBean>> getSinglePhoto(@Path("id") String id);
 }

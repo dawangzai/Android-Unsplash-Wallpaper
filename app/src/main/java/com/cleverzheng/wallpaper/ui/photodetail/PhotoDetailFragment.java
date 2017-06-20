@@ -9,7 +9,8 @@ import android.view.ViewGroup;
 import com.cleverzheng.wallpaper.R;
 import com.cleverzheng.wallpaper.base.BaseFragmentFragment;
 import com.cleverzheng.wallpaper.operator.ImageLoaderOp;
-import com.cleverzheng.wallpaper.view.widget.MyDraweeView;
+import com.cleverzheng.wallpaper.view.widget.DraweeImageView;
+import com.cleverzheng.wallpaper.view.widget.ZoomableImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,8 +19,10 @@ import butterknife.ButterKnife;
  * Created by wangzai on 2017/2/21.
  */
 public class PhotoDetailFragment extends BaseFragmentFragment implements PhotoDetailContract.View {
-    @BindView(R.id.dvPhoto)
-    MyDraweeView dvPhoto;
+    //    @BindView(R.id.dvPhoto)
+//    DraweeImageView dvPhoto;
+    @BindView(R.id.zoomableImageView)
+    ZoomableImageView zoomableImageView;
     private PhotoDetailContract.Presenter presenter;
 
     public static PhotoDetailFragment newInstance() {
@@ -50,7 +53,7 @@ public class PhotoDetailFragment extends BaseFragmentFragment implements PhotoDe
 
     @Override
     public void loadDataSuccess() {
-        
+
     }
 
     @Override
@@ -64,7 +67,25 @@ public class PhotoDetailFragment extends BaseFragmentFragment implements PhotoDe
     }
 
     @Override
-    public void setPhoto(String photoUrl) {
-        ImageLoaderOp.setImage(dvPhoto, photoUrl);
+    public void setPhoto(String lowUrl, String highUrl) {
+
+//        ImageLoaderOp.setDetailImage(dvPhoto, lowUrl, highUrl);
+//        ImageLoaderOp.setImage(dvPhoto, photoUrl);
+        ImageLoaderOp.setZoomableImage(zoomableImageView,highUrl);
+    }
+
+    @Override
+    public void setPhoto(String imageUrl) {
+//        ImageLoaderOp.setImage(dvPhoto, imageUrl);
+    }
+
+    @Override
+    public void setImageSize(int width, int height) {
+        if (zoomableImageView != null) {
+            ViewGroup.LayoutParams layoutParams = zoomableImageView.getLayoutParams();
+            layoutParams.width = width;
+            layoutParams.height = height;
+            zoomableImageView.setLayoutParams(layoutParams);
+        }
     }
 }

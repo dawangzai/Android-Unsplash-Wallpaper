@@ -8,43 +8,42 @@ import android.util.AttributeSet;
 
 import com.cleverzheng.wallpaper.R;
 import com.cleverzheng.wallpaper.utils.StringUtil;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.facebook.drawee.generic.RoundingParams;
+import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.request.ImageRequest;
 
 import java.util.Random;
 
 /**
- * @author：cleverzheng
- * @date：2017/2/17:15:55
- * @email：zhengwang043@gmail.com
- * @description：
+ * Created by wangzai on 2017/2/17.
  */
+public class DraweeImageView extends SimpleDraweeView {
 
-public class MyDraweeView extends SimpleDraweeView {
-
-    public MyDraweeView(Context context, GenericDraweeHierarchy hierarchy) {
+    public DraweeImageView(Context context, GenericDraweeHierarchy hierarchy) {
         super(context, hierarchy);
         initDraweeView();
     }
 
-    public MyDraweeView(Context context) {
+    public DraweeImageView(Context context) {
         super(context);
         initDraweeView();
     }
 
-    public MyDraweeView(Context context, AttributeSet attrs) {
+    public DraweeImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initDraweeView();
     }
 
-    public MyDraweeView(Context context, AttributeSet attrs, int defStyle) {
+    public DraweeImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         initDraweeView();
     }
 
-    public MyDraweeView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public DraweeImageView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initDraweeView();
     }
@@ -57,6 +56,7 @@ public class MyDraweeView extends SimpleDraweeView {
         setHierarchy(hierarchy);
     }
 
+
     /**
      * 加载图片
      *
@@ -66,6 +66,25 @@ public class MyDraweeView extends SimpleDraweeView {
         if (!StringUtil.isEmpty(imageUrl)) {
             Uri uri = Uri.parse(imageUrl);
             setImageURI(uri);
+        }
+    }
+
+    /**
+     * 查看大图
+     *
+     * @param lowResUrl  用于预览的低分辨率图片地址
+     * @param highResUrl 要显示的高分辨率图片地址
+     */
+    public void setDetailImage(String lowResUrl, String highResUrl) {
+        if (!StringUtil.isEmpty(lowResUrl) && !StringUtil.isEmpty(highResUrl)) {
+            Uri lowResUri = Uri.parse(lowResUrl);
+            Uri highResUri = Uri.parse(highResUrl);
+            DraweeController controller = Fresco.newDraweeControllerBuilder()
+                    .setLowResImageRequest(ImageRequest.fromUri(lowResUri))
+                    .setImageRequest(ImageRequest.fromUri(highResUri))
+                    .setOldController(getController())
+                    .build();
+            setController(controller);
         }
     }
 }

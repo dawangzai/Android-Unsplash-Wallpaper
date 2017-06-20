@@ -15,7 +15,7 @@ import com.cleverzheng.wallpaper.bean.UserBean;
 import com.cleverzheng.wallpaper.operator.ImageLoaderOp;
 import com.cleverzheng.wallpaper.ui.newest.NewestFragment;
 import com.cleverzheng.wallpaper.utils.StringUtil;
-import com.cleverzheng.wallpaper.view.widget.MyDraweeView;
+import com.cleverzheng.wallpaper.view.widget.DraweeImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,14 +122,14 @@ public class NewestListAdapter extends RecyclerView.Adapter<NewestListAdapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        MyDraweeView dvPhoto;
-        MyDraweeView dvUserHead;
+        DraweeImageView dvPhoto;
+        DraweeImageView dvUserHead;
         TextView tvUserName;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            dvPhoto = (MyDraweeView) itemView.findViewById(R.id.dvPhoto);
-            dvUserHead = (MyDraweeView) itemView.findViewById(R.id.dvUserHead);
+            dvPhoto = (DraweeImageView) itemView.findViewById(R.id.dvPhoto);
+            dvUserHead = (DraweeImageView) itemView.findViewById(R.id.dvUserHead);
             tvUserName = (TextView) itemView.findViewById(R.id.tvUserName);
         }
     }

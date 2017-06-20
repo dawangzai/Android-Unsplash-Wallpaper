@@ -36,11 +36,16 @@ public class PhotoDetailPresenter implements PhotoDetailContract.Presenter {
             @Override
             public void onSuccess(PhotoBean photoBean) {
                 if (photoBean != null) {
+                    int width = photoBean.getWidth();
+                    int height = photoBean.getHeight();
+                    photoDetailView.setImageSize(width, height);
                     UrlsBean urls = photoBean.getUrls();
                     if (urls != null) {
+                        String small = urls.getSmall();
                         String regular = urls.getRegular();
-                        if (!StringUtil.isEmpty(regular)) {
-                            photoDetailView.setPhoto(regular);
+                        if (!StringUtil.isEmpty(regular) && !StringUtil.isEmpty(small)) {
+                            photoDetailView.setPhoto(small, regular);
+//                            photoDetailView.setPhoto(regular);
                         }
                     }
                 }

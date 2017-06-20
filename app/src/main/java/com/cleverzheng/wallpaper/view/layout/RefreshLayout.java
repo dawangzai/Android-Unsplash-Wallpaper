@@ -3,11 +3,8 @@ package com.cleverzheng.wallpaper.view.layout;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
-import com.cleverzheng.wallpaper.R;
 import com.cleverzheng.wallpaper.utils.DensityUtil;
 
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -26,7 +23,7 @@ public class RefreshLayout extends PtrFrameLayout {
 
         this.initConfig();
         this.initHeader();
-//        this.initFooter();
+        this.initFooter();
     }
 
     public RefreshLayout(Context context, AttributeSet attrs) {
@@ -34,12 +31,11 @@ public class RefreshLayout extends PtrFrameLayout {
 
         this.initConfig();
         this.initHeader();
-//        this.initFooter();
+        this.initFooter();
     }
 
     private void initFooter() {
 
-//        View view = LayoutInflater.from(getContext()).inflate(R.layout.loading, null);
         MaterialHeader footer = new MaterialHeader(getContext());
         footer.setColorSchemeColors(colors);
         footer.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
