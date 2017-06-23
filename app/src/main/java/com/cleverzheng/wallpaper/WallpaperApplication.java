@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.cleverzheng.wallpaper.utils.LogUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.liulishuo.filedownloader.FileDownloader;
 
 /**
  * Created by wangzai on 2017/2/4.
@@ -19,6 +20,14 @@ public class WallpaperApplication extends Application {
 
         initLog();
         initFresco();
+        initDownload();
+    }
+
+    /**
+     * 初始化下载
+     */
+    private void initDownload() {
+        FileDownloader.init(appContext);
     }
 
     public static WallpaperApplication getInstance() {

@@ -23,6 +23,8 @@ public interface NewestContract {
         void clickPhotoDetail(String photoId);
 
         void clickUserDetail(String username);
+
+        void downloadPicture(String url);
     }
 
     interface Presenter extends BasePresenter {
@@ -33,5 +35,7 @@ public interface NewestContract {
         void openPhotoDetail(String photoId);
 
         void openUserDetail(String username);
+
+        void downloadPicture(String url);
     }
 }

@@ -5,9 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cleverzheng.wallpaper.R;
+import com.cleverzheng.wallpaper.bean.LinksBean;
 import com.cleverzheng.wallpaper.bean.PhotoBean;
 import com.cleverzheng.wallpaper.bean.ProfileImageBean;
 import com.cleverzheng.wallpaper.bean.UrlsBean;
@@ -114,6 +116,15 @@ public class NewestListAdapter extends RecyclerView.Adapter<NewestListAdapter.Vi
                 }
             }
         });
+
+        LinksBean links = photoBean.getLinks();
+        final String download = links.getDownload();
+        holder.ivDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newestFragment.downloadPicture(finalPhotoId);
+            }
+        });
     }
 
     @Override
@@ -125,12 +136,14 @@ public class NewestListAdapter extends RecyclerView.Adapter<NewestListAdapter.Vi
         DraweeImageView dvPhoto;
         DraweeImageView dvUserHead;
         TextView tvUserName;
+        ImageView ivDownload;
 
         public ViewHolder(View itemView) {
             super(itemView);
             dvPhoto = (DraweeImageView) itemView.findViewById(R.id.dvPhoto);
             dvUserHead = (DraweeImageView) itemView.findViewById(R.id.dvUserHead);
             tvUserName = (TextView) itemView.findViewById(R.id.tvUserName);
+            ivDownload = (ImageView) itemView.findViewById(R.id.ivDownload);
         }
     }
 }

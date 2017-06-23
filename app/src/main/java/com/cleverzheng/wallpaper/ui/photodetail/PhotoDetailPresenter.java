@@ -38,13 +38,16 @@ public class PhotoDetailPresenter implements PhotoDetailContract.Presenter {
                 if (photoBean != null) {
                     int width = photoBean.getWidth();
                     int height = photoBean.getHeight();
-                    photoDetailView.setImageSize(width, height);
+//                    photoDetailView.setImageSize(800, 1600);
                     UrlsBean urls = photoBean.getUrls();
                     if (urls != null) {
+                        String thumb = urls.getThumb();
                         String small = urls.getSmall();
                         String regular = urls.getRegular();
+                        String raw = urls.getRaw();
+                        String full = urls.getFull();
                         if (!StringUtil.isEmpty(regular) && !StringUtil.isEmpty(small)) {
-                            photoDetailView.setPhoto(small, regular);
+                            photoDetailView.setPhoto(thumb, full);
 //                            photoDetailView.setPhoto(regular);
                         }
                     }

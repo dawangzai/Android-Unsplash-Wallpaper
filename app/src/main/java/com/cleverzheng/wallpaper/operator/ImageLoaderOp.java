@@ -25,7 +25,7 @@ public class ImageLoaderOp {
         t.setDetailImage(lowResUrl, highResUrl);
     }
 
-    public static <T extends ZoomableImageView> void setZoomableImage(T t, String imageUrl) {
-        t.setImage(imageUrl);
+    public static <T extends ZoomableImageView> void setZoomableImage(T t, String lowResUrl, String highResUrl) {
+        t.setImage(lowResUrl, highResUrl);
     }
 }

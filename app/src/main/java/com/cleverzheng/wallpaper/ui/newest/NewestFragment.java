@@ -161,4 +161,9 @@ public class NewestFragment extends ViewPagerFragment implements NewestContract.
     public void clickUserDetail(String username) {
         mPresenter.openUserDetail(username);
     }
+
+    @Override
+    public void downloadPicture(String url) {
+        mPresenter.downloadPicture(url);
+    }
 }

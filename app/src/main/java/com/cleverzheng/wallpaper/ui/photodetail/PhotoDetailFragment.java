@@ -1,5 +1,6 @@
 package com.cleverzheng.wallpaper.ui.photodetail;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -10,10 +11,12 @@ import com.cleverzheng.wallpaper.R;
 import com.cleverzheng.wallpaper.base.BaseFragmentFragment;
 import com.cleverzheng.wallpaper.operator.ImageLoaderOp;
 import com.cleverzheng.wallpaper.view.widget.DraweeImageView;
+import com.cleverzheng.wallpaper.view.widget.PhotoImageView;
 import com.cleverzheng.wallpaper.view.widget.ZoomableImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.relex.photodraweeview.PhotoDraweeView;
 
 /**
  * Created by wangzai on 2017/2/21.
@@ -21,8 +24,10 @@ import butterknife.ButterKnife;
 public class PhotoDetailFragment extends BaseFragmentFragment implements PhotoDetailContract.View {
     //    @BindView(R.id.dvPhoto)
 //    DraweeImageView dvPhoto;
-    @BindView(R.id.zoomableImageView)
-    ZoomableImageView zoomableImageView;
+//    @BindView(R.id.zoomableImageView)
+//    ZoomableImageView zoomableImageView;
+    @BindView(R.id.photoDraweeView)
+    PhotoImageView photoDraweeView;
     private PhotoDetailContract.Presenter presenter;
 
     public static PhotoDetailFragment newInstance() {
@@ -71,7 +76,8 @@ public class PhotoDetailFragment extends BaseFragmentFragment implements PhotoDe
 
 //        ImageLoaderOp.setDetailImage(dvPhoto, lowUrl, highUrl);
 //        ImageLoaderOp.setImage(dvPhoto, photoUrl);
-        ImageLoaderOp.setZoomableImage(zoomableImageView,highUrl);
+//        ImageLoaderOp.setZoomableImage(zoomableImageView, lowUrl, highUrl);
+        photoDraweeView.setPhotoUri(Uri.parse(highUrl));
     }
 
     @Override
@@ -81,11 +87,11 @@ public class PhotoDetailFragment extends BaseFragmentFragment implements PhotoDe
 
     @Override
     public void setImageSize(int width, int height) {
-        if (zoomableImageView != null) {
-            ViewGroup.LayoutParams layoutParams = zoomableImageView.getLayoutParams();
-            layoutParams.width = width;
-            layoutParams.height = height;
-            zoomableImageView.setLayoutParams(layoutParams);
-        }
+//        if (zoomableImageView != null) {
+//            ViewGroup.LayoutParams layoutParams = zoomableImageView.getLayoutParams();
+//            layoutParams.width = width;
+//            layoutParams.height = height;
+//            zoomableImageView.setLayoutParams(layoutParams);
+//        }
     }
 }

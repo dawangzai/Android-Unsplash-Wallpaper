@@ -1,5 +1,6 @@
 package com.cleverzheng.wallpaper.http.api;
 
+import com.cleverzheng.wallpaper.bean.LinksBean;
 import com.cleverzheng.wallpaper.bean.PhotoBean;
 
 import java.util.List;
@@ -33,4 +34,7 @@ public interface PhotoService {
     @Headers("Cache-Control: public, max-age=3600")
     @GET("photos/{id}")
     Observable<Response<PhotoBean>> getSinglePhoto(@Path("id") String id);
+
+    @GET("photos/{id}/download")
+    Observable<Response<LinksBean>> getPhotoDownload(@Path("id") String id);
 }

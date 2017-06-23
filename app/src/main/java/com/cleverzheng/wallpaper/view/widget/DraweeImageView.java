@@ -5,6 +5,9 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.cleverzheng.wallpaper.R;
 import com.cleverzheng.wallpaper.utils.StringUtil;
@@ -51,11 +54,10 @@ public class DraweeImageView extends SimpleDraweeView {
     private void initDraweeView() {
         GenericDraweeHierarchyBuilder builder = new GenericDraweeHierarchyBuilder(getResources());
         GenericDraweeHierarchy hierarchy = builder
-                .setPlaceholderImage(R.color.text_nav)
+                .setPlaceholderImage(R.color.colorPrimaryLight)
                 .build();
         setHierarchy(hierarchy);
     }
-
 
     /**
      * 加载图片

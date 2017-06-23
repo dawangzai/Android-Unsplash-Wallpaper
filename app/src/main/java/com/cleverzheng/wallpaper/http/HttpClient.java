@@ -3,6 +3,7 @@ package com.cleverzheng.wallpaper.http;
 import com.cleverzheng.wallpaper.BuildConfig;
 import com.cleverzheng.wallpaper.WallpaperApplication;
 import com.cleverzheng.wallpaper.bean.CollectionBean;
+import com.cleverzheng.wallpaper.bean.LinksBean;
 import com.cleverzheng.wallpaper.bean.PhotoBean;
 import com.cleverzheng.wallpaper.bean.UserBean;
 import com.cleverzheng.wallpaper.http.api.CollectionService;
@@ -176,6 +177,14 @@ public class HttpClient {
     public void getSinglePhoto(HttpObserver<PhotoBean> observer, String id) {
         getPhotoService().getSinglePhoto(id)
                 .map(new HttpResultFunction<PhotoBean>())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    public void getPhotoDownload(HttpObserver<LinksBean> observer, String id) {
+        getPhotoService().getPhotoDownload(id)
+                .map(new HttpResultFunction<LinksBean>())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
