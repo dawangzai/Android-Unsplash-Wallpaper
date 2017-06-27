@@ -1,5 +1,7 @@
 package com.cleverzheng.wallpaper.http;
 
+import android.os.Environment;
+
 import com.cleverzheng.wallpaper.BuildConfig;
 import com.cleverzheng.wallpaper.WallpaperApplication;
 import com.cleverzheng.wallpaper.bean.CollectionBean;
@@ -18,6 +20,9 @@ import com.cleverzheng.wallpaper.utils.NetworkUtil;
 import com.cleverzheng.wallpaper.utils.ToastUtil;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -28,7 +33,12 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.Cache;
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -68,7 +78,6 @@ public class HttpClient {
     public CollectionService getCollectionService() {
         return mCollectionService == null ? configRetrofit(CollectionService.class) : mCollectionService;
     }
-
 
     private <T> T configRetrofit(Class<T> service) {
         mRetrofit = new Retrofit.Builder()
@@ -164,7 +173,76 @@ public class HttpClient {
         }
     }
 
+    /****************************************download***********************************************/
+    public void downloadFile() {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        OkHttpClient okHttpClient = builder
+                .readTimeout(5, TimeUnit.MILLISECONDS)
+                .writeTimeout(5, TimeUnit.MILLISECONDS)
+                .connectTimeout(5, TimeUnit.MILLISECONDS)
+                .build();
+        String url = "https://images.unsplash.com/photo-1421899528807-04d925f39555?\n" +
+                "ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&dl=cesar-lopez-rivadeneira-6088.jpg&s=03b3dd99abb6821e65e46a201a76ce0a";
+        Request request = new Request.Builder().url(url).addHeader("Authorization", "Client-ID " + BuildConfig.CLIENT_ID).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                LogUtil.i("download","失败");
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                ResponseBody body = response.body();
+                InputStream inputStream = response.body().byteStream();
+                InputStream is = null;
+                byte[] buf = new byte[2048];
+                int len = 0;
+                FileOutputStream fos = null;
+                try {
+                    is = response.body().byteStream();
+                    final long total = response.body().contentLength();
+
+                    long sum = 0;
+                    String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/wallpaper";
+                    File dir = new File(path);
+                    if (!dir.exists()) {
+                        dir.mkdirs();
+                    }
+                    File file = new File(dir, "download34.jpg");
+                    fos = new FileOutputStream(file);
+                    while ((len = is.read(buf)) != -1) {
+                        sum += len;
+                        fos.write(buf, 0, len);
+//                        final long finalSum = sum;
+//                        OkHttpUtils.getInstance().getDelivery().execute(new Runnable() {
+//                            @Override
+//                            public void run() {
+//
+//                                inProgress(finalSum * 1.0f / total, total, id);
+//                            }
+//                        });
+                    }
+                    fos.flush();
+
+                } finally {
+                    try {
+                        response.body().close();
+                        if (is != null) is.close();
+                    } catch (IOException e) {
+                    }
+                    try {
+                        if (fos != null) fos.close();
+                    } catch (IOException e) {
+                    }
+
+                }
+            }
+        });
+    }
+
     /****************************************PhotoService*******************************************/
+
     public void getNewestPhotoList(HttpObserver<List<PhotoBean>> observer, int page, int pre_page) {
         getPhotoService().getNewestPhotoList(page, pre_page)
                 .retryWhen(new HttpFunction())
