@@ -12,6 +12,7 @@ import com.cleverzheng.wallpaper.http.HttpClient;
 import com.cleverzheng.wallpaper.http.callback.OnResultCallback;
 import com.cleverzheng.wallpaper.http.observer.HttpObserver;
 import com.cleverzheng.wallpaper.operator.OpenActivityOp;
+import com.cleverzheng.wallpaper.utils.ActivityUtil;
 import com.wangzai.download.RxDownload;
 import com.wangzai.download.entity.DownloadStatus;
 
@@ -101,7 +102,10 @@ public class NewestPresenter implements NewestContract.Presenter {
         if (!filePath.exists()) {
             filePath.mkdirs();
         }
-        download("http://img.mukewang.com/55249cf30001ae8a06000338.jpg", path);
+
+        OpenActivityOp.openTestActivity(activity);
+
+//        download("http://img.mukewang.com/55249cf30001ae8a06000338.jpg", path);
 //        download("https://images.unsplash.com/photo-1421899528807-04d925f39555?\n" +
 //                "ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&dl=cesar-lopez-rivadeneira-6088.jpg&s=03b3dd99abb6821e65e46a201a76ce0a", path);
 //        HttpObserver<LinksBean> observer = new HttpObserver<>(new OnResultCallback<LinksBean>() {
