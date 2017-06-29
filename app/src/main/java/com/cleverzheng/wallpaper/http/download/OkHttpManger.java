@@ -1,4 +1,4 @@
-package com.cleverzheng.wallpaper.ui.test;
+package com.cleverzheng.wallpaper.http.download;
 
 import android.os.Handler;
 import android.os.Looper;

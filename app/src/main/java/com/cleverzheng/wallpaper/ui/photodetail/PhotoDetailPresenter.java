@@ -47,7 +47,7 @@ public class PhotoDetailPresenter implements PhotoDetailContract.Presenter {
                         String raw = urls.getRaw();
                         String full = urls.getFull();
                         if (!StringUtil.isEmpty(regular) && !StringUtil.isEmpty(small)) {
-                            photoDetailView.setPhoto(thumb, full);
+                            photoDetailView.setPhoto(thumb, regular);
 //                            photoDetailView.setPhoto(regular);
                         }
                     }

@@ -1,4 +1,4 @@
-package com.cleverzheng.wallpaper.ui.test;
+package com.cleverzheng.wallpaper.http.download;
 
 import java.io.IOException;
 
@@ -6,7 +6,7 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 /**
- * Created by wangzai on 2017/6/28.
+ * Created by wangzai on 2017/6/29.
  */
 
 public class OKHttpUICallback {
