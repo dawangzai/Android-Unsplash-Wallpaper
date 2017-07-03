@@ -25,9 +25,9 @@ public class PhotoImageView extends PhotoDraweeView {
 
         GenericDraweeHierarchyBuilder builder = new GenericDraweeHierarchyBuilder(getResources());
         GenericDraweeHierarchy hierarchy = builder
-                .setActualImageScaleType(ScalingUtils.ScaleType.FOCUS_CROP)
+                .setActualImageScaleType(ScalingUtils.ScaleType.FIT_CENTER)
                 .setProgressBarImage(new ProgressBarDrawable())
-                .setPlaceholderImage(R.color.colorPrimaryDark)
+//                .setPlaceholderImage(R.color.colorPrimaryDark)
                 .build();
         setHierarchy(hierarchy);
 
@@ -38,9 +38,9 @@ public class PhotoImageView extends PhotoDraweeView {
 
         GenericDraweeHierarchyBuilder builder = new GenericDraweeHierarchyBuilder(getResources());
         GenericDraweeHierarchy hierarchy = builder
-                .setActualImageScaleType(ScalingUtils.ScaleType.FOCUS_CROP)
+                .setActualImageScaleType(ScalingUtils.ScaleType.FIT_CENTER)
                 .setProgressBarImage(new ProgressBarDrawable())
-                .setPlaceholderImage(R.color.colorPrimaryDark)
+//                .setPlaceholderImage(R.color.colorPrimaryDark)
                 .build();
         setHierarchy(hierarchy);
 

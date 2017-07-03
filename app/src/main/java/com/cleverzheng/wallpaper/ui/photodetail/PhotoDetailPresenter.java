@@ -1,9 +1,11 @@
 package com.cleverzheng.wallpaper.ui.photodetail;
 
+import com.cleverzheng.wallpaper.bean.LinksBean;
 import com.cleverzheng.wallpaper.bean.PhotoBean;
 import com.cleverzheng.wallpaper.bean.UrlsBean;
 import com.cleverzheng.wallpaper.http.HttpClient;
 import com.cleverzheng.wallpaper.http.callback.OnResultCallback;
+import com.cleverzheng.wallpaper.http.download.OkHttpManger;
 import com.cleverzheng.wallpaper.http.observer.HttpObserver;
 import com.cleverzheng.wallpaper.utils.StringUtil;
 
@@ -15,6 +17,7 @@ public class PhotoDetailPresenter implements PhotoDetailContract.Presenter {
 
     private PhotoDetailContract.View photoDetailView;
     private String photoId;
+    private PhotoBean mPhotoBean;
 
     public PhotoDetailPresenter(PhotoDetailContract.View photoDetailView, String photoId) {
         this.photoDetailView = photoDetailView;
@@ -36,6 +39,7 @@ public class PhotoDetailPresenter implements PhotoDetailContract.Presenter {
             @Override
             public void onSuccess(PhotoBean photoBean) {
                 if (photoBean != null) {
+                    mPhotoBean = photoBean;
                     int width = photoBean.getWidth();
                     int height = photoBean.getHeight();
 //                    photoDetailView.setImageSize(800, 1600);
@@ -70,6 +74,21 @@ public class PhotoDetailPresenter implements PhotoDetailContract.Presenter {
     @Override
     public void download() {
 
+//        HttpObserver<LinksBean> observer = new HttpObserver<>(new OnResultCallback<LinksBean>() {
+//            @Override
+//            public void onSuccess(LinksBean linksBean) {
+//                download("https://images.unsplash.com/photo-1421899528807-04d925f39555?\n" +
+//                        "ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&dl=cesar-lopez-rivadeneira-6088.jpg&s=03b3dd99abb6821e65e46a201a76ce0a", path);
+//            }
+//
+//            @Override
+//            public void onFailed(int code, String message) {
+//
+//            }
+//        });
+//        HttpClient.getInstance().getPhotoDownload(observer, url);
+
+//        OkHttpManger.getInstance().downloadAsync();
     }
 
     @Override
