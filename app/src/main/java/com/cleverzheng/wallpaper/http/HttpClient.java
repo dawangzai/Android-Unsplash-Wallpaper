@@ -1,5 +1,6 @@
 package com.cleverzheng.wallpaper.http;
 
+import android.content.Context;
 import android.os.Environment;
 
 import com.cleverzheng.wallpaper.BuildConfig;
@@ -11,6 +12,7 @@ import com.cleverzheng.wallpaper.bean.UserBean;
 import com.cleverzheng.wallpaper.http.api.CollectionService;
 import com.cleverzheng.wallpaper.http.api.PhotoService;
 import com.cleverzheng.wallpaper.http.api.UserService;
+import com.cleverzheng.wallpaper.http.download.DownloadManager;
 import com.cleverzheng.wallpaper.http.exception.NetworkException;
 import com.cleverzheng.wallpaper.http.interceptor.NetworkCacheInterceptor;
 import com.cleverzheng.wallpaper.http.interceptor.NetworkRetryInterceptor;
@@ -59,6 +61,10 @@ public class HttpClient {
     private static PhotoService mPhotoService;
     private static UserService mUserService;
     private static CollectionService mCollectionService;
+
+    public static void initDownloadEnvironment(Context context, int threadCount) {
+        DownloadManager.getInstance().init(context, threadCount);
+    }
 
     public static HttpClient getInstance() {
         if (mClient == null) {
@@ -188,7 +194,7 @@ public class HttpClient {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                LogUtil.i("download","失败");
+                LogUtil.i("download", "失败");
             }
 
             @Override

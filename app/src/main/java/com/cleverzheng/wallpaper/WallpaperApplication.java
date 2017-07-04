@@ -2,6 +2,7 @@ package com.cleverzheng.wallpaper;
 
 import android.app.Application;
 
+import com.cleverzheng.wallpaper.http.HttpClient;
 import com.cleverzheng.wallpaper.utils.LogUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
@@ -18,6 +19,11 @@ public class WallpaperApplication extends Application {
 
         initLog();
         initFresco();
+        initDownload();
+    }
+
+    private void initDownload() {
+        HttpClient.initDownloadEnvironment(this, 2);
     }
 
     public static WallpaperApplication getInstance() {
