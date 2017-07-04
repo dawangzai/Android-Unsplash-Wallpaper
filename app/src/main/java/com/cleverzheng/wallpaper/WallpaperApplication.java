@@ -1,7 +1,6 @@
 package com.cleverzheng.wallpaper;
 
 import android.app.Application;
-import android.content.Context;
 
 import com.cleverzheng.wallpaper.utils.LogUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;

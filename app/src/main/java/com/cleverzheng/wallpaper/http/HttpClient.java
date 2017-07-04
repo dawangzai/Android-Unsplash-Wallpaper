@@ -10,12 +10,11 @@ import com.cleverzheng.wallpaper.http.api.CollectionService;
 import com.cleverzheng.wallpaper.http.api.PhotoService;
 import com.cleverzheng.wallpaper.http.api.UserService;
 import com.cleverzheng.wallpaper.http.exception.NetworkException;
+import com.cleverzheng.wallpaper.http.interceptor.CacheInterceptor;
 import com.cleverzheng.wallpaper.http.interceptor.NetworkCacheInterceptor;
-import com.cleverzheng.wallpaper.http.interceptor.NetworkRetryInterceptor;
 import com.cleverzheng.wallpaper.http.observer.HttpObserver;
 import com.cleverzheng.wallpaper.utils.LogUtil;
 import com.cleverzheng.wallpaper.utils.NetworkUtil;
-import com.cleverzheng.wallpaper.utils.ToastUtil;
 
 import java.io.File;
 import java.util.List;
@@ -33,8 +32,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 /**
  * Created by wangzai on 2017/5/25.
@@ -88,15 +85,17 @@ public class HttpClient {
             okHttpClient.addInterceptor(logConfig());
         }
 
-        if (NetworkUtil.isConnected()) {
-            if (NetworkUtil.isAvailableByPing()) {
-                okHttpClient.addNetworkInterceptor(new NetworkCacheInterceptor());
-            } else {
-                okHttpClient.addInterceptor(new NetworkCacheInterceptor());
-            }
-        } else {
-            okHttpClient.addInterceptor(new NetworkCacheInterceptor());
-        }
+//        if (NetworkUtil.isConnected()) {
+//            if (NetworkUtil.isAvailableByPing()) {
+//                okHttpClient.addNetworkInterceptor(new NetworkCacheInterceptor());
+//            } else {
+//                okHttpClient.addInterceptor(new NetworkCacheInterceptor());
+//            }
+//        } else {
+//            okHttpClient.addInterceptor(new NetworkCacheInterceptor());
+//        }
+        okHttpClient.addNetworkInterceptor(new CacheInterceptor());
+//        okHttpClient.addInterceptor(new CacheInterceptor());
         okHttpClient.cache(cacheConfig());
 
         return okHttpClient.build();
@@ -124,7 +123,9 @@ public class HttpClient {
      * @return
      */
     private Cache cacheConfig() {
-        File cacheDir = new File(WallpaperApplication.getInstance().getCacheDir(), "responses");
+        //缓存目录 \data\data\包名\cache\api_cache
+        File cacheDir = new File(WallpaperApplication.getInstance().getCacheDir(), "api_cache");
+        //缓存空间 10M
         int cacheSize = 10 * 1024 * 1024;
         Cache cache = new Cache(cacheDir, cacheSize);
         return cache;

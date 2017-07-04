@@ -4,8 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
-
 /**
  * Created by wangzai on 2017/5/22.
  */

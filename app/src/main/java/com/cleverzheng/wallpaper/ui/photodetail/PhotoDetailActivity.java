@@ -3,7 +3,6 @@ package com.cleverzheng.wallpaper.ui.photodetail;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.widget.FrameLayout;
 
 import com.cleverzheng.wallpaper.R;

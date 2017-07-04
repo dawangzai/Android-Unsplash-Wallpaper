@@ -9,14 +9,10 @@ import android.view.ViewGroup;
 
 import com.cleverzheng.wallpaper.R;
 import com.cleverzheng.wallpaper.base.BaseFragmentFragment;
-import com.cleverzheng.wallpaper.operator.ImageLoaderOp;
-import com.cleverzheng.wallpaper.view.widget.DraweeImageView;
 import com.cleverzheng.wallpaper.view.widget.PhotoImageView;
-import com.cleverzheng.wallpaper.view.widget.ZoomableImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import me.relex.photodraweeview.PhotoDraweeView;
 
 /**
  * Created by wangzai on 2017/2/21.

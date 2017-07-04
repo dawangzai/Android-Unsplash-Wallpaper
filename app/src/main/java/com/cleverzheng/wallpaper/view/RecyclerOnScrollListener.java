@@ -1,9 +1,7 @@
 package com.cleverzheng.wallpaper.view;
 
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import com.cleverzheng.wallpaper.utils.LogUtil;
 

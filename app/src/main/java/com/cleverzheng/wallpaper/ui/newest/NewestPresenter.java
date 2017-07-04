@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Environment;
 
 import com.cleverzheng.wallpaper.MainActivity;
-import com.cleverzheng.wallpaper.bean.LinksBean;
 import com.cleverzheng.wallpaper.bean.PhotoBean;
 import com.cleverzheng.wallpaper.global.Constant;
 import com.cleverzheng.wallpaper.http.HttpClient;
@@ -14,10 +13,7 @@ import com.cleverzheng.wallpaper.operator.OpenActivityOp;
 import com.cleverzheng.wallpaper.utils.LogUtil;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
-import com.liulishuo.filedownloader.FileDownloadSampleListener;
 import com.liulishuo.filedownloader.FileDownloader;
-import com.liulishuo.filedownloader.notification.BaseNotificationItem;
-import com.liulishuo.filedownloader.notification.FileDownloadNotificationListener;
 
 import java.io.File;
 import java.util.List;

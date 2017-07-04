@@ -3,7 +3,6 @@ package com.cleverzheng.wallpaper.ui.collection;
 import com.cleverzheng.wallpaper.base.BasePresenter;
 import com.cleverzheng.wallpaper.base.BaseView;
 import com.cleverzheng.wallpaper.bean.CollectionBean;
-import com.cleverzheng.wallpaper.bean.PhotoBean;
 
 import java.util.List;
 

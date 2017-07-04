@@ -7,8 +7,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.cleverzheng.wallpaper.R;
-
 /**
  * @author：cleverzheng
  * @date：2017/2/26:10:14
