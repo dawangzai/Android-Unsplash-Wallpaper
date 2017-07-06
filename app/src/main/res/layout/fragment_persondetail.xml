@@ -13,6 +13,7 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
+            app:navigationIcon="?attr/homeAsUpIndicator"
             android:id="@+id/collapsingToolbar"
             android:layout_width="match_parent"
             android:layout_height="220dp"
@@ -24,35 +25,46 @@
             app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fitsSystemWindows="true">
+            <!--<FrameLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:fitsSystemWindows="true">-->
 
-                <com.cleverzheng.wallpaper.view.widget.DraweeImageView
-                    android:id="@+id/dvBg"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fitsSystemWindows="true"
-                    android:scaleType="centerCrop" />
+            <!--<com.cleverzheng.wallpaper.view.widget.DraweeImageView-->
+            <!--android:id="@+id/dvBg"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:fitsSystemWindows="true"-->
+            <!--android:scaleType="centerCrop" />-->
 
-                <com.cleverzheng.wallpaper.view.widget.DraweeImageView
-                    android:id="@+id/dvUserHead"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_gravity="center"
-                    android:fitsSystemWindows="true"
-                    android:scaleType="centerCrop" />
+            <!--<com.cleverzheng.wallpaper.view.widget.DraweeImageView-->
+            <!--android:id="@+id/dvUserHead"-->
+            <!--android:layout_width="70dp"-->
+            <!--android:layout_height="70dp"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:fitsSystemWindows="true"-->
+            <!--android:scaleType="centerCrop" />-->
 
-            </FrameLayout>
+            <!--</FrameLayout>-->
 
+            <include layout="@layout/user_detail_info" />
+
+            <!--android:navigationIcon="@mipmap/ic_action_return"-->
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:fitsSystemWindows="true"
+                app:navigationIcon="?attr/homeAsUpIndicator"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Clock" />
+
+                </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -72,9 +84,8 @@
             app:tabPaddingTop="10dp"
             app:tabSelectedTextColor="@color/color_03e5bd"
             app:tabTextAppearance="@style/Base.TextAppearance.AppCompat.Small"
-            app:tabTextColor="@color/bg_ffffff">
+            app:tabTextColor="@color/bg_ffffff" />
 
-        </android.support.design.widget.TabLayout>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager

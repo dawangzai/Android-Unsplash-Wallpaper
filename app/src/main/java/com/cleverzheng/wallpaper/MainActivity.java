@@ -66,7 +66,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void initData() {
-        setMainToolbar("美图");
+        setMainToolbar(getString(R.string.app_name));
         initBottomTab();
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
         vpContent.setAdapter(adapter);

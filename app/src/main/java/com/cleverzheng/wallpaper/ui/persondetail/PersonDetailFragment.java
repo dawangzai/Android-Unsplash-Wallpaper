@@ -1,5 +1,6 @@
 package com.cleverzheng.wallpaper.ui.persondetail;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -93,11 +94,19 @@ public class PersonDetailFragment extends BaseFragmentFragment implements Person
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.fragment_persondetail);
 //        ButterKnife.bind(this, getContentView());
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            //透明状态栏
-            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            //透明导航栏
-            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            //透明状态栏
+//            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//            //透明导航栏
+//            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//        }
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            View decorView = getActivity().getWindow().getDecorView();
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(option);
+            getActivity().getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
     }
 
@@ -113,8 +122,8 @@ public class PersonDetailFragment extends BaseFragmentFragment implements Person
     public void initData() {
         super.initData();
         if (collapsingToolbar != null) {
-            toolbar.setNavigationIcon(R.mipmap.ic_action_return);
-            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+//            toolbar.setNavigationIcon(R.mipmap.ic_action_return);
+//            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -199,7 +208,7 @@ public class PersonDetailFragment extends BaseFragmentFragment implements Person
                 if (urls != null) {
                     String regular = urls.getRegular();
                     if (!StringUtil.isEmpty(regular)) {
-                        ImageLoaderOp.setImage(dvBg, regular);
+//                        ImageLoaderOp.setImage(dvBg, regular);
                     }
                 }
             }
@@ -212,7 +221,7 @@ public class PersonDetailFragment extends BaseFragmentFragment implements Person
             }
             String name = userBean.getName();
             if (!StringUtil.isEmpty(name)) {
-                collapsingToolbar.setTitle(name);
+//                collapsingToolbar.setTitle(name);
             }
         }
     }
