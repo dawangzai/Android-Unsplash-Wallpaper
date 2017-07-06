@@ -1,9 +1,11 @@
 package com.cleverzheng.wallpaper.ui.adapter;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cleverzheng.wallpaper.R;
@@ -14,6 +16,7 @@ import com.cleverzheng.wallpaper.bean.UrlsBean;
 import com.cleverzheng.wallpaper.bean.UserBean;
 import com.cleverzheng.wallpaper.operator.ImageLoaderOp;
 import com.cleverzheng.wallpaper.ui.collection.CollectionFragment;
+import com.cleverzheng.wallpaper.utils.ColorUtil;
 import com.cleverzheng.wallpaper.utils.StringUtil;
 import com.cleverzheng.wallpaper.view.widget.DraweeImageView;
 
@@ -21,10 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author：cleverzheng
- * @date：2017/2/24:10:03
- * @email：zhengwang043@gmail.com
- * @description：
+ * Created by wangzai on 2017/2/24.
  */
 
 public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAdapter.ViewHolder> {
@@ -66,6 +66,7 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.llDesc.setBackgroundColor(Color.parseColor(ColorUtil.getRandomColor()));
         CollectionBean collectionBean = collectionBeanList.get(position);
         if (collectionBean != null) {
             CoverPhotoBean cover_photo = collectionBean.getCover_photo();
@@ -82,6 +83,12 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
             String title = collectionBean.getTitle();
             if (!StringUtil.isEmpty(title)) {
                 holder.tvTitle.setText(title);
+                holder.tvCollectionsName.setText(title);
+            }
+
+            int total_photos = collectionBean.getTotal_photos();
+            if (total_photos > 0) {
+                holder.tvCollectionsImages.setText(total_photos + "张");
             }
 
             UserBean user = collectionBean.getUser();
@@ -112,6 +119,9 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
         DraweeImageView dvUserHead;
         TextView tvUserName;
         TextView tvTitle;
+        LinearLayout llDesc;
+        TextView tvCollectionsName;
+        TextView tvCollectionsImages;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -120,6 +130,10 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
             dvUserHead = (DraweeImageView) itemView.findViewById(R.id.dvUserHead);
             tvUserName = (TextView) itemView.findViewById(R.id.tvUserName);
             tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
+            llDesc = (LinearLayout) itemView.findViewById(R.id.llDesc);
+
+            tvCollectionsName = (TextView) itemView.findViewById(R.id.tvCollectionsName);
+            tvCollectionsImages = (TextView) itemView.findViewById(R.id.tvCollectionsImages);
         }
     }
 }

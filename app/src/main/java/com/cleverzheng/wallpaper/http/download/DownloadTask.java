@@ -4,7 +4,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
+import java.io.IOException;
+
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Created by wangzai on 2017/7/4.
@@ -63,7 +67,12 @@ public class DownloadTask implements Runnable {
 
     @Override
     public void run() {
-
+//        Request request = new Request();
+//        try {
+//            Response execute = mClient.newCall(request).execute();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public TaskEntity getTaskEntity() {

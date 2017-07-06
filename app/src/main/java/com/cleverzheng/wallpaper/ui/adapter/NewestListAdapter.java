@@ -17,6 +17,7 @@ import com.cleverzheng.wallpaper.bean.UserBean;
 import com.cleverzheng.wallpaper.operator.ImageLoaderOp;
 import com.cleverzheng.wallpaper.ui.newest.NewestFragment;
 import com.cleverzheng.wallpaper.utils.StringUtil;
+import com.cleverzheng.wallpaper.utils.ToastUtil;
 import com.cleverzheng.wallpaper.view.widget.DraweeImageView;
 
 import java.util.ArrayList;
@@ -119,10 +120,22 @@ public class NewestListAdapter extends RecyclerView.Adapter<NewestListAdapter.Vi
 
         LinksBean links = photoBean.getLinks();
         final String download = links.getDownload();
-        holder.ivDownload.setOnClickListener(new View.OnClickListener() {
+        holder.ivAddCollect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                newestFragment.downloadPicture(finalPhotoId);
+//                newestFragment.downloadPicture(finalPhotoId);
+                ToastUtil.showShort(R.string.login_note);
+            }
+        });
+
+        int likes = photoBean.getLikes();
+        if (likes > 0) {
+            holder.tvLike.setText(String.valueOf(likes));
+        }
+        holder.tvLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtil.showShort(R.string.login_note);
             }
         });
     }
@@ -136,14 +149,16 @@ public class NewestListAdapter extends RecyclerView.Adapter<NewestListAdapter.Vi
         DraweeImageView dvPhoto;
         DraweeImageView dvUserHead;
         TextView tvUserName;
-        ImageView ivDownload;
+        ImageView ivAddCollect;
+        TextView tvLike;
 
         public ViewHolder(View itemView) {
             super(itemView);
             dvPhoto = (DraweeImageView) itemView.findViewById(R.id.dvPhoto);
             dvUserHead = (DraweeImageView) itemView.findViewById(R.id.dvUserHead);
             tvUserName = (TextView) itemView.findViewById(R.id.tvUserName);
-            ivDownload = (ImageView) itemView.findViewById(R.id.ivDownload);
+            ivAddCollect = (ImageView) itemView.findViewById(R.id.ivAddCollect);
+            tvLike = (TextView) itemView.findViewById(R.id.tvLike);
         }
     }
 }

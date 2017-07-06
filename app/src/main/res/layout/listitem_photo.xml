@@ -61,9 +61,10 @@
                 android:paddingRight="20dp">
 
                 <TextView
+                    android:id="@+id/tvLike"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/ic_favorite_border_black_24dp"
+                    android:drawableLeft="@drawable/ic_like_gray_20"
                     android:drawablePadding="5dp"
                     android:gravity="center_vertical"
                     android:text="1008" />
@@ -73,10 +74,10 @@
                     android:layout_height="match_parent" />
 
                 <ImageView
-                    android:id="@+id/ivDownload"
+                    android:id="@+id/ivAddCollect"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_file_download_black_24dp" />
+                    android:src="@drawable/ic_add_gray_20" />
 
             </LinearLayout>
         </RelativeLayout>

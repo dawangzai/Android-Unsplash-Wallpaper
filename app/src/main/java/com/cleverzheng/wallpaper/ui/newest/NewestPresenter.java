@@ -2,29 +2,17 @@ package com.cleverzheng.wallpaper.ui.newest;
 
 import android.app.Activity;
 import android.os.Environment;
-import android.util.Log;
 
 import com.cleverzheng.wallpaper.MainActivity;
-import com.cleverzheng.wallpaper.bean.LinksBean;
 import com.cleverzheng.wallpaper.bean.PhotoBean;
 import com.cleverzheng.wallpaper.global.Constant;
 import com.cleverzheng.wallpaper.http.HttpClient;
 import com.cleverzheng.wallpaper.http.callback.OnResultCallback;
 import com.cleverzheng.wallpaper.http.observer.HttpObserver;
 import com.cleverzheng.wallpaper.operator.OpenActivityOp;
-import com.cleverzheng.wallpaper.utils.ActivityUtil;
-import com.wangzai.download.RxDownload;
-import com.wangzai.download.entity.DownloadStatus;
 
 import java.io.File;
 import java.util.List;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by wangzai on 2017/2/12.
@@ -91,7 +79,8 @@ public class NewestPresenter implements NewestContract.Presenter {
 
     @Override
     public void openUserDetail(String username) {
-        OpenActivityOp.openPersonDetailActivity(activity, username);
+//        OpenActivityOp.openPersonDetailActivity(activity, username);
+        OpenActivityOp.openTestActivity(activity);
     }
 
     @Override
@@ -125,26 +114,26 @@ public class NewestPresenter implements NewestContract.Presenter {
 //        httpClient.downloadFile();
     }
 
-    private void download(String url, String path) {
-        Disposable disposable = RxDownload.getInstance(activity)
-                .download(url, "download5.jpg", path)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<DownloadStatus>() {
-                    @Override
-                    public void accept(@NonNull DownloadStatus downloadStatus) throws Exception {
-                        Log.i("download", "downloadStatus");
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(@NonNull Throwable throwable) throws Exception {
-                        Log.i("download", "throwable");
-                    }
-                }, new Action() {
-                    @Override
-                    public void run() throws Exception {
-                        Log.i("download", "run");
-                    }
-                });
-    }
+//    private void download(String url, String path) {
+//        Disposable disposable = RxDownload.getInstance(activity)
+//                .download(url, "download5.jpg", path)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Consumer<DownloadStatus>() {
+//                    @Override
+//                    public void accept(@NonNull DownloadStatus downloadStatus) throws Exception {
+//                        Log.i("download", "downloadStatus");
+//                    }
+//                }, new Consumer<Throwable>() {
+//                    @Override
+//                    public void accept(@NonNull Throwable throwable) throws Exception {
+//                        Log.i("download", "throwable");
+//                    }
+//                }, new Action() {
+//                    @Override
+//                    public void run() throws Exception {
+//                        Log.i("download", "run");
+//                    }
+//                });
+//    }
 }
