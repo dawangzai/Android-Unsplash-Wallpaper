@@ -58,8 +58,6 @@ public class ZoomableImageView extends ZoomableDraweeView {
                 .build();
         setHierarchy(hierarchy);
 
-
-
         //允许缩放时切换
         setAllowTouchInterceptionWhileZoomed(true);
         //长按

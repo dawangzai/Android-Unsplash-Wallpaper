@@ -2,11 +2,14 @@ package com.cleverzheng.wallpaper.view.widget;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.util.AttributeSet;
 
 import com.cleverzheng.wallpaper.R;
 import com.cleverzheng.wallpaper.utils.StringUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.drawable.ProgressBarDrawable;
+import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.facebook.drawee.interfaces.DraweeController;
@@ -79,6 +82,27 @@ public class DraweeImageView extends SimpleDraweeView {
                     .setOldController(getController())
                     .build();
             setController(controller);
+        }
+    }
+
+    public void setRoundedCornerImage(String imageUrl, Context context) {
+        if (!StringUtil.isEmpty(imageUrl)) {
+
+//            GenericDraweeHierarchyBuilder builder = new GenericDraweeHierarchyBuilder(getResources());
+//            GenericDraweeHierarchy hierarchy = builder
+//                    .setActualImageScaleType(ScalingUtils.ScaleType.CENTER)
+//                    .build();
+//            setHierarchy(hierarchy);
+
+            RoundingParams roundingParams = RoundingParams.fromCornersRadius(15f);
+            // alternatively use fromCornersRadii or asCircle
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                roundingParams.setOverlayColor(context.getColor(R.color.color_55000000));
+            }
+            GenericDraweeHierarchy hierarchy = getHierarchy();
+            hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER);
+            hierarchy.setRoundingParams(roundingParams);
+            setImage(imageUrl);
         }
     }
 }

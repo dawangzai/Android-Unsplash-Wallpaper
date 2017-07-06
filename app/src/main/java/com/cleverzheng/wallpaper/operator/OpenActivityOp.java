@@ -6,6 +6,7 @@ import android.content.Intent;
 import com.cleverzheng.wallpaper.global.Constant;
 import com.cleverzheng.wallpaper.ui.persondetail.PersonDetailActivity;
 import com.cleverzheng.wallpaper.ui.photodetail.PhotoDetailActivity;
+import com.cleverzheng.wallpaper.ui.test.TestActivity;
 
 /**
  * @author：cleverzheng
@@ -32,6 +33,12 @@ public class OpenActivityOp {
     public static void openPersonDetailActivity(Activity activity, String username) {
         Intent intent = new Intent(activity, PersonDetailActivity.class);
         intent.putExtra(Constant.Intent.INTENT_DATA_ONE, username);
+        activity.startActivity(intent);
+        openActivityStyle(activity);
+    }
+
+    public static void openTestActivity(Activity activity) {
+        Intent intent = new Intent(activity, TestActivity.class);
         activity.startActivity(intent);
         openActivityStyle(activity);
     }

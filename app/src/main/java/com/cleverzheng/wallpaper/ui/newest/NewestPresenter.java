@@ -2,6 +2,7 @@ package com.cleverzheng.wallpaper.ui.newest;
 
 import android.app.Activity;
 import android.os.Environment;
+import android.util.Log;
 
 import com.cleverzheng.wallpaper.MainActivity;
 import com.cleverzheng.wallpaper.bean.PhotoBean;
@@ -10,13 +11,19 @@ import com.cleverzheng.wallpaper.http.HttpClient;
 import com.cleverzheng.wallpaper.http.callback.OnResultCallback;
 import com.cleverzheng.wallpaper.http.observer.HttpObserver;
 import com.cleverzheng.wallpaper.operator.OpenActivityOp;
-import com.cleverzheng.wallpaper.utils.LogUtil;
-import com.liulishuo.filedownloader.BaseDownloadTask;
-import com.liulishuo.filedownloader.FileDownloadListener;
-import com.liulishuo.filedownloader.FileDownloader;
+import com.cleverzheng.wallpaper.utils.ActivityUtil;
+import com.wangzai.download.RxDownload;
+import com.wangzai.download.entity.DownloadStatus;
 
 import java.io.File;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by wangzai on 2017/2/12.
@@ -88,17 +95,23 @@ public class NewestPresenter implements NewestContract.Presenter {
 
     @Override
     public void downloadPicture(String url) {
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/wallpaper";
+        final String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/wallpaper";
         File externalStorageDirectory = Environment.getExternalStorageDirectory();
         File filePath = new File(path);
         if (!filePath.exists()) {
             filePath.mkdirs();
         }
 
+        OpenActivityOp.openTestActivity(activity);
+
+//        download("http://img.mukewang.com/55249cf30001ae8a06000338.jpg", path);
+//        download("https://images.unsplash.com/photo-1421899528807-04d925f39555?\n" +
+//                "ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&dl=cesar-lopez-rivadeneira-6088.jpg&s=03b3dd99abb6821e65e46a201a76ce0a", path);
 //        HttpObserver<LinksBean> observer = new HttpObserver<>(new OnResultCallback<LinksBean>() {
 //            @Override
 //            public void onSuccess(LinksBean linksBean) {
-//
+//                download("https://images.unsplash.com/photo-1421899528807-04d925f39555?\n" +
+//                        "ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&dl=cesar-lopez-rivadeneira-6088.jpg&s=03b3dd99abb6821e65e46a201a76ce0a", path);
 //            }
 //
 //            @Override
@@ -107,38 +120,30 @@ public class NewestPresenter implements NewestContract.Presenter {
 //            }
 //        });
 //        httpClient.getPhotoDownload(observer, url);
-        FileDownloader.getImpl().create("https://images.unsplash.com/photo-1497968021412-a86898ccbc4a?ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&s=a4ca3749b929683efef2f8d2a7b6a62e")
-                .setPath(path)
-                .setListener(new FileDownloadListener() {
-                    @Override
-                    protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        LogUtil.i("download", "pending");
-                    }
 
-                    @Override
-                    protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        LogUtil.i("download", soFarBytes + "-----" + totalBytes);
-                    }
+//        httpClient.downloadFile();
+    }
 
+    private void download(String url, String path) {
+        Disposable disposable = RxDownload.getInstance(activity)
+                .download(url, "download5.jpg", path)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<DownloadStatus>() {
                     @Override
-                    protected void completed(BaseDownloadTask task) {
-                        LogUtil.i("download", "完成");
+                    public void accept(@NonNull DownloadStatus downloadStatus) throws Exception {
+                        Log.i("download", "downloadStatus");
                     }
-
+                }, new Consumer<Throwable>() {
                     @Override
-                    protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        LogUtil.i("download", "paused");
+                    public void accept(@NonNull Throwable throwable) throws Exception {
+                        Log.i("download", "throwable");
                     }
-
+                }, new Action() {
                     @Override
-                    protected void error(BaseDownloadTask task, Throwable e) {
-                        LogUtil.i("download", "完error成");
+                    public void run() throws Exception {
+                        Log.i("download", "run");
                     }
-
-                    @Override
-                    protected void warn(BaseDownloadTask task) {
-                        LogUtil.i("download", "warn");
-                    }
-                }).start();
+                });
     }
 }

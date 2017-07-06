@@ -2,9 +2,9 @@ package com.cleverzheng.wallpaper;
 
 import android.app.Application;
 
+import com.cleverzheng.wallpaper.http.HttpClient;
 import com.cleverzheng.wallpaper.utils.LogUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.liulishuo.filedownloader.FileDownloader;
 
 /**
  * Created by wangzai on 2017/2/4.
@@ -22,11 +22,8 @@ public class WallpaperApplication extends Application {
         initDownload();
     }
 
-    /**
-     * 初始化下载
-     */
     private void initDownload() {
-        FileDownloader.init(appContext);
+        HttpClient.initDownloadEnvironment(this, 2);
     }
 
     public static WallpaperApplication getInstance() {
