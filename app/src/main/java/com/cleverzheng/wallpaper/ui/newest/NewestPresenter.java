@@ -79,8 +79,8 @@ public class NewestPresenter implements NewestContract.Presenter {
 
     @Override
     public void openUserDetail(String username) {
-//        OpenActivityOp.openPersonDetailActivity(activity, username);
-        OpenActivityOp.openTestActivity(activity);
+        OpenActivityOp.openPersonDetailActivity(activity, username);
+//        OpenActivityOp.openTestActivity(activity);
     }
 
     @Override

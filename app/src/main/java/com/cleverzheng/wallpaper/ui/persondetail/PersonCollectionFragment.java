@@ -10,8 +10,10 @@ import android.view.ViewGroup;
 
 import com.cleverzheng.wallpaper.R;
 import com.cleverzheng.wallpaper.base.BaseFragmentFragment;
+import com.cleverzheng.wallpaper.base.ViewPagerFragment;
 import com.cleverzheng.wallpaper.bean.CollectionBean;
 import com.cleverzheng.wallpaper.ui.adapter.PersonCollectionsAdapter;
+import com.cleverzheng.wallpaper.utils.LogUtil;
 
 import java.util.List;
 
@@ -19,13 +21,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * @author：cleverzheng
- * @date：2017/3/7:11:43
- * @email：zhengwang043@gmail.com
- * @description：
+ * Created by wangzai on 2017/3/7.
  */
 
-public class PersonCollectionFragment extends BaseFragmentFragment {
+public class PersonCollectionFragment extends ViewPagerFragment {
+    private PersonDetailContract.Presenter mPresent;
     @BindView(R.id.rvPersonCollections)
     RecyclerView rvPersonCollections;
     private PersonCollectionsAdapter mAdapter;
@@ -39,8 +39,10 @@ public class PersonCollectionFragment extends BaseFragmentFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.fragment_person_collection);
-//        ButterKnife.bind(this, getContentView());
+    }
+
+    public void setPresent(PersonDetailContract.Presenter present) {
+        this.mPresent = present;
     }
 
     @Nullable
@@ -49,6 +51,17 @@ public class PersonCollectionFragment extends BaseFragmentFragment {
         View view = inflater.inflate(R.layout.fragment_person_collection, container, false);
         ButterKnife.bind(this, view);
         return view;
+    }
+
+    @Override
+    protected void onFragmentVisibleChange(boolean isVisible) {
+        LogUtil.i("viewpagerfragment", "------PersonCollectionFragment------onFragmentVisibleChange------" + isVisible);
+        super.onFragmentVisibleChange(isVisible);
+        if (isVisible) {
+            if (mPresent != null) {
+                mPresent.getPersonCollections();
+            }
+        }
     }
 
     @Override

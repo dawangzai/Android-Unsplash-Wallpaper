@@ -108,6 +108,7 @@ public class HttpClient {
                 okHttpClient.addNetworkInterceptor(new NetworkCacheInterceptor());
             } else {
                 okHttpClient.addInterceptor(new NetworkCacheInterceptor());
+//                okHttpClient.addNetworkInterceptor(new NetworkCacheInterceptor());
             }
         } else {
             okHttpClient.addInterceptor(new NetworkCacheInterceptor());
