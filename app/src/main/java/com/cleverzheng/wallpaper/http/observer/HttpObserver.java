@@ -3,7 +3,6 @@ package com.cleverzheng.wallpaper.http.observer;
 import com.cleverzheng.wallpaper.http.callback.OnResultCallback;
 import com.cleverzheng.wallpaper.http.exception.NetworkException;
 import com.cleverzheng.wallpaper.utils.LogUtil;
-import com.cleverzheng.wallpaper.utils.StringUtil;
 import com.cleverzheng.wallpaper.utils.ToastUtil;
 
 import io.reactivex.Observer;

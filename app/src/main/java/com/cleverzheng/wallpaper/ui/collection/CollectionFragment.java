@@ -13,6 +13,7 @@ import com.cleverzheng.wallpaper.base.ViewPagerFragment;
 import com.cleverzheng.wallpaper.bean.CollectionBean;
 import com.cleverzheng.wallpaper.global.Constant;
 import com.cleverzheng.wallpaper.listener.OnNetworkErrorListener;
+import com.cleverzheng.wallpaper.operator.OpenActivityOp;
 import com.cleverzheng.wallpaper.ui.adapter.CollectionListAdapter;
 import com.cleverzheng.wallpaper.utils.LogUtil;
 import com.cleverzheng.wallpaper.view.layout.RefreshLayout;
@@ -83,7 +84,7 @@ public class CollectionFragment extends ViewPagerFragment implements CollectionC
 
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
-        LogUtil.i(getTAG(), "------collectionfragment------onFragmentVisibleChange------"+isVisible);
+        LogUtil.i(getTAG(), "------collectionfragment------onFragmentVisibleChange------" + isVisible);
         super.onFragmentVisibleChange(isVisible);
         if (isVisible) {
             showLoadingView();
@@ -140,5 +141,10 @@ public class CollectionFragment extends ViewPagerFragment implements CollectionC
         if (collectionBeanList != null && collectionBeanList.size() > 0) {
             adapter.loadMoreData(collectionBeanList);
         }
+    }
+
+    @Override
+    public void clickCollectionDetail(int collectionId) {
+        OpenActivityOp.openCollectionDetailActivity(this.getActivity(), collectionId);
     }
 }

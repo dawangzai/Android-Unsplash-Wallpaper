@@ -284,7 +284,7 @@ public class HttpClient {
                 .subscribe(observer);
     }
 
-    public void getSingleCollection(HttpObserver<CollectionBean> observer, String id) {
+    public void getSingleCollection(HttpObserver<CollectionBean> observer, int id) {
         getCollectionService().getSingleCollection(id)
                 .map(new HttpResultFunction<CollectionBean>())
                 .subscribeOn(Schedulers.io())
@@ -292,7 +292,7 @@ public class HttpClient {
                 .subscribe(observer);
     }
 
-    public void getCollectionPhotoList(HttpObserver<List<PhotoBean>> observer, String id) {
+    public void getCollectionPhotoList(HttpObserver<List<PhotoBean>> observer, int id) {
         getCollectionService().getCollectionPhotoList(id)
                 .map(new HttpResultFunction<List<PhotoBean>>())
                 .subscribeOn(Schedulers.io())

@@ -1,10 +1,7 @@
 package com.cleverzheng.wallpaper.global;
 
 /**
- * @author：cleverzheng
- * @date：2017/2/18:15:32
- * @email：zhengwang043@gmail.com
- * @description：全局的常亮
+ * Created by wangzai on 2017/2/18.
  */
 
 public class Constant {
@@ -20,5 +17,11 @@ public class Constant {
 
     public static class Arguments {
         public final static String ARGUMENT_DATA_ONE = "ARGUMENT_DATA_ONE";
+    }
+
+    public static class PhotoListAdapterType {
+        public final static int NEWEST = 0;
+        public final static int PHOTO_DETAIL = 1;
+        public final static int COLLECTION_DETAIL = 2;
     }
 }

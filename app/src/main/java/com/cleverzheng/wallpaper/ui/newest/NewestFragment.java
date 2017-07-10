@@ -134,7 +134,7 @@ public class NewestFragment extends ViewPagerFragment implements NewestContract.
             return;
         } else {
             if (mAdapter == null) {
-                mAdapter = new NewestListAdapter(this);
+                mAdapter = new NewestListAdapter(Constant.PhotoListAdapterType.NEWEST, this);
                 layoutManager = new LinearLayoutManager(getActivity());
                 rvNewest.setLayoutManager(layoutManager);
                 rvNewest.setAdapter(mAdapter);

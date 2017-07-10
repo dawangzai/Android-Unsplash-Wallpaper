@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import com.cleverzheng.wallpaper.R;
 import com.cleverzheng.wallpaper.base.ViewPagerFragment;
 import com.cleverzheng.wallpaper.bean.PhotoBean;
+import com.cleverzheng.wallpaper.global.Constant;
+import com.cleverzheng.wallpaper.ui.adapter.NewestListAdapter;
 import com.cleverzheng.wallpaper.ui.adapter.PersonPhotosAdapter;
 import com.cleverzheng.wallpaper.utils.LogUtil;
 
@@ -28,7 +30,7 @@ public class PersonPhotosFragment extends ViewPagerFragment {
     @BindView(R.id.rvPersonPhoto)
     RecyclerView rvPersonPhoto;
     private LinearLayoutManager layoutManager;
-    private PersonPhotosAdapter mAdapter;
+    private NewestListAdapter mAdapter;
 
     public static PersonPhotosFragment getInstances() {
         PersonPhotosFragment fragment = new PersonPhotosFragment();
@@ -67,7 +69,8 @@ public class PersonPhotosFragment extends ViewPagerFragment {
     public void initData() {
         super.initData();
 
-        mAdapter = new PersonPhotosAdapter(this);
+        mAdapter = new NewestListAdapter(Constant.PhotoListAdapterType.PHOTO_DETAIL,this);
+//        mAdapter = new PersonPhotosAdapter(this);
         layoutManager = new LinearLayoutManager(getActivity());
         rvPersonPhoto.setLayoutManager(layoutManager);
         rvPersonPhoto.setAdapter(mAdapter);
