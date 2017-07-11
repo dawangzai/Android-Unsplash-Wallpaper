@@ -22,8 +22,10 @@ import com.cleverzheng.wallpaper.bean.ProfileImageBean;
 import com.cleverzheng.wallpaper.bean.UrlsBean;
 import com.cleverzheng.wallpaper.bean.UserBean;
 import com.cleverzheng.wallpaper.global.Constant;
+import com.cleverzheng.wallpaper.listener.AppBarLayoutStateChangeListener;
 import com.cleverzheng.wallpaper.operator.ImageLoaderOp;
 import com.cleverzheng.wallpaper.ui.adapter.NewestListAdapter;
+import com.cleverzheng.wallpaper.utils.LogUtil;
 import com.cleverzheng.wallpaper.utils.StringUtil;
 import com.cleverzheng.wallpaper.view.widget.DraweeImageView;
 
@@ -81,6 +83,36 @@ public class CollectionDetailFragment extends BaseFragmentFragment implements Co
     }
 
     @Override
+    public void initData() {
+        super.initData();
+
+        if (collapsingToolbar != null) {
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getActivity().finish();
+                }
+            });
+        }
+    }
+
+    @Override
+    public void initListener() {
+        super.initListener();
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayoutStateChangeListener() {
+            @Override
+            public void onStateChanged(AppBarLayout appBarLayout, int state) {
+                LogUtil.i("collapsingToolbar", "" + state);
+                if (state == AppBarLayoutStateChangeListener.COLLAPSED) {
+                    collapsingToolbar.setTitleEnabled(true);
+                } else {
+                    collapsingToolbar.setTitleEnabled(false);
+                }
+            }
+        });
+    }
+
+    @Override
     public void loadDataSuccess() {
 
     }
@@ -95,6 +127,7 @@ public class CollectionDetailFragment extends BaseFragmentFragment implements Co
         String title = collectionBean.getTitle();
         if (!StringUtil.isEmpty(title)) {
             tvCollectionTitle.setText(title);
+            collapsingToolbar.setTitle(title);
         }
 
         String description = collectionBean.getDescription();
@@ -130,7 +163,7 @@ public class CollectionDetailFragment extends BaseFragmentFragment implements Co
     @Override
     public void refreshCollectionPhotos(List<PhotoBean> collectionBeanList) {
         if (adapter == null) {
-            adapter = new NewestListAdapter(Constant.PhotoListAdapterType.NEWEST, this);
+            adapter = new NewestListAdapter(Constant.PhotoListAdapterType.COLLECTION_DETAIL, this);
             LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(adapter);

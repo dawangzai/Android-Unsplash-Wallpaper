@@ -1,5 +1,6 @@
 package com.cleverzheng.wallpaper.ui.me;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import com.cleverzheng.wallpaper.R;
 import com.cleverzheng.wallpaper.base.ViewPagerFragment;
 import com.cleverzheng.wallpaper.operator.ImageLoaderOp;
 import com.cleverzheng.wallpaper.ui.adapter.MeGvAdapter;
+import com.cleverzheng.wallpaper.ui.login.LoginActivity;
 import com.cleverzheng.wallpaper.view.widget.DraweeImageView;
 
 import java.util.ArrayList;
@@ -112,5 +114,8 @@ public class MeFragment extends ViewPagerFragment implements MeContract.View, Ad
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         HashMap<String, Object> itemAtPosition = (HashMap<String, Object>) parent.getItemAtPosition(position);
         Toast.makeText(getActivity(), itemAtPosition.get(ITEM_DESCRIPTION).toString(), Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(this.getActivity(), LoginActivity.class);
+        startActivity(intent);
     }
 }

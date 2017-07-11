@@ -32,16 +32,27 @@
                 app:navigationIcon="?attr/homeAsUpIndicator"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-
             </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@color/windowBackground"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="集合展"
+            android:textColor="@color/color_gray_FF878787"
+            android:textStyle="bold" />
 
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@color/windowBackground"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -126,7 +126,6 @@ public class PersonDetailFragment extends BaseFragmentFragment implements Person
                 }
             });
         }
-        collapsingToolbar.setTitle("Title");
 
         appBarLayout.addOnOffsetChangedListener(new AppBarLayoutStateChangeListener() {
             @Override

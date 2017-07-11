@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * Created by wangzai on 2017/2/21.
  */
+
 public class CollectionPresenter implements CollectionContract.Presenter {
     private CollectionContract.View collectionView;
     private Activity activity;
