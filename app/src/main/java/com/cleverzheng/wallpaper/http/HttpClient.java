@@ -100,17 +100,16 @@ public class HttpClient {
             okHttpClient.addInterceptor(logConfig());
         }
 
-//        if (NetworkUtil.isConnected()) {
-//            if (NetworkUtil.isAvailableByPing()) {
+        if (NetworkUtil.isConnected()) {
+            if (NetworkUtil.isAvailableByPing()) {
+                okHttpClient.addNetworkInterceptor(new NetworkCacheInterceptor());
+            } else {
+                okHttpClient.addInterceptor(new NetworkCacheInterceptor());
 //                okHttpClient.addNetworkInterceptor(new NetworkCacheInterceptor());
-//            } else {
-//                okHttpClient.addInterceptor(new NetworkCacheInterceptor());
-//            }
-//        } else {
-//            okHttpClient.addInterceptor(new NetworkCacheInterceptor());
-//        }
-        okHttpClient.addNetworkInterceptor(new CacheInterceptor());
-//        okHttpClient.addInterceptor(new CacheInterceptor());
+            }
+        } else {
+            okHttpClient.addInterceptor(new NetworkCacheInterceptor());
+        }
         okHttpClient.cache(cacheConfig());
 
         return okHttpClient.build();
@@ -284,7 +283,7 @@ public class HttpClient {
                 .subscribe(observer);
     }
 
-    public void getSingleCollection(HttpObserver<CollectionBean> observer, String id) {
+    public void getSingleCollection(HttpObserver<CollectionBean> observer, int id) {
         getCollectionService().getSingleCollection(id)
                 .map(new HttpResultFunction<CollectionBean>())
                 .subscribeOn(Schedulers.io())
@@ -292,7 +291,7 @@ public class HttpClient {
                 .subscribe(observer);
     }
 
-    public void getCollectionPhotoList(HttpObserver<List<PhotoBean>> observer, String id) {
+    public void getCollectionPhotoList(HttpObserver<List<PhotoBean>> observer, int id) {
         getCollectionService().getCollectionPhotoList(id)
                 .map(new HttpResultFunction<List<PhotoBean>>())
                 .subscribeOn(Schedulers.io())

@@ -11,7 +11,6 @@ import com.cleverzheng.wallpaper.http.observer.HttpObserver;
 
 import java.util.List;
 
-
 /**
  * Created by wangzai on 2017/2/25.
  */

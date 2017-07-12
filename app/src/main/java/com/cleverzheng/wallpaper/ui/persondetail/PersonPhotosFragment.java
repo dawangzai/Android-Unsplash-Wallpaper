@@ -9,9 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cleverzheng.wallpaper.R;
-import com.cleverzheng.wallpaper.base.BaseFragmentFragment;
+import com.cleverzheng.wallpaper.base.ViewPagerFragment;
 import com.cleverzheng.wallpaper.bean.PhotoBean;
+import com.cleverzheng.wallpaper.global.Constant;
+import com.cleverzheng.wallpaper.ui.adapter.NewestListAdapter;
 import com.cleverzheng.wallpaper.ui.adapter.PersonPhotosAdapter;
+import com.cleverzheng.wallpaper.utils.LogUtil;
 
 import java.util.List;
 
@@ -19,18 +22,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * @author：cleverzheng
- * @date：2017/3/7:11:42
- * @email：zhengwang043@gmail.com
- * @description：个人照片
+ * Created by wangzai on 2017/3/7.
  */
 
-public class PersonPhotosFragment extends BaseFragmentFragment {
+public class PersonPhotosFragment extends ViewPagerFragment {
     private PersonDetailContract.Presenter mPresent;
     @BindView(R.id.rvPersonPhoto)
     RecyclerView rvPersonPhoto;
     private LinearLayoutManager layoutManager;
-    private PersonPhotosAdapter mAdapter;
+    private NewestListAdapter mAdapter;
 
     public static PersonPhotosFragment getInstances() {
         PersonPhotosFragment fragment = new PersonPhotosFragment();
@@ -40,8 +40,10 @@ public class PersonPhotosFragment extends BaseFragmentFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.fragment_person_photos);
-//        ButterKnife.bind(this, getContentView());
+    }
+
+    public void setPresent(PersonDetailContract.Presenter present) {
+        this.mPresent = present;
     }
 
     @Nullable
@@ -53,10 +55,22 @@ public class PersonPhotosFragment extends BaseFragmentFragment {
     }
 
     @Override
+    protected void onFragmentVisibleChange(boolean isVisible) {
+        LogUtil.i("PersonPhotosFragment", "------PersonCollectionFragment------onFragmentVisibleChange------" + isVisible);
+        super.onFragmentVisibleChange(isVisible);
+        if (isVisible) {
+            if (mPresent != null) {
+                mPresent.getPersonPhotos();
+            }
+        }
+    }
+
+    @Override
     public void initData() {
         super.initData();
 
-        mAdapter = new PersonPhotosAdapter(this);
+        mAdapter = new NewestListAdapter(Constant.PhotoListAdapterType.PHOTO_DETAIL,this);
+//        mAdapter = new PersonPhotosAdapter(this);
         layoutManager = new LinearLayoutManager(getActivity());
         rvPersonPhoto.setLayoutManager(layoutManager);
         rvPersonPhoto.setAdapter(mAdapter);

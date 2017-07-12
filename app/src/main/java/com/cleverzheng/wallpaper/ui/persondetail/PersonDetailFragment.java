@@ -1,30 +1,30 @@
 package com.cleverzheng.wallpaper.ui.persondetail;
 
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.cleverzheng.wallpaper.R;
 import com.cleverzheng.wallpaper.base.BaseFragmentFragment;
 import com.cleverzheng.wallpaper.bean.CollectionBean;
 import com.cleverzheng.wallpaper.bean.PhotoBean;
 import com.cleverzheng.wallpaper.bean.ProfileImageBean;
-import com.cleverzheng.wallpaper.bean.UrlsBean;
 import com.cleverzheng.wallpaper.bean.UserBean;
+import com.cleverzheng.wallpaper.listener.AppBarLayoutStateChangeListener;
 import com.cleverzheng.wallpaper.operator.ImageLoaderOp;
 import com.cleverzheng.wallpaper.ui.adapter.SimpleFragmentPagerAdapter;
+import com.cleverzheng.wallpaper.utils.LogUtil;
 import com.cleverzheng.wallpaper.utils.StringUtil;
 import com.cleverzheng.wallpaper.view.widget.DraweeImageView;
 
@@ -53,6 +53,19 @@ public class PersonDetailFragment extends BaseFragmentFragment implements Person
     ViewPager vpContent;
     @BindView(R.id.tlIndicator)
     TabLayout tlIndicator;
+    @BindView(R.id.appBarLayout)
+    AppBarLayout appBarLayout;
+    @BindView(R.id.tvName)
+    TextView tvName;
+    @BindView(R.id.llLocationAndPage)
+    LinearLayout llLocationAndPage;
+    @BindView(R.id.tvLocation)
+    TextView tvLocation;
+    @BindView(R.id.tvPersonalPage)
+    TextView tvPersonalPage;
+    @BindView(R.id.tvBio)
+    TextView tvBio;
+
     private PersonDetailContract.Presenter mPresent;
     private SimpleFragmentPagerAdapter adapter;
     private int currentPage = 0; //vp的当前页
@@ -92,22 +105,6 @@ public class PersonDetailFragment extends BaseFragmentFragment implements Person
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.fragment_persondetail);
-//        ButterKnife.bind(this, getContentView());
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            //透明状态栏
-//            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//            //透明导航栏
-//            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-//        }
-
-        if (Build.VERSION.SDK_INT >= 21) {
-            View decorView = getActivity().getWindow().getDecorView();
-            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-            decorView.setSystemUiVisibility(option);
-            getActivity().getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
     }
 
     @Nullable
@@ -122,8 +119,6 @@ public class PersonDetailFragment extends BaseFragmentFragment implements Person
     public void initData() {
         super.initData();
         if (collapsingToolbar != null) {
-//            toolbar.setNavigationIcon(R.mipmap.ic_action_return);
-//            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -131,6 +126,19 @@ public class PersonDetailFragment extends BaseFragmentFragment implements Person
                 }
             });
         }
+        collapsingToolbar.setTitle("Title");
+
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayoutStateChangeListener() {
+            @Override
+            public void onStateChanged(AppBarLayout appBarLayout, int state) {
+                LogUtil.i("collapsingToolbar", "" + state);
+                if (state == AppBarLayoutStateChangeListener.COLLAPSED) {
+                    collapsingToolbar.setTitleEnabled(true);
+                } else {
+                    collapsingToolbar.setTitleEnabled(false);
+                }
+            }
+        });
         initTabLayout();
         initViewPager();
     }
@@ -141,14 +149,16 @@ public class PersonDetailFragment extends BaseFragmentFragment implements Person
     private void initViewPager() {
         List<Fragment> fragmentList = new ArrayList<>();
         personPhotosFragment = PersonPhotosFragment.getInstances();
+        personPhotosFragment.setPresent(mPresent);
         personCollectionFragment = PersonCollectionFragment.getInstances();
+        personCollectionFragment.setPresent(mPresent);
         fragmentList.add(personPhotosFragment);
         fragmentList.add(personCollectionFragment);
         FragmentManager supportFragmentManager = getActivity().getSupportFragmentManager();
         adapter = new SimpleFragmentPagerAdapter(supportFragmentManager, fragmentList);
         vpContent.setAdapter(adapter);
-        getPersonPhotos();
-        getPersonCollections();
+//        getPersonPhotos();
+//        getPersonCollections();
     }
 
     /**
@@ -201,17 +211,17 @@ public class PersonDetailFragment extends BaseFragmentFragment implements Person
     @Override
     public void setUserInfo(UserBean userBean) {
         if (userBean != null) {
-            List<PhotoBean> photos = userBean.getPhotos();
-            if (photos != null && photos.size() > 0) {
-                PhotoBean photoBean = photos.get(0);
-                UrlsBean urls = photoBean.getUrls();
-                if (urls != null) {
-                    String regular = urls.getRegular();
-                    if (!StringUtil.isEmpty(regular)) {
+//            List<PhotoBean> photos = userBean.getPhotos();
+//            if (photos != null && photos.size() > 0) {
+//                PhotoBean photoBean = photos.get(0);
+//                UrlsBean urls = photoBean.getUrls();
+//                if (urls != null) {
+//                    String regular = urls.getRegular();
+//                    if (!StringUtil.isEmpty(regular)) {
 //                        ImageLoaderOp.setImage(dvBg, regular);
-                    }
-                }
-            }
+//                    }
+//                }
+//            }
             ProfileImageBean profile_image = userBean.getProfile_image();
             if (profile_image != null) {
                 String large = profile_image.getLarge();
@@ -221,7 +231,27 @@ public class PersonDetailFragment extends BaseFragmentFragment implements Person
             }
             String name = userBean.getName();
             if (!StringUtil.isEmpty(name)) {
-//                collapsingToolbar.setTitle(name);
+                collapsingToolbar.setTitle(name);
+                tvName.setText(name);
+            }
+            String location = userBean.getLocation();
+            if (!StringUtil.isEmpty(location)) {
+                tvLocation.setVisibility(View.VISIBLE);
+            } else {
+                tvLocation.setVisibility(View.GONE);
+            }
+            String portfolio_url = userBean.getPortfolio_url();
+            if (!StringUtil.isEmpty(portfolio_url)) {
+                tvPersonalPage.setVisibility(View.VISIBLE);
+            } else {
+                tvPersonalPage.setVisibility(View.GONE);
+            }
+            String bio = userBean.getBio();
+            if (!StringUtil.isEmpty(bio)) {
+                tvBio.setVisibility(View.VISIBLE);
+                tvBio.setText(bio);
+            } else {
+                tvBio.setVisibility(View.GONE);
             }
         }
     }

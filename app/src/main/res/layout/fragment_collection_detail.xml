@@ -22,7 +22,7 @@
             app:expandedTitleGravity="bottom|center_horizontal"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <include layout="@layout/user_detail_info" />
+            <include layout="@layout/collection_detail_info" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -37,30 +37,11 @@
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tlIndicator"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:tabBackground="@color/colorPrimary"
-            app:tabGravity="fill"
-            app:tabIndicatorColor="@color/color_03e5bd"
-            app:tabIndicatorHeight="2dp"
-            app:tabMode="fixed"
-            app:tabPadding="10dp"
-            app:tabPaddingBottom="10dp"
-            app:tabPaddingEnd="10dp"
-            app:tabPaddingStart="10dp"
-            app:tabPaddingTop="10dp"
-            app:tabSelectedTextColor="@color/color_03e5bd"
-            app:tabTextAppearance="@style/Base.TextAppearance.AppCompat.Small"
-            app:tabTextColor="@color/bg_ffffff" />
-
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vpContent"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_height="match_parent" />
 
 </android.support.design.widget.CoordinatorLayout>

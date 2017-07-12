@@ -9,6 +9,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import retrofit2.Response;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Path;
 
 /**
@@ -22,6 +23,7 @@ public interface UserService {
      * @param username 用户名
      * @return
      */
+    @Headers("Cache-Control: public, max-age=3600")
     @GET("users/{username}")
     Observable<Response<UserBean>> getUserInfo(@Path("username") String username);
 
@@ -31,6 +33,7 @@ public interface UserService {
      * @param username
      * @return
      */
+    @Headers("Cache-Control: public, max-age=3600")
     @GET("users/{username}/photos")
     Observable<Response<List<PhotoBean>>> getUserPhotoList(@Path("username") String username);
 
@@ -40,6 +43,7 @@ public interface UserService {
      * @param username
      * @return
      */
+    @Headers("Cache-Control: public, max-age=3600")
     @GET("users/{username}/collections")
     Observable<Response<List<CollectionBean>>> getUserCollectionList(@Path("username") String username);
 }

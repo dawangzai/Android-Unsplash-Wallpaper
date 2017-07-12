@@ -9,13 +9,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cleverzheng.wallpaper.R;
+import com.cleverzheng.wallpaper.base.BaseFragmentFragment;
 import com.cleverzheng.wallpaper.bean.LinksBean;
 import com.cleverzheng.wallpaper.bean.PhotoBean;
 import com.cleverzheng.wallpaper.bean.ProfileImageBean;
 import com.cleverzheng.wallpaper.bean.UrlsBean;
 import com.cleverzheng.wallpaper.bean.UserBean;
+import com.cleverzheng.wallpaper.global.Constant;
 import com.cleverzheng.wallpaper.operator.ImageLoaderOp;
+import com.cleverzheng.wallpaper.ui.collectiondetail.CollectionDetailFragment;
 import com.cleverzheng.wallpaper.ui.newest.NewestFragment;
+import com.cleverzheng.wallpaper.ui.persondetail.PersonPhotosFragment;
 import com.cleverzheng.wallpaper.utils.StringUtil;
 import com.cleverzheng.wallpaper.utils.ToastUtil;
 import com.cleverzheng.wallpaper.view.widget.DraweeImageView;
@@ -26,36 +30,49 @@ import java.util.List;
 /**
  * Created by wangzai on 2017/2/28.
  */
+
 public class NewestListAdapter extends RecyclerView.Adapter<NewestListAdapter.ViewHolder> {
+    private int adapterType = -1;
     private Context context;
     private List<PhotoBean> photoList;
     private NewestFragment newestFragment;
+    private PersonPhotosFragment personPhotosFragment;
+    private CollectionDetailFragment collectionDetailFragment;
 
-    public NewestListAdapter(NewestFragment newestFragment) {
+    public <T extends BaseFragmentFragment> NewestListAdapter(int adapterType, T mFragment) {
         if (photoList == null) {
             photoList = new ArrayList<>();
         }
-        this.context = newestFragment.getFragmentContext();
-        this.newestFragment = newestFragment;
+        if (mFragment != null) {
+            this.context = mFragment.getFragmentContext();
+            this.adapterType = adapterType;
+            if (adapterType == Constant.PhotoListAdapterType.NEWEST) {
+                this.newestFragment = (NewestFragment) mFragment;
+            } else if (adapterType == Constant.PhotoListAdapterType.PHOTO_DETAIL) {
+                this.personPhotosFragment = (PersonPhotosFragment) mFragment;
+            } else if (adapterType == Constant.PhotoListAdapterType.COLLECTION_DETAIL) {
+                this.collectionDetailFragment = (CollectionDetailFragment) mFragment;
+            }
+        }
     }
 
     /**
      * 刷新适配器数据
      *
-     * @param newestPhotoList
+     * @param photos
      */
-    public void refreshData(List<PhotoBean> newestPhotoList) {
-        photoList.addAll(0, newestPhotoList);
+    public void refreshData(List<PhotoBean> photos) {
+        photoList.addAll(0, photos);
         notifyDataSetChanged();
     }
 
     /**
      * 给适配器添加数据集合
      *
-     * @param newestPhotoList
+     * @param photos
      */
-    public void loadMoreData(List<PhotoBean> newestPhotoList) {
-        photoList.addAll(newestPhotoList);
+    public void loadMoreData(List<PhotoBean> photos) {
+        photoList.addAll(photos);
         notifyDataSetChanged();
     }
 
@@ -113,7 +130,9 @@ public class NewestListAdapter extends RecyclerView.Adapter<NewestListAdapter.Vi
             @Override
             public void onClick(View v) {
                 if (!StringUtil.isEmpty(finalUsername)) {
-                    newestFragment.clickUserDetail(finalUsername);
+                    if (adapterType != Constant.PhotoListAdapterType.PHOTO_DETAIL) {
+                        newestFragment.clickUserDetail(finalUsername);
+                    }
                 }
             }
         });

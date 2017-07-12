@@ -14,6 +14,8 @@ public interface CollectionContract {
         void refresh(List<CollectionBean> collectionBeanList); //下拉刷新
 
         void loadMore(List<CollectionBean> collectionBeanList); //加载更多
+
+        void clickCollectionDetail(int collectionId);
     }
 
     interface Presenter extends BasePresenter {

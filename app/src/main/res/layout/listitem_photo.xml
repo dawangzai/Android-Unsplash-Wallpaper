@@ -47,7 +47,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
-                    android:text="Jack wall"
                     android:textColor="@color/text_323232"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -66,8 +65,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_like_gray_20"
                     android:drawablePadding="5dp"
-                    android:gravity="center_vertical"
-                    android:text="1008" />
+                    android:gravity="center_vertical" />
 
                 <Space
                     android:layout_width="@dimen/space_20"

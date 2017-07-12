@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.cleverzheng.wallpaper.global.Constant;
+import com.cleverzheng.wallpaper.ui.collectiondetail.CollectionDetailActivity;
 import com.cleverzheng.wallpaper.ui.persondetail.PersonDetailActivity;
 import com.cleverzheng.wallpaper.ui.photodetail.PhotoDetailActivity;
 import com.cleverzheng.wallpaper.ui.test.TestActivity;
@@ -39,6 +40,13 @@ public class OpenActivityOp {
 
     public static void openTestActivity(Activity activity) {
         Intent intent = new Intent(activity, TestActivity.class);
+        activity.startActivity(intent);
+        openActivityStyle(activity);
+    }
+
+    public static void openCollectionDetailActivity(Activity activity, int collectionId) {
+        Intent intent = new Intent(activity, CollectionDetailActivity.class);
+        intent.putExtra(Constant.Intent.INTENT_DATA_ONE, collectionId);
         activity.startActivity(intent);
         openActivityStyle(activity);
     }

@@ -1,6 +1,8 @@
 package com.cleverzheng.wallpaper.ui.adapter;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import com.cleverzheng.wallpaper.bean.ProfileImageBean;
 import com.cleverzheng.wallpaper.bean.UrlsBean;
 import com.cleverzheng.wallpaper.bean.UserBean;
 import com.cleverzheng.wallpaper.operator.ImageLoaderOp;
+import com.cleverzheng.wallpaper.operator.OpenActivityOp;
 import com.cleverzheng.wallpaper.ui.collection.CollectionFragment;
 import com.cleverzheng.wallpaper.utils.ColorUtil;
 import com.cleverzheng.wallpaper.utils.StringUtil;
@@ -67,7 +70,7 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.llDesc.setBackgroundColor(Color.parseColor(ColorUtil.getRandomColor()));
-        CollectionBean collectionBean = collectionBeanList.get(position);
+        final CollectionBean collectionBean = collectionBeanList.get(position);
         if (collectionBean != null) {
             CoverPhotoBean cover_photo = collectionBean.getCover_photo();
             if (cover_photo != null) {
@@ -105,6 +108,14 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
                     }
                 }
             }
+            holder.cvCollection.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    collectionFragment.clickCollectionDetail(collectionBean.getId());
+
+                }
+            });
         }
     }
 
@@ -122,6 +133,7 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
         LinearLayout llDesc;
         TextView tvCollectionsName;
         TextView tvCollectionsImages;
+        CardView cvCollection;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -134,6 +146,7 @@ public class CollectionListAdapter extends RecyclerView.Adapter<CollectionListAd
 
             tvCollectionsName = (TextView) itemView.findViewById(R.id.tvCollectionsName);
             tvCollectionsImages = (TextView) itemView.findViewById(R.id.tvCollectionsImages);
+            cvCollection = (CardView) itemView.findViewById(R.id.cvCollection);
         }
     }
 }
