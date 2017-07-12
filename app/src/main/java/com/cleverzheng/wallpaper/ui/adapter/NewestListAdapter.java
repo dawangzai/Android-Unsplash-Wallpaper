@@ -120,7 +120,13 @@ public class NewestListAdapter extends RecyclerView.Adapter<NewestListAdapter.Vi
             @Override
             public void onClick(View v) {
                 if (!StringUtil.isEmpty(finalPhotoId)) {
-                    newestFragment.clickPhotoDetail(finalPhotoId);
+                    if (newestFragment != null) {
+                        newestFragment.clickPhotoDetail(finalPhotoId);
+                    }
+
+                    if (collectionDetailFragment != null) {
+
+                    }
                 }
             }
         });
@@ -130,8 +136,11 @@ public class NewestListAdapter extends RecyclerView.Adapter<NewestListAdapter.Vi
             @Override
             public void onClick(View v) {
                 if (!StringUtil.isEmpty(finalUsername)) {
-                    if (adapterType != Constant.PhotoListAdapterType.PHOTO_DETAIL) {
+                    if (newestFragment != null) {
                         newestFragment.clickUserDetail(finalUsername);
+                    }
+                    if (collectionDetailFragment != null) {
+
                     }
                 }
             }

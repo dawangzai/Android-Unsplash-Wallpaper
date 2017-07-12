@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface CollectionDetailContract {
 
-    interface View extends BaseView<CollectionDetailContract.Presenter> {
+    interface View extends BaseView<Presenter> {
         void setCollectionInfo(CollectionBean collectionBean);
 
         void refreshCollectionPhotos(List<PhotoBean> collectionBeanList);

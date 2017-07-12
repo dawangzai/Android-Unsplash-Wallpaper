@@ -42,6 +42,7 @@ public interface CollectionService {
      * @param id 集合的id
      * @return
      */
+    @Headers("Cache-Control: public, max-age=3600")
     @GET("collections/{id}/photos")
     Observable<Response<List<PhotoBean>>> getCollectionPhotoList(@Path("id") int id);
 }

@@ -33,6 +33,8 @@
 
         <activity android:name=".ui.collectiondetail.CollectionDetailActivity" />
 
+        <activity android:name=".ui.login.LoginActivity" />
+
     </application>
 
 </manifest>

@@ -7,10 +7,7 @@ import com.cleverzheng.wallpaper.bean.PhotoBean;
 import java.util.List;
 
 /**
- * @author：cleverzheng
- * @date：2017/2/12:11:03
- * @email：zhengwang043@gmail.com
- * @description：最新页面的契约类管理View和Presenter
+ * Created by wangzai on 2017/2/12.
  */
 
 public interface NewestContract {

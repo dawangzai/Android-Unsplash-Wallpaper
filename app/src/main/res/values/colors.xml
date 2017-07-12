@@ -34,5 +34,6 @@
     <color name="color_ffffff">#ffffff</color>
 
     <color name="color_test">#aed581</color>
+    <color name="color_gray_FF878787">#FF878787</color>
 
 </resources>
