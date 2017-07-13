@@ -5,11 +5,13 @@ import android.os.Environment;
 
 import com.cleverzheng.wallpaper.BuildConfig;
 import com.cleverzheng.wallpaper.WallpaperApplication;
+import com.cleverzheng.wallpaper.bean.AccessToken;
 import com.cleverzheng.wallpaper.bean.CollectionBean;
 import com.cleverzheng.wallpaper.bean.LinksBean;
 import com.cleverzheng.wallpaper.bean.PhotoBean;
 import com.cleverzheng.wallpaper.bean.UserBean;
 import com.cleverzheng.wallpaper.http.api.CollectionService;
+import com.cleverzheng.wallpaper.http.api.LoginService;
 import com.cleverzheng.wallpaper.http.api.PhotoService;
 import com.cleverzheng.wallpaper.http.api.UserService;
 import com.cleverzheng.wallpaper.http.download.DownloadManager;
@@ -58,6 +60,7 @@ public class HttpClient {
     private static PhotoService mPhotoService;
     private static UserService mUserService;
     private static CollectionService mCollectionService;
+    private static LoginService mLoginService;
 
     public static void initDownloadEnvironment(Context context, int threadCount) {
         DownloadManager.getInstance().init(context, threadCount);
@@ -80,6 +83,10 @@ public class HttpClient {
 
     public CollectionService getCollectionService() {
         return mCollectionService == null ? configRetrofit(CollectionService.class) : mCollectionService;
+    }
+
+    public LoginService getLoginService() {
+        return mLoginService == null ? configRetrofit(LoginService.class) : mLoginService;
     }
 
     private <T> T configRetrofit(Class<T> service) {
@@ -178,6 +185,20 @@ public class HttpClient {
             }
         }
     }
+
+    public void login(HttpObserver<AccessToken> observer, String code) {
+        getLoginService().getAccessToken(
+                "b05bfc46a0de4842346cb5ce7c766b3a8c9da071ec77f3b5f719406829c2fb31",
+                "af3b7125ce78c9a05bac4f9b9f216260919c3646eaf02ea9f36f0f10b014a965",
+                "http://dawangzai.com",
+                code, "authorization_code")
+                .retryWhen(new HttpFunction())
+                .map(new HttpResultFunction<AccessToken>())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
 
     /****************************************download***********************************************/
     public void downloadFile() {
