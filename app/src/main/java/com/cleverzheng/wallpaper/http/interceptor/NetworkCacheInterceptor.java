@@ -2,13 +2,10 @@ package com.cleverzheng.wallpaper.http.interceptor;
 
 import com.cleverzheng.wallpaper.BuildConfig;
 import com.cleverzheng.wallpaper.http.exception.NetworkException;
-import com.cleverzheng.wallpaper.utils.LogUtil;
 import com.cleverzheng.wallpaper.utils.NetworkUtil;
-import com.cleverzheng.wallpaper.utils.StringUtil;
 import com.cleverzheng.wallpaper.utils.ToastUtil;
 
 import java.io.IOException;
-import java.util.IllegalFormatCodePointException;
 
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;

@@ -1,18 +1,8 @@
 package com.cleverzheng.wallpaper.view.layout;
 
 import android.content.Context;
-import android.graphics.drawable.AnimationDrawable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewConfiguration;
-import android.widget.AbsListView;
-import android.widget.ImageView;
-import android.widget.ListView;
-
-import com.cleverzheng.wallpaper.R;
 
 /**
  * @author：cleverzheng

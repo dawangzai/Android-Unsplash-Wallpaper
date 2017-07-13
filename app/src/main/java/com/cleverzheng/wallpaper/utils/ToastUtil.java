@@ -13,8 +13,6 @@ import android.widget.Toast;
 
 import com.cleverzheng.wallpaper.WallpaperApplication;
 
-import butterknife.internal.Utils;
-
 public class ToastUtil {
 
     private static Toast sToast;

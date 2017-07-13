@@ -1,14 +1,9 @@
 package com.cleverzheng.wallpaper.view.widget;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 
 import com.cleverzheng.wallpaper.R;
 import com.cleverzheng.wallpaper.utils.StringUtil;
@@ -17,12 +12,9 @@ import com.facebook.drawee.drawable.ProgressBarDrawable;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
-import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.request.ImageRequest;
-
-import java.util.Random;
 
 /**
  * Created by wangzai on 2017/2/17.

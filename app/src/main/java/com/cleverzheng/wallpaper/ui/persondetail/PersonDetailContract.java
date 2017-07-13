@@ -2,10 +2,7 @@ package com.cleverzheng.wallpaper.ui.persondetail;
 
 import com.cleverzheng.wallpaper.base.BasePresenter;
 import com.cleverzheng.wallpaper.base.BaseView;
-import com.cleverzheng.wallpaper.bean.PhotoBean;
 import com.cleverzheng.wallpaper.bean.UserBean;
-
-import java.util.List;
 
 /**
  * @author：cleverzheng

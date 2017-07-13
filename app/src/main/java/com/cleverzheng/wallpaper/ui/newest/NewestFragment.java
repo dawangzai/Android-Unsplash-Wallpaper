@@ -16,7 +16,6 @@ import com.cleverzheng.wallpaper.bean.PhotoBean;
 import com.cleverzheng.wallpaper.global.Constant;
 import com.cleverzheng.wallpaper.utils.LogUtil;
 import com.cleverzheng.wallpaper.utils.StringUtil;
-import com.cleverzheng.wallpaper.utils.ToastUtil;
 import com.cleverzheng.wallpaper.view.layout.RefreshLayout;
 
 import java.util.List;
