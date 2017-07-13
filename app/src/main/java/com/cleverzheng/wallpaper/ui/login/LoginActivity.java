@@ -4,15 +4,22 @@ import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 
 import com.cleverzheng.wallpaper.R;
 import com.cleverzheng.wallpaper.base.BaseActivity;
+import com.cleverzheng.wallpaper.bean.AccessToken;
+import com.cleverzheng.wallpaper.http.HttpClient;
+import com.cleverzheng.wallpaper.http.callback.OnResultCallback;
+import com.cleverzheng.wallpaper.http.observer.HttpObserver;
 import com.cleverzheng.wallpaper.utils.LogUtil;
 
 import static android.view.KeyEvent.KEYCODE_BACK;
@@ -23,6 +30,8 @@ import static android.view.KeyEvent.KEYCODE_BACK;
 
 public class LoginActivity extends BaseActivity {
     private WebView webView;
+    String code;
+    private Button btnToken;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,6 +39,14 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
 
         webView = (WebView) findViewById(R.id.webView);
+        btnToken = (Button) findViewById(R.id.btnToken);
+        btnToken.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogUtil.i("token","店家了---------");
+                requestData(code);
+            }
+        });
 //声明WebSettings子类
         WebSettings webSettings = webView.getSettings();
 
@@ -57,18 +74,31 @@ public class LoginActivity extends BaseActivity {
             }
 
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                    boolean redirect = request.isRedirect();
-                    Uri url = request.getUrl();
-                    LogUtil.i("webview", url.toString() + "------" + redirect);
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                LogUtil.i("webview", url.toString() + "------" + url);
+                if (url.contains("http://dawangzai.com")) {
+                    String[] split = url.split("code=");
+                    code = split[1];
+                    return true;
                 }
-                return super.shouldOverrideUrlLoading(view, request);
+                webView.loadUrl(url);
+                return true;
             }
+
+
+            //            @Override
+//            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+//
+//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+//                    boolean redirect = request.isRedirect();
+//                    Uri url = request.getUrl();
+//                    LogUtil.i("webview", url.toString() + "------" + redirect);
+//                }
+//                return super.shouldOverrideUrlLoading(view, request);
+//            }
         });
 
-        webView.loadUrl("https://unsplash.com/oauth/authorize?client_id=b05bfc46a0de4842346cb5ce7c766b3a8c9da071ec77f3b5f719406829c2fb31&redirect_uri=urn:ietf:wg:oauth:2.0:oob&response_type=code&scope=public");
+        webView.loadUrl("https://unsplash.com/oauth/authorize?client_id=b05bfc46a0de4842346cb5ce7c766b3a8c9da071ec77f3b5f719406829c2fb31&redirect_uri=http://dawangzai.com&response_type=code&scope=public+read_user+write_user+read_collections+write_collections");
 //        webView.loadUrl("https://unsplash.com/oauth/login");
     }
 
@@ -91,5 +121,20 @@ public class LoginActivity extends BaseActivity {
 
 //这个api仅仅清除自动完成填充的表单数据，并不会清除WebView存储到本地的数据
         webView.clearFormData();
+    }
+
+    private void requestData(String code) {
+        HttpObserver<AccessToken> observer = new HttpObserver<AccessToken>(new OnResultCallback<AccessToken>() {
+            @Override
+            public void onSuccess(AccessToken accessToken) {
+                LogUtil.i("token", accessToken.getAccess_token());
+            }
+
+            @Override
+            public void onFailed(int code, String message) {
+                LogUtil.i("token", "onFailed");
+            }
+        });
+        HttpClient.getInstance().login(observer, code);
     }
 }
