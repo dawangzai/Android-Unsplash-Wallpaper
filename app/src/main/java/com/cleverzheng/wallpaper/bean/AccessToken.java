@@ -9,6 +9,7 @@ public class AccessToken {
     private String token_type;
     private String scope;
     private long created_at;
+    private String authorization_code;
 
     public String getAccess_token() {
         return access_token;
@@ -40,5 +41,13 @@ public class AccessToken {
 
     public void setCreated_at(long created_at) {
         this.created_at = created_at;
+    }
+
+    public String getAuthorization_code() {
+        return authorization_code;
+    }
+
+    public void setAuthorization_code(String authorization_code) {
+        this.authorization_code = authorization_code;
     }
 }

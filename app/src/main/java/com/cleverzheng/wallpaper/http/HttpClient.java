@@ -199,6 +199,18 @@ public class HttpClient {
                 .subscribe(observer);
     }
 
+    public void getAccessCode(HttpObserver<AccessToken> observer) {
+        getLoginService().getAuthorizationCode("b05bfc46a0de4842346cb5ce7c766b3a8c9da071ec77f3b5f719406829c2fb31",
+                "http://dawangzai.com",
+                "code",
+                "public+read_user+write_user+read_collections+write_collections")
+                .retryWhen(new HttpFunction())
+                .map(new HttpResultFunction<AccessToken>())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
 
     /****************************************download***********************************************/
     public void downloadFile() {
