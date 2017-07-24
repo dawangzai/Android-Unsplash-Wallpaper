@@ -1,46 +1,21 @@
-package com.cleverzheng.wallpaper.http;
+package com.wangzai.http;
 
 import android.content.Context;
 import android.os.Environment;
 
-import com.cleverzheng.wallpaper.BuildConfig;
-import com.cleverzheng.wallpaper.WallpaperApplication;
-import com.cleverzheng.wallpaper.bean.AccessToken;
-import com.cleverzheng.wallpaper.bean.CollectionBean;
-import com.cleverzheng.wallpaper.bean.LinksBean;
-import com.cleverzheng.wallpaper.bean.PhotoBean;
-import com.cleverzheng.wallpaper.bean.UserBean;
-import com.cleverzheng.wallpaper.http.api.CollectionService;
-import com.cleverzheng.wallpaper.http.api.LoginService;
-import com.cleverzheng.wallpaper.http.api.PhotoService;
-import com.cleverzheng.wallpaper.http.api.UserService;
-import com.cleverzheng.wallpaper.http.download.DownloadManager;
-import com.cleverzheng.wallpaper.http.exception.NetworkException;
-import com.cleverzheng.wallpaper.http.interceptor.CacheInterceptor;
-import com.cleverzheng.wallpaper.http.interceptor.HeaderInterceptor;
-import com.cleverzheng.wallpaper.http.observer.HttpObserver;
-import com.cleverzheng.wallpaper.http.utils.LogUtil;
+
+import com.wangzai.http.interceptor.CacheInterceptor;
+import com.wangzai.http.interceptor.HeaderInterceptor;
+import com.wangzai.http.utils.LogUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 import okhttp3.Cache;
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;

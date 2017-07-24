@@ -1,4 +1,4 @@
-package com.cleverzheng.wallpaper.http.interceptor;
+package com.wangzai.http.interceptor;
 
 import com.cleverzheng.wallpaper.utils.NetworkUtil;
 import com.cleverzheng.wallpaper.utils.StringUtil;

@@ -1,1 +1,1 @@
-include ':app', ':zoomable', ':download'
+include ':app', ':zoomable', ':download', ':http'
