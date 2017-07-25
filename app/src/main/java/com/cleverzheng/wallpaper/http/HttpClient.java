@@ -119,7 +119,7 @@ public class HttpClient {
 //            okHttpClient.addInterceptor(new NetworkCacheInterceptor());
 //        }
         okHttpClient.cache(cacheConfig());
-        okHttpClient.build().newCall().execute()
+//        okHttpClient.build().newCall().execute()
         return okHttpClient.build();
     }
 

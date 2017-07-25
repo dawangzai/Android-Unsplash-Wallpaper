@@ -1,7 +1,7 @@
 package com.wangzai.http.interceptor;
 
-import com.cleverzheng.wallpaper.utils.NetworkUtil;
-import com.cleverzheng.wallpaper.utils.StringUtil;
+import com.wangzai.http.utils.NetworkUtil;
+import com.wangzai.http.utils.StringUtil;
 
 import java.io.IOException;
 
