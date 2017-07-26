@@ -35,6 +35,8 @@ public interface PhotoService {
     @GET("photos/{id}")
     Observable<Response<PhotoBean>> getSinglePhoto(@Path("id") String id);
 
+    Observable<PhotoBean> getSinglePhoto2(@Path("id") String id);
+
     @GET("photos/{id}/download")
     Observable<Response<LinksBean>> getPhotoDownload(@Path("id") String id);
 }

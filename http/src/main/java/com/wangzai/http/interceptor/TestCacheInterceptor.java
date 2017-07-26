@@ -1,7 +1,5 @@
 package com.wangzai.http.interceptor;
 
-import com.cleverzheng.wallpaper.BuildConfig;
-
 import java.io.IOException;
 
 import okhttp3.CacheControl;
@@ -22,7 +20,7 @@ public class TestCacheInterceptor implements Interceptor {
 
         Request.Builder requestBuilder = request.newBuilder();
 
-        requestBuilder.addHeader("Authorization", "Client-ID " + BuildConfig.CLIENT_ID);
+//        requestBuilder.addHeader("Authorization", "Client-ID " + BuildConfig.CLIENT_ID);
 
         Response response = chain.proceed(requestBuilder.build());
         int maxAge = cacheControl.maxAgeSeconds(); //是否使用缓存标志

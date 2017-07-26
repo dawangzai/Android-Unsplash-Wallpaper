@@ -19,7 +19,17 @@ public class WallpaperApplication extends Application {
 
         initLog();
         initFresco();
+        initNetwork();
         initDownload();
+    }
+
+    private void initNetwork() {
+        com.wangzai.http.HttpClient.getInstance().setBaseUrl(BuildConfig.BASE_URL)
+                .setHeader("Authorization", "Client-ID " + BuildConfig.CLIENT_ID)
+                .setCache()
+                .setConnectTimeout(30)
+                .setReadTimeout(30)
+                .setWriteTimeout(30);
     }
 
     private void initDownload() {

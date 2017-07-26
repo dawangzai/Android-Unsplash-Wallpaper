@@ -1,6 +1,6 @@
 package com.wangzai.http.interceptor;
 
-import com.cleverzheng.wallpaper.utils.LogUtil;
+import com.wangzai.http.utils.LogUtil;
 
 import java.io.IOException;
 

@@ -4,10 +4,21 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 
 import com.cleverzheng.wallpaper.R;
 import com.cleverzheng.wallpaper.base.BaseActivity;
+import com.cleverzheng.wallpaper.bean.PhotoBean;
+import com.cleverzheng.wallpaper.http.api.PhotoService;
+import com.cleverzheng.wallpaper.utils.LogUtil;
+import com.wangzai.http.HttpClient;
+import com.wangzai.http.rx.Transformer;
+
+import io.reactivex.Observer;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import retrofit2.Response;
 
 
 /**
@@ -23,22 +34,53 @@ public class TestActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+        findViewById(R.id.btnTest).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HttpClient
+                        .createApi(PhotoService.class)
+                        .getSinglePhoto2("twukN12EN7c")
+                        .compose(Transformer.<PhotoBean>transformer())
+                        .subscribe(new Observer<PhotoBean>() {
+                            @Override
+                            public void onSubscribe(@NonNull Disposable d) {
 
-        if (Build.VERSION.SDK_INT >= 21) {
-            View decorView = getWindow().getDecorView();
-            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-            decorView.setSystemUiVisibility(option);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
+                            }
 
-        TestFragment testFragment = (TestFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.contentFrame);
+                            @Override
+                            public void onNext(@NonNull PhotoBean photoBeanResponse) {
+                                String id = photoBeanResponse.getId();
+                                LogUtil.i("onNext", id);
+                            }
 
-        if (testFragment == null) {
-            testFragment = TestFragment.getInstance();
-        }
-        addFragment(testFragment, R.id.contentFrame);
+                            @Override
+                            public void onError(@NonNull Throwable e) {
+                                LogUtil.i("error", e.toString());
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        });
+            }
+        });
+
+//        if (Build.VERSION.SDK_INT >= 21) {
+//            View decorView = getWindow().getDecorView();
+//            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+//            decorView.setSystemUiVisibility(option);
+//            getWindow().setStatusBarColor(Color.TRANSPARENT);
+//        }
+//
+//        TestFragment testFragment = (TestFragment) getSupportFragmentManager()
+//                .findFragmentById(R.id.contentFrame);
+//
+//        if (testFragment == null) {
+//            testFragment = TestFragment.getInstance();
+//        }
+//        addFragment(testFragment, R.id.contentFrame);
 
 //        if (Build.VERSION.SDK_INT >= 21) {
 //            View decorView = getWindow().getDecorView();
