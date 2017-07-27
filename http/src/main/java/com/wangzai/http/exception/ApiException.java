@@ -5,6 +5,9 @@ package com.wangzai.http.exception;
  */
 
 public class ApiException extends RuntimeException {
+    public static final int UNKNOWN_CODE = 1000;
+    public static final String UNKNOWN_EXCEPTION = "未知错误";
+
     public ApiException(int code, String message) {
         this(getExceptionMessage(code, message));
     }

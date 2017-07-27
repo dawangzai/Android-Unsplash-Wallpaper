@@ -7,14 +7,26 @@ import android.util.Log;
  */
 public class LogUtil {
     public static boolean DEBUG;
+    public static String TAG;
 
-    public static void initialize(boolean isDebug) {
+    public static void init(boolean isDebug) {
+        init(isDebug, "DebugLog");
+    }
+
+    public static void init(boolean isDebug, String tag) {
         LogUtil.DEBUG = isDebug;
+        LogUtil.TAG = tag;
     }
 
     public static void v(String tag, String message) {
         if (DEBUG) {
             Log.v(tag, message);
+        }
+    }
+
+    public static void v(String message) {
+        if (DEBUG) {
+            Log.v(TAG, message);
         }
     }
 
@@ -24,9 +36,21 @@ public class LogUtil {
         }
     }
 
+    public static void d(String message) {
+        if (DEBUG) {
+            Log.d(TAG, message);
+        }
+    }
+
     public static void i(String tag, String message) {
         if (DEBUG) {
             Log.i(tag, message);
+        }
+    }
+
+    public static void i(String message) {
+        if (DEBUG) {
+            Log.i(TAG, message);
         }
     }
 
@@ -36,15 +60,33 @@ public class LogUtil {
         }
     }
 
+    public static void w(String message) {
+        if (DEBUG) {
+            Log.w(TAG, message);
+        }
+    }
+
     public static void e(String tag, String message) {
         if (DEBUG) {
             Log.e(tag, message);
         }
     }
 
+    public static void e(String message) {
+        if (DEBUG) {
+            Log.e(TAG, message);
+        }
+    }
+
     public static void e(String tag, String message, Exception e) {
         if (DEBUG) {
             Log.e(tag, message, e);
+        }
+    }
+
+    public static void e(String message, Exception e) {
+        if (DEBUG) {
+            Log.e(TAG, message, e);
         }
     }
 }

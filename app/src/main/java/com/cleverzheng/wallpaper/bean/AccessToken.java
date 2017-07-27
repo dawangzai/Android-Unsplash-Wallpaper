@@ -1,7 +1,5 @@
 package com.cleverzheng.wallpaper.bean;
 
-import retrofit2.Response;
-
 /**
  * Created by wangzai on 2017/7/12.
  */

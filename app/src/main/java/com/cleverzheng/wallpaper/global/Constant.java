@@ -6,7 +6,7 @@ package com.cleverzheng.wallpaper.global;
 
 public class Constant {
 
-    public static final String TAG_LOG = "WallpaperLog";
+    public static final String TAG_LOG = "DebugLog";
 
     public final static int PER_PAGE = 10; //每页加载10条数据
 

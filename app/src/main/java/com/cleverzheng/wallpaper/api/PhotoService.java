@@ -1,4 +1,4 @@
-package com.cleverzheng.wallpaper.http.api;
+package com.cleverzheng.wallpaper.api;
 
 import com.cleverzheng.wallpaper.bean.LinksBean;
 import com.cleverzheng.wallpaper.bean.PhotoBean;

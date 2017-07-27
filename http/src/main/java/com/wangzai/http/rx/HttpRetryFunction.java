@@ -15,18 +15,34 @@ import io.reactivex.functions.Function;
  */
 
 public class HttpRetryFunction implements Function<Observable<? extends Throwable>, Observable<?>> {
+    private int maxRetries = 2; //重试两次
+    private int retryDelayMillis = 2; //延迟两秒重试
+    private int retryCount;
+
     @Override
     public Observable<?> apply(@NonNull Observable<? extends Throwable> observable) throws Exception {
-        return observable.zipWith(Observable.range(1, 2), new BiFunction<Throwable, Integer, Integer>() {
+//        return observable.zipWith(Observable.range(1, 2), new BiFunction<Throwable, Integer, Integer>() {
+//            @Override
+//            public Integer apply(@NonNull Throwable throwable, @NonNull Integer integer) throws Exception {
+//                  return integer;
+//            }
+//        }).flatMap(new Function<Integer, ObservableSource<?>>() {
+//            @Override
+//            public ObservableSource<?> apply(@NonNull Integer integer) throws Exception {
+//                LogUtil.i("重试" + integer);
+////                    (long) Math.pow(5, integer)
+//                return Observable.timer(2, TimeUnit.SECONDS);
+////
+//            }
+//        });
+        return observable.flatMap(new Function<Throwable, ObservableSource<?>>() {
             @Override
-            public Integer apply(@NonNull Throwable throwable, @NonNull Integer integer) throws Exception {
-                return integer;
-            }
-        }).flatMap(new Function<Integer, ObservableSource<?>>() {
-            @Override
-            public ObservableSource<?> apply(@NonNull Integer integer) throws Exception {
-                LogUtil.i("HttpRequest", "重试" + integer);
-                return Observable.timer((long) Math.pow(5, integer), TimeUnit.SECONDS);
+            public ObservableSource<?> apply(@NonNull Throwable throwable) throws Exception {
+                if (++retryCount <= maxRetries) {
+                    LogUtil.i("重试:" + retryCount);
+                    return Observable.timer(retryDelayMillis, TimeUnit.MILLISECONDS);
+                }
+                return Observable.error(throwable);
             }
         });
     }

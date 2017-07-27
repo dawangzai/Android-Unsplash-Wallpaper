@@ -1,10 +1,8 @@
 package com.cleverzheng.wallpaper.ui.test;
 
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 
 import com.cleverzheng.wallpaper.R;
@@ -13,12 +11,14 @@ import com.cleverzheng.wallpaper.bean.PhotoBean;
 import com.cleverzheng.wallpaper.http.api.PhotoService;
 import com.cleverzheng.wallpaper.utils.LogUtil;
 import com.wangzai.http.HttpClient;
+import com.wangzai.http.observer.HttpObserver;
 import com.wangzai.http.rx.Transformer;
+
+import java.io.File;
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
-import retrofit2.Response;
 
 
 /**
@@ -39,30 +39,36 @@ public class TestActivity extends BaseActivity {
             public void onClick(View v) {
                 HttpClient
                         .createApi(PhotoService.class)
-                        .getSinglePhoto2("twukN12EN7c")
+                        .getSinglePhoto("twukN12EN7c")
                         .compose(Transformer.<PhotoBean>transformer())
-                        .subscribe(new Observer<PhotoBean>() {
+                        .subscribe(new HttpObserver<PhotoBean>() {
                             @Override
-                            public void onSubscribe(@NonNull Disposable d) {
+                            protected void getDisposable(Disposable d) {
 
                             }
 
                             @Override
-                            public void onNext(@NonNull PhotoBean photoBeanResponse) {
-                                String id = photoBeanResponse.getId();
-                                LogUtil.i("onNext", id);
+                            protected void onError(int code, String errorMsg) {
+
                             }
 
                             @Override
-                            public void onError(@NonNull Throwable e) {
-                                LogUtil.i("error", e.toString());
-                            }
-
-                            @Override
-                            public void onComplete() {
+                            protected void onSuccess(PhotoBean photoBean) {
 
                             }
                         });
+            }
+        });
+
+        findViewById(R.id.btnTest2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                File externalStorageDirectory = Environment.getExternalStorageDirectory();
+                File cacheDir = getCacheDir();
+                File externalCacheDir = getExternalCacheDir();
+                LogUtil.i("DebugMessage", externalStorageDirectory.toString());
+                LogUtil.i("DebugMessage", cacheDir.toString());
+                LogUtil.i("DebugMessage", externalCacheDir.toString());
             }
         });
 

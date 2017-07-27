@@ -1,5 +1,6 @@
 package com.wangzai.http.interceptor;
 
+import com.wangzai.http.utils.LogUtil;
 import com.wangzai.http.utils.NetworkUtil;
 import com.wangzai.http.utils.StringUtil;
 
