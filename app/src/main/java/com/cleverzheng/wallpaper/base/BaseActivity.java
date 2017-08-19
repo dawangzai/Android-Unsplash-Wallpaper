@@ -160,4 +160,8 @@ public class BaseActivity extends AppCompatActivity implements BaseActivityFunct
     protected String getTAG() {
         return TAG;
     }
+
+    protected void addDisposable() {
+
+    }
 }

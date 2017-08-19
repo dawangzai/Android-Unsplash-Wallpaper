@@ -2,6 +2,7 @@ package com.cleverzheng.wallpaper;
 
 import android.app.Application;
 
+import com.cleverzheng.wallpaper.global.Constant;
 import com.cleverzheng.wallpaper.http.HttpClient;
 import com.cleverzheng.wallpaper.utils.LogUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -19,7 +20,20 @@ public class WallpaperApplication extends Application {
 
         initLog();
         initFresco();
+        initNetwork();
         initDownload();
+    }
+
+    private void initNetwork() {
+        com.wangzai.http.HttpClient.getInstance()
+                .init(this)
+                .setBaseUrl(BuildConfig.BASE_URL)
+                .setHeader("Authorization", "Client-ID " + BuildConfig.CLIENT_ID)
+                .setCache()
+                .setLog(BuildConfig.LOG_DEBUG, Constant.TAG_LOG)
+                .setConnectTimeout(30)
+                .setReadTimeout(30)
+                .setWriteTimeout(30);
     }
 
     private void initDownload() {
@@ -46,6 +60,6 @@ public class WallpaperApplication extends Application {
      */
     private void initLog() {
         //初始化Log
-        LogUtil.initialize(BuildConfig.LOG_DEBUG);
+        LogUtil.init(BuildConfig.LOG_DEBUG, Constant.TAG_LOG);
     }
 }

@@ -1,4 +1,4 @@
-package com.cleverzheng.wallpaper.utils;
+package com.wangzai.http.utils;
 
 import android.util.Log;
 

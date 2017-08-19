@@ -17,10 +17,9 @@ import com.cleverzheng.wallpaper.http.api.UserService;
 import com.cleverzheng.wallpaper.http.download.DownloadManager;
 import com.cleverzheng.wallpaper.http.exception.NetworkException;
 import com.cleverzheng.wallpaper.http.interceptor.CacheInterceptor;
-import com.cleverzheng.wallpaper.http.interceptor.NetworkCacheInterceptor;
+import com.cleverzheng.wallpaper.http.interceptor.HeaderInterceptor;
 import com.cleverzheng.wallpaper.http.observer.HttpObserver;
-import com.cleverzheng.wallpaper.utils.LogUtil;
-import com.cleverzheng.wallpaper.utils.NetworkUtil;
+import com.cleverzheng.wallpaper.http.utils.LogUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -106,17 +105,19 @@ public class HttpClient {
         if (BuildConfig.LOG_DEBUG) {
             okHttpClient.addInterceptor(logConfig());
         }
-
-        if (NetworkUtil.isConnected()) {
-            if (NetworkUtil.isAvailableByPing()) {
-                okHttpClient.addNetworkInterceptor(new NetworkCacheInterceptor());
-            } else {
-                okHttpClient.addInterceptor(new NetworkCacheInterceptor());
+        okHttpClient.addInterceptor(new HeaderInterceptor());
+        okHttpClient.addInterceptor(new CacheInterceptor());
+        okHttpClient.addNetworkInterceptor(new CacheInterceptor());
+//        if (NetworkUtil.isConnected()) {
+//            if (NetworkUtil.isAvailableByPing()) {
 //                okHttpClient.addNetworkInterceptor(new NetworkCacheInterceptor());
-            }
-        } else {
-            okHttpClient.addInterceptor(new NetworkCacheInterceptor());
-        }
+//            } else {
+//                okHttpClient.addInterceptor(new NetworkCacheInterceptor());
+////                okHttpClient.addNetworkInterceptor(new NetworkCacheInterceptor());
+//            }
+//        } else {
+//            okHttpClient.addInterceptor(new NetworkCacheInterceptor());
+//        }
         okHttpClient.cache(cacheConfig());
 //        okHttpClient.build().newCall().execute()
         return okHttpClient.build();
