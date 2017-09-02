@@ -57,6 +57,18 @@ public class BaseFragmentFragment extends Fragment implements BaseFragmentFuncti
         initListener();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        LogUtil.i(getTAG(), "------Fragment--onSaveInstanceState------");
+        super.onSaveInstanceState(outState);
+        setUserVisibleHint(true);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+    }
+
     /**
      * 找状态控件
      */

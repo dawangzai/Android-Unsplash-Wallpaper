@@ -6,7 +6,7 @@ import android.view.View;
 
 
 /**
- * Created by wangzai on 2017/5/22.
+ * Created by wangzai on 2017/5/22
  */
 
 public class ViewPagerFragment extends BaseFragmentFragment {
