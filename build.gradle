@@ -20,6 +20,9 @@ allprojects {
 //            url "http://maven.google.com"
             url "https://dl.google.com/dl/android/maven2/"
         }
+        maven {
+            url "https://jitpack.io"
+        }
     }
 }
 
