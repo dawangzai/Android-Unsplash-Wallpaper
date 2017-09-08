@@ -31,6 +31,7 @@ public class Transformer {
                                 //在主线程执行，可以做一些进度条的处理
                             }
                         })
+                        .subscribeOn(AndroidSchedulers.mainThread())
                         .observeOn(AndroidSchedulers.mainThread());
             }
         };

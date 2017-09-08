@@ -84,7 +84,7 @@ public class PhotoDetailPresenter implements PhotoDetailContract.Presenter {
 //
 //            }
 //        });
-//        HttpClient.getInstance().getPhotoDownload(observer, url);
+//        RxHttpClient.getInstance().getPhotoDownload(observer, url);
 
 //        OkHttpManger.getInstance().downloadAsync();
     }

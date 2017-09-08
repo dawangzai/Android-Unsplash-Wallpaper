@@ -1,6 +1,7 @@
 package com.wangzai.lovesy.core.app;
 
 import com.wangzai.lovesy.core.net.HttpCreator;
+import com.wangzai.lovesy.core.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,8 +37,9 @@ public class Configurator {
         return this;
     }
 
-    public final Configurator withLogEnable(boolean logEnable) {
+    public final Configurator withLogEnable(boolean logEnable, String tag) {
         LOVESY_CONFIGS.put(ConfigKeys.LOG_ENABLE, logEnable);
+        LogUtil.init(logEnable, tag);
         return this;
     }
 

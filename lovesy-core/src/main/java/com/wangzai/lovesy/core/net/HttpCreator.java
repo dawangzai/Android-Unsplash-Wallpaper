@@ -5,6 +5,8 @@ import com.wangzai.lovesy.core.app.LoveSy;
 import com.wangzai.lovesy.core.net.cookie.HttpCookieJar;
 import com.wangzai.lovesy.core.net.interceptor.BaseInterceptor;
 import com.wangzai.lovesy.core.net.interceptor.InterceptorType;
+import com.wangzai.lovesy.core.net.rx.RxHttpService;
+import com.wangzai.lovesy.core.net.rx.lift.Transformer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +19,7 @@ import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
@@ -45,7 +48,6 @@ public class HttpCreator {
      */
     private static final class CookieHolder {
         private static final HashMap<HttpUrl, List<Cookie>> COOKIES = new HashMap<>();
-
     }
 
     /**
@@ -96,6 +98,7 @@ public class HttpCreator {
                 .baseUrl(BASE_URL)
                 .client(OkHttpHolder.OK_HTTP_CLIENT)
                 .addConverterFactory(ScalarsConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
 
@@ -106,8 +109,19 @@ public class HttpCreator {
         private static final HttpService HTTP_SERVICE = RetrofitHolder.RETROFIT_CLIENT.create(HttpService.class);
     }
 
+    /**
+     * 创建 RxService
+     */
+    private static class RxServiceHolder {
+        private static final RxHttpService HTTP_SERVICE = RetrofitHolder.RETROFIT_CLIENT.create(RxHttpService.class);
+    }
+
     static HttpService getHttpService() {
         return ServiceHolder.HTTP_SERVICE;
+    }
+
+    public static RxHttpService getRxHttpService() {
+        return RxServiceHolder.HTTP_SERVICE;
     }
 
     public static WeakHashMap<String, Object> getParams() {
@@ -121,4 +135,5 @@ public class HttpCreator {
     public static HashMap<HttpUrl, List<Cookie>> getCookies() {
         return CookieHolder.COOKIES;
     }
+
 }

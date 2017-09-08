@@ -2,6 +2,7 @@ package com.wangzai.http;
 
 
 import android.content.Context;
+import android.util.Log;
 
 import com.wangzai.http.interceptor.CacheInterceptor;
 import com.wangzai.http.interceptor.HeaderInterceptor;

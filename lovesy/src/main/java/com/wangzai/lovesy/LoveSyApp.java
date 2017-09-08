@@ -2,16 +2,22 @@ package com.wangzai.lovesy;
 
 import android.app.Application;
 
+import com.wangzai.lovesy.core.app.LoveSy;
+import com.wangzai.lovesy.core.net.interceptor.HeaderInterceptor;
+import com.wangzai.lovesy.core.net.interceptor.InterceptorType;
+import com.wangzai.lovesy.core.net.interceptor.Logger;
 import com.wangzai.lovesy.global.Constant;
 import com.wangzai.lovesy.http.HttpClient;
 import com.wangzai.lovesy.utils.LogUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
+import okhttp3.logging.HttpLoggingInterceptor;
+
 /**
- * Created by wangzai on 2017/2/4.
+ * Created by wangzai on 2017/2/4
  */
-public class WallpaperApplication extends Application {
-    private static WallpaperApplication appContext;
+public class LoveSyApp extends Application {
+    private static LoveSyApp appContext;
 
     @Override
     public void onCreate() {
@@ -22,6 +28,13 @@ public class WallpaperApplication extends Application {
         initFresco();
         initNetwork();
         initDownload();
+
+        LoveSy.init(this)
+                .withLogEnable(BuildConfig.LOG_DEBUG, "LoveSyDebug")
+                .withApiHost("https://api.unsplash.com/")
+                .withInterceptor(new HeaderInterceptor(InterceptorType.INTERCEPTOR))
+                .withInterceptor(new HttpLoggingInterceptor(new Logger()).setLevel(HttpLoggingInterceptor.Level.BODY))
+                .configure();
     }
 
     private void initNetwork() {
@@ -40,7 +53,7 @@ public class WallpaperApplication extends Application {
         HttpClient.initDownloadEnvironment(this, 2);
     }
 
-    public static WallpaperApplication getInstance() {
+    public static LoveSyApp getInstance() {
         if (appContext != null) {
             return appContext;
         } else {

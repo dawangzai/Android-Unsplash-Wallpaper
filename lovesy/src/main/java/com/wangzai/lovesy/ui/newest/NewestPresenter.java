@@ -3,10 +3,12 @@ package com.wangzai.lovesy.ui.newest;
 import android.app.Activity;
 import android.os.Environment;
 
+import com.wangzai.http.rx.Transformer;
 import com.wangzai.lovesy.MainActivity;
 import com.wangzai.lovesy.bean.PhotoBean;
 import com.wangzai.lovesy.global.Constant;
 import com.wangzai.lovesy.http.HttpClient;
+import com.wangzai.lovesy.http.api.PhotoService;
 import com.wangzai.lovesy.http.callback.OnResultCallback;
 import com.wangzai.lovesy.http.observer.HttpObserver;
 import com.wangzai.lovesy.operator.OpenActivityOp;
@@ -15,7 +17,7 @@ import java.io.File;
 import java.util.List;
 
 /**
- * Created by wangzai on 2017/2/12.
+ * Created by wangzai on 2017/2/12
  */
 public class NewestPresenter implements NewestContract.Presenter {
     private NewestContract.View newestView;

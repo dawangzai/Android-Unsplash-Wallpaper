@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Environment;
 
 import com.wangzai.lovesy.BuildConfig;
-import com.wangzai.lovesy.WallpaperApplication;
+import com.wangzai.lovesy.LoveSyApp;
 import com.wangzai.lovesy.bean.AccessToken;
 import com.wangzai.lovesy.bean.CollectionBean;
 import com.wangzai.lovesy.bean.LinksBean;
@@ -146,7 +146,7 @@ public class HttpClient {
      */
     private Cache cacheConfig() {
         //缓存目录 \data\data\包名\cache\api_cache
-        File cacheDir = new File(WallpaperApplication.getInstance().getCacheDir(), "api_cache");
+        File cacheDir = new File(LoveSyApp.getInstance().getCacheDir(), "api_cache");
         //缓存空间 10M
         int cacheSize = 10 * 1024 * 1024;
         Cache cache = new Cache(cacheDir, cacheSize);

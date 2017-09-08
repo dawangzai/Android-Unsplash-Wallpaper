@@ -11,14 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
-import com.wangzai.lovesy.WallpaperApplication;
+import com.wangzai.lovesy.LoveSyApp;
 
 public class ToastUtil {
 
     private static Toast sToast;
     private static int gravity = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
     private static int xOffset = 0;
-    private static int yOffset = (int) (64 * WallpaperApplication.getInstance().getResources().getDisplayMetrics().density + 0.5);
+    private static int yOffset = (int) (64 * LoveSyApp.getInstance().getResources().getDisplayMetrics().density + 0.5);
     @SuppressLint("StaticFieldLeak")
     private static View customView;
     private static Handler sHandler = new Handler(Looper.getMainLooper());
@@ -46,7 +46,7 @@ public class ToastUtil {
      * @param layoutId 视图
      */
     public static void setView(@LayoutRes int layoutId) {
-        LayoutInflater inflate = (LayoutInflater) WallpaperApplication.getInstance().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflate = (LayoutInflater) LoveSyApp.getInstance().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ToastUtil.customView = inflate.inflate(layoutId, null);
     }
 
@@ -269,7 +269,7 @@ public class ToastUtil {
      * @param duration 显示时长
      */
     private static void show(@StringRes int resId, int duration) {
-        show(WallpaperApplication.getInstance().getResources().getText(resId).toString(), duration);
+        show(LoveSyApp.getInstance().getResources().getText(resId).toString(), duration);
     }
 
     /**
@@ -280,7 +280,7 @@ public class ToastUtil {
      * @param args     参数
      */
     private static void show(@StringRes int resId, int duration, Object... args) {
-        show(String.format(WallpaperApplication.getInstance().getResources().getString(resId), args), duration);
+        show(String.format(LoveSyApp.getInstance().getResources().getString(resId), args), duration);
     }
 
     /**
@@ -303,11 +303,11 @@ public class ToastUtil {
     private static void show(CharSequence text, int duration) {
         cancel();
         if (customView != null) {
-            sToast = new Toast(WallpaperApplication.getInstance());
+            sToast = new Toast(LoveSyApp.getInstance());
             sToast.setView(customView);
             sToast.setDuration(duration);
         } else {
-            sToast = Toast.makeText(WallpaperApplication.getInstance(), text, duration);
+            sToast = Toast.makeText(LoveSyApp.getInstance(), text, duration);
         }
         sToast.setGravity(gravity, xOffset, yOffset);
         sToast.show();

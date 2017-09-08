@@ -8,7 +8,7 @@ import io.reactivex.functions.Function;
 import retrofit2.Response;
 
 /**
- * Created by wangzai on 2017/7/26.
+ * Created by wangzai on 2017/7/26
  */
 
 public class HttpResultFunction<T> implements Function<Response<T>, T> {

@@ -13,7 +13,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
- * Created by wangzai on 2017/5/25.
+ * Created by wangzai on 2017/5/25
  */
 
 public interface PhotoService {

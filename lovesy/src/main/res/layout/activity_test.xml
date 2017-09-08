@@ -4,24 +4,36 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/contentFrame"
+    <!--<LinearLayout-->
+        <!--android:id="@+id/contentFrame"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<Button-->
+            <!--android:id="@+id/btnTest"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="test" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/btnTest2"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="test" />-->
+
+    <!--</LinearLayout>-->
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/btnTest"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="test" />
+            android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/btnTest2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="test" />
-
-    </LinearLayout>
-
+        </android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>
