@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="LoveSyToolbarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
+
+    <style name="ToolbarTitleTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
+        <item name="android:textSize">@dimen/textSize_18</item>
+    </style>
+
     <style name="dialog" parent="@android:style/Theme.Dialog">
         <!--去掉边框-->
         <item name="android:windowFrame">@null</item>
@@ -16,21 +25,5 @@
         <item name="android:backgroundDimEnabled">true</item>
         <!--全屏幕-->
         <item name="android:windowFullscreen">true</item>
-
-    <!--<style name="dialog" parent="@android:style/Theme.Dialog">-->
-        <!--&lt;!&ndash;去掉边框&ndash;&gt;-->
-        <!--<item name="android:windowFrame">@null</item>-->
-        <!--&lt;!&ndash;悬浮&ndash;&gt;-->
-        <!--<item name="android:windowIsFloating">true</item>-->
-        <!--&lt;!&ndash;半透明&ndash;&gt;-->
-        <!--<item name="android:windowIsTranslucent">false</item>-->
-        <!--&lt;!&ndash;不需要标题&ndash;&gt;-->
-        <!--<item name="android:windowNoTitle">true</item>-->
-        <!--&lt;!&ndash;背景透明&ndash;&gt;-->
-        <!--<item name="android:windowBackground">@android:color/transparent</item>-->
-        <!--&lt;!&ndash;允许模糊&ndash;&gt;-->
-        <!--<item name="android:backgroundDimEnabled">true</item>-->
-        <!--&lt;!&ndash;全屏幕&ndash;&gt;-->
-        <!--<item name="android:windowFullscreen">true</item>-->
     </style>
 </resources>

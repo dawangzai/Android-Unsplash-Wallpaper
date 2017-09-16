@@ -23,7 +23,7 @@ import com.wangzai.lovesy.utils.LogUtil;
 import static android.view.KeyEvent.KEYCODE_BACK;
 
 /**
- * Created by wangzai on 2017/7/11.
+ * Created by wangzai on 2017/7/11
  */
 
 public class LoginActivity extends BaseActivity {
