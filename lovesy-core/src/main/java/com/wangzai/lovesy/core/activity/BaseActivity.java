@@ -1,6 +1,7 @@
 package com.wangzai.lovesy.core.activity;
 
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -29,7 +30,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     @BindView(R2.id.toolbar)
     Toolbar toolbar;
 
-    @Nullable
     @BindView(R2.id.fragment_container)
     FrameLayout fragmentContainer;
 
@@ -64,21 +64,23 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public void loadRootFragment(@Nullable Bundle savedInstanceState, LoveSyFragment fragment) {
+    public void loadRootFragment(@Nullable Bundle savedInstanceState, @IdRes int containerId, LoveSyFragment fragment) {
         if (fragmentContainer != null) {
             if (savedInstanceState == null) {
                 getSupportFragmentManager().beginTransaction()
-                        .add(R2.id.fragment_container, fragment)
+                        .add(containerId, fragment)
                         .commit();
             }
         }
     }
 
     public void loadFragment(LoveSyFragment fragment) {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R2.id.fragment_container, fragment)
-                .addToBackStack(null)
-                .commit();
+        if (fragmentContainer != null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(fragmentContainer.getId(), fragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 
     @Override

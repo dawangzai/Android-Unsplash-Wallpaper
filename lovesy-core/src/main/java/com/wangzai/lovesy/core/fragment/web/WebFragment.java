@@ -62,6 +62,14 @@ public abstract class WebFragment extends LoveSyFragment {
         }
     }
 
+    public String getUrl() {
+        if (mUrl == null) {
+            throw new NullPointerException("Url is null !");
+        } else {
+            return mUrl;
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();
