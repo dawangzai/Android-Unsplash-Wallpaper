@@ -1,4 +1,4 @@
-package com.wangzai.lovesy.ui.login;
+package com.wangzai.lovesy.ui.sign;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,12 +19,12 @@ import com.wangzai.lovesy.core.fragment.web.client.WebViewClientImpl;
  * Created by wangzai on 2017/9/18
  */
 
-public class LoginFragment extends WebFragment implements IWebViewInitializer {
+public class SignInFragment extends WebFragment implements IWebViewInitializer {
 
-    public static LoginFragment create(String url) {
+    public static SignInFragment create(String url) {
         final Bundle args = new Bundle();
         args.putString(RouteKeys.URL.name(), url);
-        final LoginFragment fragment = new LoginFragment();
+        final SignInFragment fragment = new SignInFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -37,7 +37,7 @@ public class LoginFragment extends WebFragment implements IWebViewInitializer {
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
         if (getUrl() != null) {
-            LoginRoute.getInstance().loadWebPage(getWebView(), getUrl());
+            SignInRoute.getInstance().loadWebPage(getWebView(), getUrl());
         }
     }
 
@@ -53,7 +53,7 @@ public class LoginFragment extends WebFragment implements IWebViewInitializer {
 
     @Override
     public WebViewClient initWebViewClient() {
-        return WebViewClientImpl.create(getLoveSyActivity(),LoginRoute.getInstance());
+        return WebViewClientImpl.create(getLoveSyActivity(), SignInRoute.getInstance());
     }
 
     @Override

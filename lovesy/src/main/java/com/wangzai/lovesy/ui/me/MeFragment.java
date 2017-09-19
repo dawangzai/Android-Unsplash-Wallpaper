@@ -16,8 +16,7 @@ import com.wangzai.lovesy.R;
 import com.wangzai.lovesy.base.ViewPagerFragment;
 import com.wangzai.lovesy.operator.ImageLoaderOp;
 import com.wangzai.lovesy.ui.adapter.MeGvAdapter;
-import com.wangzai.lovesy.ui.login.LoginActivity;
-import com.wangzai.lovesy.ui.login.WebActivity;
+import com.wangzai.lovesy.ui.sign.SignInActivity;
 import com.wangzai.lovesy.view.widget.DraweeImageView;
 
 import java.util.ArrayList;
@@ -116,8 +115,8 @@ public class MeFragment extends ViewPagerFragment implements MeContract.View, Ad
         HashMap<String, Object> itemAtPosition = (HashMap<String, Object>) parent.getItemAtPosition(position);
         Toast.makeText(getActivity(), itemAtPosition.get(ITEM_DESCRIPTION).toString(), Toast.LENGTH_SHORT).show();
 
-//        Intent intent = new Intent(this.getActivity(), LoginActivity.class);
-        Intent intent = new Intent(this.getActivity(), WebActivity.class);
+//        Intent intent = new Intent(this.getActivity(), SignInActivity.class);
+        Intent intent = new Intent(this.getActivity(), SignInActivity.class);
         startActivity(intent);
     }
 }

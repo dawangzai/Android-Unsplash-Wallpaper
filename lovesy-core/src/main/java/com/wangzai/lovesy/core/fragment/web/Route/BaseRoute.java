@@ -10,6 +10,7 @@ import com.wangzai.lovesy.core.activity.LoveSyActivity;
 
 public abstract class BaseRoute {
 
+
     public abstract boolean handleWebUrl(LoveSyActivity activity, String url);
 
     public void loadWebPage(WebView webView, String url) {
