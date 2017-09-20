@@ -11,6 +11,8 @@
 
     <color name="bg_ffffff">#ffffff</color>
 
+    <color name="text_black">#000000</color>
+
     <color name="theme_primary_theme">#273644</color>
     <color name="theme_primary_status">#222e38</color>
     <color name="theme_primary_background">#f5f5f5</color>

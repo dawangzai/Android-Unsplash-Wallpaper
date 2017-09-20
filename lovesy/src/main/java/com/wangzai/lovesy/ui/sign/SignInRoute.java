@@ -16,6 +16,8 @@ import io.reactivex.annotations.NonNull;
 
 class SignInRoute extends BaseRoute {
 
+    private ISignListener mISignListener;
+
     private SignInRoute() {
     }
 
@@ -28,9 +30,12 @@ class SignInRoute extends BaseRoute {
     }
 
     @Override
-    public boolean handleWebUrl(LoveSyActivity activity, String url) {
+    public boolean handleWebUrl(final LoveSyActivity activity, String url) {
         LogUtil.i(url);
         if (!url.contains("authorize") && url.contains("http://dawangzai.com")) {
+            if (activity instanceof ISignListener) {
+                mISignListener = (ISignListener) activity;
+            }
             String[] split = url.split("code=");
             LogUtil.i(split[1]);
             WeakHashMap<String, Object> params = new WeakHashMap<>();
@@ -49,7 +54,7 @@ class SignInRoute extends BaseRoute {
                         @Override
                         public void onSuccess(@NonNull String result) {
                             LogUtil.i(result);
-//                            SignHandler.onSignIn();
+                            SignHandler.onSignIn(mISignListener);
                         }
 
                         @Override

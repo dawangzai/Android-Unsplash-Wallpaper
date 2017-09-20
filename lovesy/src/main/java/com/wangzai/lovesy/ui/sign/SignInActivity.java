@@ -12,6 +12,7 @@ import com.wangzai.lovesy.core.activity.LoveSyActivity;
 
 public class SignInActivity extends LoveSyActivity {
 
+
     @Override
     public int setLayout() {
         return R.layout.activity_web;
