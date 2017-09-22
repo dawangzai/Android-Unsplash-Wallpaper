@@ -30,6 +30,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @BindView(R2.id.toolbar)
     Toolbar toolbar;
 
+    @Nullable
     @BindView(R2.id.fragment_container)
     FrameLayout fragmentContainer;
 

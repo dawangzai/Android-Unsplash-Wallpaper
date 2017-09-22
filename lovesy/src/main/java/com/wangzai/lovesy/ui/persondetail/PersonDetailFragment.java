@@ -16,13 +16,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wangzai.lovesy.R;
-import com.wangzai.lovesy.base.BaseFragmentFragment;
+import com.wangzai.lovesy.mvp.base.BaseFragmentFragment;
 import com.wangzai.lovesy.bean.CollectionBean;
 import com.wangzai.lovesy.bean.PhotoBean;
 import com.wangzai.lovesy.bean.ProfileImageBean;
 import com.wangzai.lovesy.bean.UserBean;
-import com.wangzai.lovesy.listener.AppBarLayoutStateChangeListener;
-import com.wangzai.lovesy.operator.ImageLoaderOp;
+import com.wangzai.lovesy.mvp.listener.AppBarLayoutStateChangeListener;
+import com.wangzai.lovesy.mvp.operator.ImageLoaderOp;
 import com.wangzai.lovesy.ui.adapter.SimpleFragmentPagerAdapter;
 import com.wangzai.lovesy.utils.LogUtil;
 import com.wangzai.lovesy.utils.StringUtil;

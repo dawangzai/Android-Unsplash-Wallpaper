@@ -1,5 +1,7 @@
 package com.wangzai.lovesy.core.app;
 
+import com.joanzapata.iconify.IconFontDescriptor;
+import com.joanzapata.iconify.Iconify;
 import com.wangzai.lovesy.core.net.HttpCreator;
 import com.wangzai.lovesy.core.util.LogUtil;
 
@@ -13,8 +15,10 @@ import okhttp3.Interceptor;
  */
 
 public class Configurator {
-    public static final HashMap<Object, Object> LOVESY_CONFIGS = new HashMap<>();
+    private static final HashMap<Object, Object> LOVESY_CONFIGS = new HashMap<>();
     private static final ArrayList<Interceptor> INTERCEPTORS = HttpCreator.getInterceptors();
+    private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList<>();
+
 
     private Configurator() {
         LOVESY_CONFIGS.put(ConfigKeys.CONFIG_READY, false);
@@ -49,8 +53,23 @@ public class Configurator {
         return this;
     }
 
+    public final Configurator withIcon(IconFontDescriptor descriptor) {
+        ICONS.add(descriptor);
+        return this;
+    }
+
     public final void configure() {
+        initIcons();
         LOVESY_CONFIGS.put(ConfigKeys.CONFIG_READY, true);
+    }
+
+    private void initIcons() {
+        if (ICONS.size() > 0) {
+            Iconify.IconifyInitializer initializer = Iconify.with(ICONS.get(0));
+            for (int i = 1; i < ICONS.size(); i++) {
+                initializer.with(ICONS.get(i));
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")

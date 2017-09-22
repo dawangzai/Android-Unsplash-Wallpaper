@@ -19,11 +19,18 @@
             android:paddingTop="40dp">
 
             <com.wangzai.lovesy.core.widget.SimpleImageView
-                android:id="@+id/dvUserHead"
+                android:id="@+id/siv_avatar"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:src="@mipmap/ic_avatar_default"
                 app:roundAsCircle="true" />
+
+            <!--<com.wangzai.lovesy.core.widget.SimpleImageView-->
+            <!--android:id="@+id/dvUserHead"-->
+            <!--android:layout_width="70dp"-->
+            <!--android:layout_height="70dp"-->
+            <!--android:src="@mipmap/ic_avatar_default"-->
+            <!--app:roundAsCircle="true" />-->
 
             <TextView
                 android:id="@+id/tvName"

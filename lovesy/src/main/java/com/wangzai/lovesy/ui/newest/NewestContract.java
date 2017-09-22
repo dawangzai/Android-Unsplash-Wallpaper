@@ -1,7 +1,7 @@
 package com.wangzai.lovesy.ui.newest;
 
-import com.wangzai.lovesy.base.BasePresenter;
-import com.wangzai.lovesy.base.BaseView;
+import com.wangzai.lovesy.mvp.base.BasePresenter;
+import com.wangzai.lovesy.mvp.base.BaseView;
 import com.wangzai.lovesy.bean.PhotoBean;
 
 import java.util.List;

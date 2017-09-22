@@ -19,20 +19,19 @@ import java.util.List;
 public class MultipleRecyclerAdapter extends BaseMultiItemQuickAdapter<MultipleItemEntity, MultipleViewHolder>
         implements BaseQuickAdapter.SpanSizeLookup {
 
-    private static List<MultipleItemEntity> dataList = new ArrayList<>();
-
     private MultipleRecyclerAdapter(List<MultipleItemEntity> data) {
         super(data);
         init();
     }
 
     public static MultipleRecyclerAdapter create() {
-        return new MultipleRecyclerAdapter(dataList);
+        return new MultipleRecyclerAdapter(new ArrayList<MultipleItemEntity>());
     }
 
     private void init() {
-        addItemType(ItemType.PERSONAL_PHOTO, R.layout.item_personal_photo);
-        addItemType(ItemType.PERSONAL_COLLECTION, R.layout.item_personal_collection);
+        addItemType(ItemType.PHOTO, R.layout.item_photo);
+        addItemType(ItemType.COLLECTION_PHOTO, R.layout.item_personal_collection);
+        addItemType(ItemType.COLLECTION, R.layout.item_collections);
         setSpanSizeLookup(this);
         openLoadAnimation();
         //多次执行动画
@@ -47,26 +46,47 @@ public class MultipleRecyclerAdapter extends BaseMultiItemQuickAdapter<MultipleI
     @Override
     protected void convert(MultipleViewHolder holder, MultipleItemEntity item) {
 
-        final String photoUrl = item.getField(MultipleFields.PHOTO_URL);
-        final String avatarUrl = item.getField(MultipleFields.AVATAR_URL);
+        final String photoUrl;
+        final String avatarUrl;
         final String userName;
         final int totalLikes;
-
-        ImageLoader.loaderImage((SimpleImageView) holder.getView(R.id.img_photo), photoUrl);
-        ImageLoader.loaderImage((SimpleImageView) holder.getView(R.id.img_avatar), avatarUrl);
+        final String collectionsName;
+        final int collectionsCount;
 
         switch (holder.getItemViewType()) {
-            case ItemType.PERSONAL_PHOTO:
+            case ItemType.PHOTO:
+                photoUrl = item.getField(MultipleFields.PHOTO_URL);
+                avatarUrl = item.getField(MultipleFields.AVATAR_URL);
                 userName = item.getField(MultipleFields.USER_NAME);
                 totalLikes = item.getField(MultipleFields.TOTAL_LIKES);
+
+                ImageLoader.loaderImage((SimpleImageView) holder.getView(R.id.siv_photo), photoUrl);
+                ImageLoader.loaderImage((SimpleImageView) holder.getView(R.id.siv_avatar), avatarUrl);
                 holder.setText(R.id.tv_user_name, userName);
                 holder.setText(R.id.tv_like, String.valueOf(totalLikes));
+                holder.addOnClickListener(R.id.siv_photo)
+                        .addOnClickListener(R.id.siv_avatar)
+                        .addOnClickListener(R.id.tv_like)
+                        .addOnClickListener(R.id.tv_user_name)
+                        .addOnClickListener(R.id.iv_add_collect);
                 break;
-            case ItemType.PERSONAL_COLLECTION:
+            case ItemType.COLLECTION_PHOTO:
+                photoUrl = item.getField(MultipleFields.PHOTO_URL);
+                avatarUrl = item.getField(MultipleFields.AVATAR_URL);
                 userName = item.getField(MultipleFields.USER_NAME);
+
+                ImageLoader.loaderImage((SimpleImageView) holder.getView(R.id.siv_photo), photoUrl);
+                ImageLoader.loaderImage((SimpleImageView) holder.getView(R.id.siv_avatar), avatarUrl);
                 holder.setText(R.id.tv_user_name, userName);
                 break;
-            case ItemType.COLLECTION_LIST:
+            case ItemType.COLLECTION:
+                photoUrl = item.getField(MultipleFields.PHOTO_URL);
+                collectionsName = item.getField(MultipleFields.COLLECTION_NAME);
+                collectionsCount = item.getField(MultipleFields.COLLECTION_COUNT);
+
+                ImageLoader.loaderImage((SimpleImageView) holder.getView(R.id.siv_photo), photoUrl);
+                holder.setText(R.id.tv_collections_name, collectionsName);
+                holder.setText(R.id.tv_collections_count, String.valueOf(collectionsCount));
                 break;
             default:
                 break;

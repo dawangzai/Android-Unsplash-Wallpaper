@@ -3,7 +3,7 @@ package com.wangzai.lovesy.ui.collection;
 import android.app.Activity;
 
 import com.wangzai.lovesy.bean.CollectionBean;
-import com.wangzai.lovesy.global.Constant;
+import com.wangzai.lovesy.mvp.global.Constant;
 import com.wangzai.lovesy.http.HttpClient;
 import com.wangzai.lovesy.http.callback.OnResultCallback;
 import com.wangzai.lovesy.http.observer.HttpObserver;

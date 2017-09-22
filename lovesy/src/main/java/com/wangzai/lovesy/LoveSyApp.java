@@ -2,12 +2,12 @@ package com.wangzai.lovesy;
 
 import android.app.Application;
 
+import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import com.wangzai.lovesy.core.app.LoveSy;
 import com.wangzai.lovesy.core.net.interceptor.HeaderInterceptor;
 import com.wangzai.lovesy.core.net.interceptor.InterceptorType;
 import com.wangzai.lovesy.core.net.interceptor.Logger;
-import com.wangzai.lovesy.global.Constant;
-import com.wangzai.lovesy.http.HttpClient;
+import com.wangzai.lovesy.mvp.global.Constant;
 import com.wangzai.lovesy.utils.LogUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
@@ -26,32 +26,33 @@ public class LoveSyApp extends Application {
 
         initLog();
         initFresco();
-        initNetwork();
-        initDownload();
+//        initNetwork();
+//        initDownload();
 
         LoveSy.init(this)
                 .withLogEnable(BuildConfig.LOG_DEBUG, "LoveSyDebug")
                 .withApiHost("https://api.unsplash.com/")
+                .withIcon(new FontAwesomeModule())
                 .withInterceptor(new HeaderInterceptor(InterceptorType.INTERCEPTOR))
                 .withInterceptor(new HttpLoggingInterceptor(new Logger()).setLevel(HttpLoggingInterceptor.Level.BODY))
                 .configure();
     }
 
     private void initNetwork() {
-        com.wangzai.http.HttpClient.getInstance()
-                .init(this)
-                .setBaseUrl(BuildConfig.BASE_URL)
-                .setHeader("Authorization", "Client-ID " + BuildConfig.CLIENT_ID)
-                .setCache()
-                .setLog(BuildConfig.LOG_DEBUG, Constant.TAG_LOG)
-                .setConnectTimeout(30)
-                .setReadTimeout(30)
-                .setWriteTimeout(30);
+//        com.wangzai.http.HttpClient.getInstance()
+//                .init(this)
+//                .setBaseUrl(BuildConfig.BASE_URL)
+//                .setHeader("Authorization", "Client-ID " + BuildConfig.CLIENT_ID)
+//                .setCache()
+//                .setLog(BuildConfig.LOG_DEBUG, Constant.TAG_LOG)
+//                .setConnectTimeout(30)
+//                .setReadTimeout(30)
+//                .setWriteTimeout(30);
     }
 
-    private void initDownload() {
-        HttpClient.initDownloadEnvironment(this, 2);
-    }
+//    private void initDownload() {
+//        HttpClient.initDownloadEnvironment(this, 2);
+//    }
 
     public static LoveSyApp getInstance() {
         if (appContext != null) {

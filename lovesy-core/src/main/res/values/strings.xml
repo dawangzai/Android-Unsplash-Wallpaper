@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">lovesy-core</string>
+    <string name="hint_click_retry">点击重试</string>
 </resources>

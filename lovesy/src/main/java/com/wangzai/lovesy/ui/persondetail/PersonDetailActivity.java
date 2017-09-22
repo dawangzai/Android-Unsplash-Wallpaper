@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.wangzai.lovesy.R;
-import com.wangzai.lovesy.base.BaseActivity;
-import com.wangzai.lovesy.global.Constant;
+import com.wangzai.lovesy.mvp.base.BaseActivity;
+import com.wangzai.lovesy.mvp.global.Constant;
 import com.wangzai.lovesy.utils.StringUtil;
 
 import butterknife.BindView;

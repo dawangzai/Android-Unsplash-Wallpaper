@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wangzai.lovesy.R;
-import com.wangzai.lovesy.base.ViewPagerFragment;
+import com.wangzai.lovesy.mvp.base.ViewPagerFragment;
 import com.wangzai.lovesy.bean.CollectionBean;
 import com.wangzai.lovesy.ui.adapter.PersonCollectionsAdapter;
 import com.wangzai.lovesy.utils.LogUtil;

@@ -2,8 +2,13 @@ package com.wangzai.lovesy.core.ui.refresh;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.wangzai.lovesy.core.R;
 import com.wangzai.lovesy.core.net.rx.RxHttpClient;
 import com.wangzai.lovesy.core.net.rx.observer.ResultObserver;
 import com.wangzai.lovesy.core.ui.recycler.DataConverter;
@@ -16,22 +21,26 @@ import io.reactivex.annotations.NonNull;
  */
 
 public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
-        BaseQuickAdapter.RequestLoadMoreListener {
+        BaseQuickAdapter.RequestLoadMoreListener, View.OnClickListener {
 
     private final SwipeRefreshLayout mRefreshLayout;
     private final RecyclerView mRecyclerView;
     private final PagingBean mPagingBean;
     private final DataConverter mConvert;
     private MultipleRecyclerAdapter mAdapter;
+    private OnRequestListener mListener;
+    private LinearLayout mErrorView;
 
     private RefreshHandler(SwipeRefreshLayout refreshLayout,
                            RecyclerView recyclerView,
                            PagingBean pagingBean,
-                           DataConverter convert) {
+                           DataConverter convert,
+                           OnRequestListener listener) {
         this.mRefreshLayout = refreshLayout;
         this.mRecyclerView = recyclerView;
         this.mPagingBean = pagingBean;
         this.mConvert = convert;
+        this.mListener = listener;
         init();
     }
 
@@ -39,32 +48,30 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
         mRefreshLayout.setOnRefreshListener(this);
         mAdapter = MultipleRecyclerAdapter.create();
         mRecyclerView.setAdapter(mAdapter);
+        mErrorView = (LinearLayout) LayoutInflater.from(mRecyclerView.getContext()).inflate(R.layout.view_error, null);
+        mErrorView.setOnClickListener(this);
     }
 
     public static RefreshHandler create(SwipeRefreshLayout refreshLayout,
                                         RecyclerView recyclerView,
-                                        DataConverter convert) {
-        return new RefreshHandler(refreshLayout, recyclerView, new PagingBean(), convert);
+                                        DataConverter convert, OnRequestListener listener) {
+        return new RefreshHandler(refreshLayout, recyclerView, new PagingBean(), convert, listener);
     }
 
     @Override
     public void onRefresh() {
-        refresh();
+        mListener.onRefresh();
     }
 
     @Override
     public void onLoadMoreRequested() {
-        paging();
+        mListener.onLoadMore();
     }
 
-    public void refresh() {
+    public void refresh(String url) {
         mRefreshLayout.setRefreshing(true);
-        firstPage();
-    }
-
-    private void firstPage() {
         RxHttpClient.builder()
-                .url("photos")
+                .url(url)
                 .params("page", 1)
                 .build()
                 .get()
@@ -84,14 +91,19 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
                     @Override
                     public void onFailure(int code, String msg) {
                         mRefreshLayout.setRefreshing(false);
+                        if (mAdapter.getData().isEmpty()) {
+                            final TextView tvErrorMsg = (TextView) mErrorView.getChildAt(0);
+                            tvErrorMsg.setText(msg);
+                            mAdapter.setEmptyView(mErrorView);
+                        }
                     }
                 });
     }
 
-    private void paging() {
+    public void loadMore(String url) {
         final int pageIndex = mPagingBean.getPageIndex();
         RxHttpClient.builder()
-                .url("photos")
+                .url(url)
                 .params("page", pageIndex)
                 .build()
                 .get()
@@ -109,5 +121,13 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
                         mAdapter.loadMoreComplete();
                     }
                 });
+    }
+
+    @Override
+    public void onClick(View v) {
+        final int id = v.getId();
+        if (id == R.id.ll_error_layout) {
+            onRefresh();
+        }
     }
 }

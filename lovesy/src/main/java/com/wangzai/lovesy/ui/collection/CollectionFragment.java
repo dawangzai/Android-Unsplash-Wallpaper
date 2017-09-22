@@ -9,11 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wangzai.lovesy.R;
-import com.wangzai.lovesy.base.ViewPagerFragment;
+import com.wangzai.lovesy.mvp.base.ViewPagerFragment;
 import com.wangzai.lovesy.bean.CollectionBean;
-import com.wangzai.lovesy.global.Constant;
-import com.wangzai.lovesy.listener.OnNetworkErrorListener;
-import com.wangzai.lovesy.operator.OpenActivityOp;
+import com.wangzai.lovesy.mvp.global.Constant;
+import com.wangzai.lovesy.mvp.listener.OnNetworkErrorListener;
+import com.wangzai.lovesy.mvp.operator.OpenActivityOp;
 import com.wangzai.lovesy.ui.adapter.CollectionListAdapter;
 import com.wangzai.lovesy.utils.LogUtil;
 import com.wangzai.lovesy.view.layout.RefreshLayout;

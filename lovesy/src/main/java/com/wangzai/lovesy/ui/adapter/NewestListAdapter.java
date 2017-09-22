@@ -9,14 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wangzai.lovesy.R;
-import com.wangzai.lovesy.base.BaseFragmentFragment;
+import com.wangzai.lovesy.mvp.base.BaseFragmentFragment;
 import com.wangzai.lovesy.bean.LinksBean;
 import com.wangzai.lovesy.bean.PhotoBean;
 import com.wangzai.lovesy.bean.ProfileImageBean;
 import com.wangzai.lovesy.bean.UrlsBean;
 import com.wangzai.lovesy.bean.UserBean;
-import com.wangzai.lovesy.global.Constant;
-import com.wangzai.lovesy.operator.ImageLoaderOp;
+import com.wangzai.lovesy.mvp.global.Constant;
+import com.wangzai.lovesy.mvp.operator.ImageLoaderOp;
 import com.wangzai.lovesy.ui.collectiondetail.CollectionDetailFragment;
 import com.wangzai.lovesy.ui.newest.NewestFragment;
 import com.wangzai.lovesy.ui.persondetail.PersonPhotosFragment;

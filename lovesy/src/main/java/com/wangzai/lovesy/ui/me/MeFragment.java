@@ -7,17 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wangzai.lovesy.R;
-import com.wangzai.lovesy.base.ViewPagerFragment;
-import com.wangzai.lovesy.operator.ImageLoaderOp;
+import com.wangzai.lovesy.mvp.base.ViewPagerFragment;
+import com.wangzai.lovesy.core.ui.imageloader.ImageLoader;
+import com.wangzai.lovesy.core.widget.SimpleImageView;
 import com.wangzai.lovesy.ui.adapter.MeGvAdapter;
-import com.wangzai.lovesy.ui.sign.SignInActivity;
-import com.wangzai.lovesy.view.widget.DraweeImageView;
+import com.wangzai.lovesy.sign.SignInActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,12 +33,14 @@ public class MeFragment extends ViewPagerFragment implements MeContract.View, Ad
     private static final String ITEM_ICON = "ITEM_ICON";
     private static final String ITEM_DESCRIPTION = "ITEM_DESCRIPTION";
 
-//    @BindView(R.id.dvUserHead)
+    //    @BindView(R.id.dvUserHead)
 //    DraweeImageView dvUserHead;
 //    @BindView(R.id.btnLogin)
 //    Button btnLogin;
 //    @BindView(R.id.tvUserName)
 //    TextView tvUserName;
+    @BindView(R.id.siv_avatar)
+    SimpleImageView sivAvatar;
     @BindView(R.id.gvMenu)
     GridView gvMenu;
 
@@ -83,11 +83,12 @@ public class MeFragment extends ViewPagerFragment implements MeContract.View, Ad
     public void initData() {
         super.initData();
         setMenu();
-//        setUserHead("res://" + getActivity().getPackageName() + "/" + R.mipmap.ic_user);
+        setUserHead("res://" + getActivity().getPackageName() + "/" + R.mipmap.ic_avatar_default);
     }
 
     @Override
-    public void setUserHead(String headUrl) {
+    public void setUserHead(String url) {
+        ImageLoader.loaderImage(sivAvatar, url);
 //        ImageLoaderOp.setRoundImage(dvUserHead, headUrl);
     }
 

@@ -1,1 +1,1 @@
-include ':lovesy', ':zoomable', ':download', ':http', ':lovesy-core', ':lovesy-ui'
+include ':lovesy', ':zoomable', ':lovesy-core', ':lovesy-main'

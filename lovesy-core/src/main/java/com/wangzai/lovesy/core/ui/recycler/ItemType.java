@@ -6,8 +6,8 @@ package com.wangzai.lovesy.core.ui.recycler;
 
 public class ItemType {
 
-    public static final int PERSONAL_PHOTO = 1;
-    public static final int PERSONAL_COLLECTION = 2;
-    public static final int COLLECTION_LIST = 3;
+    public static final int PHOTO = 1;
+    public static final int COLLECTION_PHOTO = 2;
+    public static final int COLLECTION = 3;
 
 }

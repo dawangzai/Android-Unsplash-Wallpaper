@@ -4,10 +4,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.wangzai.lovesy.core.R2;
+import com.wangzai.lovesy.core.util.LogUtil;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -17,7 +22,10 @@ import butterknife.Unbinder;
 
 public abstract class BaseFragment extends Fragment {
 
-    private Unbinder mUnBinder = null;
+    protected View rootView;
+    private boolean isAlreadyVisible = false;
+
+    private Unbinder mUnBinder;
 
     public abstract Object setLayout();
 
@@ -26,7 +34,7 @@ public abstract class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View rootView;
+
         if (setLayout() instanceof Integer) {
             rootView = inflater.inflate((int) setLayout(), container, false);
         } else if (setLayout() instanceof View) {
@@ -41,11 +49,37 @@ public abstract class BaseFragment extends Fragment {
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (getUserVisibleHint()) {
+            onLazyLoad();
+            isAlreadyVisible = true;
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (rootView == null) {
+            return;
+        }
+        if (!isAlreadyVisible) {
+            if (isVisibleToUser) {
+                onLazyLoad();
+            }
+            isAlreadyVisible = true;
+        }
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         if (mUnBinder != null) {
             mUnBinder.unbind();
         }
+    }
+
+    protected void onLazyLoad() {
     }
 
 }

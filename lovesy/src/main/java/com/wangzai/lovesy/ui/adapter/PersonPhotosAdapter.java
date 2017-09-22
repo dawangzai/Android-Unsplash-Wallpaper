@@ -12,7 +12,7 @@ import com.wangzai.lovesy.bean.PhotoBean;
 import com.wangzai.lovesy.bean.ProfileImageBean;
 import com.wangzai.lovesy.bean.UrlsBean;
 import com.wangzai.lovesy.bean.UserBean;
-import com.wangzai.lovesy.operator.ImageLoaderOp;
+import com.wangzai.lovesy.mvp.operator.ImageLoaderOp;
 import com.wangzai.lovesy.ui.persondetail.PersonPhotosFragment;
 import com.wangzai.lovesy.utils.StringUtil;
 import com.wangzai.lovesy.view.widget.DraweeImageView;

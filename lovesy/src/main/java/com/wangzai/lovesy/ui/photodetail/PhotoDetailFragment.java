@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.wangzai.lovesy.R;
-import com.wangzai.lovesy.base.BaseFragmentFragment;
+import com.wangzai.lovesy.mvp.base.BaseFragmentFragment;
 import com.wangzai.lovesy.view.widget.PhotoImageView;
 
 import butterknife.BindView;

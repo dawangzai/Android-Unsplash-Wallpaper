@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wangzai.lovesy.R;
-import com.wangzai.lovesy.base.ViewPagerFragment;
+import com.wangzai.lovesy.mvp.base.ViewPagerFragment;
 import com.wangzai.lovesy.bean.PhotoBean;
-import com.wangzai.lovesy.global.Constant;
+import com.wangzai.lovesy.mvp.global.Constant;
 import com.wangzai.lovesy.ui.adapter.NewestListAdapter;
 import com.wangzai.lovesy.utils.LogUtil;
 

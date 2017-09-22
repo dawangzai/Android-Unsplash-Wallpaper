@@ -10,7 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.wangzai.lovesy.base.BaseActivity;
+import com.wangzai.lovesy.mvp.base.BaseActivity;
 import com.wangzai.lovesy.ui.collection.CollectionFragment;
 import com.wangzai.lovesy.ui.collection.CollectionPresenter;
 import com.wangzai.lovesy.ui.me.MeFragment;

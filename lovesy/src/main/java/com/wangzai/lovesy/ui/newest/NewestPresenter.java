@@ -3,15 +3,13 @@ package com.wangzai.lovesy.ui.newest;
 import android.app.Activity;
 import android.os.Environment;
 
-import com.wangzai.http.rx.Transformer;
 import com.wangzai.lovesy.MainActivity;
 import com.wangzai.lovesy.bean.PhotoBean;
-import com.wangzai.lovesy.global.Constant;
+import com.wangzai.lovesy.mvp.global.Constant;
 import com.wangzai.lovesy.http.HttpClient;
-import com.wangzai.lovesy.http.api.PhotoService;
 import com.wangzai.lovesy.http.callback.OnResultCallback;
 import com.wangzai.lovesy.http.observer.HttpObserver;
-import com.wangzai.lovesy.operator.OpenActivityOp;
+import com.wangzai.lovesy.mvp.operator.OpenActivityOp;
 
 import java.io.File;
 import java.util.List;

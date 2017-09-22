@@ -11,4 +11,6 @@ public enum MultipleFields {
     AVATAR_URL,
     USER_NAME,
     TOTAL_LIKES,
+    COLLECTION_NAME,
+    COLLECTION_COUNT
 }
