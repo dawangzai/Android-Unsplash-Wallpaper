@@ -1,4 +1,16 @@
 <resources>
+
+    <style name="LoveSyTheme" parent="BaseTheme">
+        <!--<item name="android:colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="android:colorPrimaryDark">@color/colorPrimary</item>-->
+        <!--<item name="android:colorAccent">@color/colorAccent</item>-->
+    </style>
+
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+    </style>
+
+    ----------------------------------------------------------------------------------
     <!--parent="Theme.AppCompat.Light.DarkActionBar"-->
     <!-- Base application theme. -->
     <style name="AppTheme" parent="PrimaryTheme">
