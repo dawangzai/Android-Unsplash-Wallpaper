@@ -4,7 +4,7 @@ package com.wangzai.lovesy.bean;
  * Created by wangzai on 2017/7/12.
  */
 
-public class AccessToken {
+public class Token {
     private String access_token;
     private String token_type;
     private String scope;

@@ -5,7 +5,7 @@ import android.os.Environment;
 
 import com.wangzai.lovesy.BuildConfig;
 import com.wangzai.lovesy.LoveSyApp;
-import com.wangzai.lovesy.bean.AccessToken;
+import com.wangzai.lovesy.bean.Token;
 import com.wangzai.lovesy.bean.CollectionBean;
 import com.wangzai.lovesy.bean.LinksBean;
 import com.wangzai.lovesy.bean.PhotoBean;
@@ -187,26 +187,26 @@ public class HttpClient {
         }
     }
 
-    public void login(HttpObserver<AccessToken> observer, String code) {
+    public void login(HttpObserver<Token> observer, String code) {
         getLoginService().getAccessToken(
                 "b05bfc46a0de4842346cb5ce7c766b3a8c9da071ec77f3b5f719406829c2fb31",
                 "af3b7125ce78c9a05bac4f9b9f216260919c3646eaf02ea9f36f0f10b014a965",
                 "http://dawangzai.com",
                 code, "authorization_code")
                 .retryWhen(new HttpFunction())
-                .map(new HttpResultFunction<AccessToken>())
+                .map(new HttpResultFunction<Token>())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
 
-    public void getAccessCode(HttpObserver<AccessToken> observer) {
+    public void getAccessCode(HttpObserver<Token> observer) {
         getLoginService().getAuthorizationCode("b05bfc46a0de4842346cb5ce7c766b3a8c9da071ec77f3b5f719406829c2fb31",
                 "http://dawangzai.com",
                 "code",
                 "public+read_user+write_user+read_collections+write_collections")
                 .retryWhen(new HttpFunction())
-                .map(new HttpResultFunction<AccessToken>())
+                .map(new HttpResultFunction<Token>())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

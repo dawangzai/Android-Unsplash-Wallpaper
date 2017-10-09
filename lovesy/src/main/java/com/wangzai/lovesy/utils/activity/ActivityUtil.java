@@ -14,22 +14,20 @@
  * limitations under the License.
  */
 
-package com.wangzai.lovesy.utils;
+package com.wangzai.lovesy.utils.activity;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import com.wangzai.lovesy.Constant;
+import com.wangzai.lovesy.sign.SignInActivity;
 
-/**
- * This provides methods to help Activities load their UI.
- */
 public class ActivityUtil {
 
-    /**
-     * The {@code fragment} is added to the container view with id {@code frameId}. The operation is
-     * performed by the {@code fragmentManager}.
-     */
     public static void addFragmentToActivity(FragmentManager fragmentManager,
                                              Fragment fragment, int frameId) {
         if (fragmentManager != null && fragment != null) {
@@ -37,6 +35,16 @@ public class ActivityUtil {
             transaction.add(frameId, fragment);
             transaction.commit();
         }
+    }
+
+    public static void startSignInActivity(Activity activity) {
+        Intent intent = new Intent(activity, SignInActivity.class);
+        activity.startActivity(intent);
+    }
+
+    public static void startSignInActivityResult(Fragment fragment) {
+        Intent intent = new Intent(fragment.getActivity(), SignInActivity.class);
+        fragment.startActivityForResult(intent, Constant.REQUEST_CODE.PERSONAL_FRAGMENT);
     }
 
 }

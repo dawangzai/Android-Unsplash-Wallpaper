@@ -52,7 +52,7 @@
             app:tabPaddingTop="10dp"
             app:tabSelectedTextColor="@color/color_03e5bd"
             app:tabTextAppearance="@style/Base.TextAppearance.AppCompat.Small"
-            app:tabTextColor="@color/bg_ffffff" />
+            app:tabTextColor="@color/bg_white" />
 
     </android.support.design.widget.AppBarLayout>
 

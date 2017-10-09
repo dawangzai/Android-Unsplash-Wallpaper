@@ -22,6 +22,15 @@ public class AccountManager {
     }
 
     /**
+     * 保存登录 token
+     *
+     * @param token
+     */
+    public static void setAccessToken(String token) {
+        LoveSyPreference.addCustomAppProfile("access_token", token);
+    }
+
+    /**
      * 检查用户登录状态
      *
      * @param checker 回调

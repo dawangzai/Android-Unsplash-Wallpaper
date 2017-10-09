@@ -45,5 +45,9 @@ dependencies {
     compile 'in.srain.cube:ptr-load-more:1.0.6'
     compile 'me.relex:photodraweeview:1.1.3'
     compile 'org.greenrobot:greendao:3.2.2'
-    compile project(':lovesy-main')
+    compile project(':zoomable')
+
+    //字体图标库
+    compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.2.2'
+    compile 'com.joanzapata.iconify:android-iconify-ionicons:2.2.2'
 }

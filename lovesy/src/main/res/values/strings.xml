@@ -12,4 +12,5 @@
 
     <string name="error_message_retry">点击重试</string>
     <string name="login_note">请登录~</string>
+    <string name="text_fragment_personal_sign_in">点击登陆/注册</string>
 </resources>

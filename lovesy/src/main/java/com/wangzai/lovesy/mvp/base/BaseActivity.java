@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.wangzai.lovesy.R;
-import com.wangzai.lovesy.utils.ActivityUtil;
+import com.wangzai.lovesy.utils.activity.ActivityUtil;
 import com.wangzai.lovesy.utils.LogUtil;
 import com.wangzai.lovesy.utils.ToastUtil;
 

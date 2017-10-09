@@ -1,5 +1,8 @@
 package com.wangzai.lovesy.sign;
 
+import com.alibaba.fastjson.JSON;
+import com.wangzai.lovesy.bean.Token;
+import com.wangzai.lovesy.core.account.AccountManager;
 import com.wangzai.lovesy.core.activity.LoveSyActivity;
 import com.wangzai.lovesy.core.fragment.web.Route.BaseRoute;
 import com.wangzai.lovesy.core.net.rx.RxHttpClient;
@@ -16,7 +19,7 @@ import io.reactivex.annotations.NonNull;
 
 class SignInRoute extends BaseRoute {
 
-    private ISignListener mISignListener;
+    private SignInActivity mActivity;
 
     private SignInRoute() {
     }
@@ -33,9 +36,8 @@ class SignInRoute extends BaseRoute {
     public boolean handleWebUrl(final LoveSyActivity activity, String url) {
         LogUtil.i(url);
         if (!url.contains("authorize") && url.contains("http://dawangzai.com")) {
-            if (activity instanceof ISignListener) {
-                mISignListener = (ISignListener) activity;
-            }
+            mActivity = (SignInActivity) activity;
+
             String[] split = url.split("code=");
             LogUtil.i(split[1]);
             WeakHashMap<String, Object> params = new WeakHashMap<>();
@@ -54,7 +56,7 @@ class SignInRoute extends BaseRoute {
                         @Override
                         public void onSuccess(@NonNull String result) {
                             LogUtil.i(result);
-                            SignHandler.onSignIn(mISignListener);
+                            signInSuccess(result);
                         }
 
                         @Override
@@ -66,5 +68,14 @@ class SignInRoute extends BaseRoute {
             activity.loadFragment(SignInFragment.create(url));
         }
         return true;
+    }
+
+    private void signInSuccess(String tokenString) {
+        final Token token = JSON.parseObject(tokenString, Token.class);
+        AccountManager.setSignState(true);
+        AccountManager.setAccessToken(token.getAccess_token());
+        if (mActivity != null) {
+            mActivity.finish();
+        }
     }
 }

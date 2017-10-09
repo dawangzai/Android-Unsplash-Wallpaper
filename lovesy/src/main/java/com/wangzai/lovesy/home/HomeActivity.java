@@ -8,6 +8,7 @@ import com.wangzai.lovesy.core.activity.home.BottomTabBean;
 import com.wangzai.lovesy.core.activity.home.ItemBuilder;
 import com.wangzai.lovesy.home.collection.CollectionFragment;
 import com.wangzai.lovesy.home.index.IndexFragment;
+import com.wangzai.lovesy.home.personal.PersonalFragment;
 
 import java.util.LinkedHashMap;
 
@@ -22,6 +23,7 @@ public class HomeActivity extends BaseHomeActivity {
         final LinkedHashMap<BottomTabBean, BaseHomeFragment> items = new LinkedHashMap<>();
         items.put(new BottomTabBean("{fa-home}", "主页"), new IndexFragment());
         items.put(new BottomTabBean("{fa-home}", "主页"), new CollectionFragment());
+        items.put(new BottomTabBean("{fa-home}", "主页"), new PersonalFragment());
         return builder.addItems(items).build();
     }
 

@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.content.Context;
 
 import com.alibaba.fastjson.JSON;
+import com.wangzai.lovesy.core.net.HttpCreator;
 import com.wangzai.lovesy.core.ui.loader.LoaderStyle;
 import com.wangzai.lovesy.core.ui.loader.LoveSyLoader;
 import com.wangzai.lovesy.core.util.LogUtil;
@@ -53,6 +54,8 @@ public class Transformer implements ObservableTransformer<String, String> {
                 .doOnError(new Consumer<Throwable>() {
                     @Override
                     public void accept(@NonNull Throwable throwable) throws Exception {
+                        //清空请求参数容器，供下次请求使用
+                        HttpCreator.getParams().clear();
                         LoveSyLoader.stopLoading();
                         logErrorMessage(throwable);
                     }
@@ -60,6 +63,8 @@ public class Transformer implements ObservableTransformer<String, String> {
                 .doOnComplete(new Action() {
                     @Override
                     public void run() throws Exception {
+                        //清空请求参数容器，供下次请求使用
+                        HttpCreator.getParams().clear();
                         LoveSyLoader.stopLoading();
                     }
                 })

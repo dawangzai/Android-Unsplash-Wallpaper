@@ -1,5 +1,7 @@
 package com.wangzai.lovesy.core.net.interceptor;
 
+import com.wangzai.lovesy.core.util.storage.LoveSyPreference;
+
 import java.io.IOException;
 
 import okhttp3.Request;
@@ -19,7 +21,12 @@ public class HeaderInterceptor extends BaseInterceptor {
     public Response intercept(Chain chain) throws IOException {
 
         Request.Builder requestBuilder = chain.request().newBuilder();
-        requestBuilder.addHeader("Authorization", "Client-ID " + "b05bfc46a0de4842346cb5ce7c766b3a8c9da071ec77f3b5f719406829c2fb31");
+        final String accessToken = LoveSyPreference.getCustomAppProfile("access_token");
+        if (accessToken.isEmpty()) {
+            requestBuilder.addHeader("Authorization", "Client-ID " + "b05bfc46a0de4842346cb5ce7c766b3a8c9da071ec77f3b5f719406829c2fb31");
+        } else {
+            requestBuilder.addHeader("Authorization", "Bearer " + accessToken);
+        }
 
         return chain.proceed(requestBuilder.build());
     }

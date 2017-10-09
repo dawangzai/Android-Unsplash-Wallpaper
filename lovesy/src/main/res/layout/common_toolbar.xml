@@ -4,11 +4,14 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="?attr/wallpaperThemePrimary"
+
     android:elevation="2dp"
     android:orientation="vertical"
     app:titleTextAppearance="@style/toolbar_textAppearance"
-    app:titleTextColor="?attr/wallpaperToolbarTextColor">
+    >
+
+    <!--app:titleTextColor="?attr/wallpaperToolbarTextColor"-->
+    <!--android:background="?attr/wallpaperThemePrimary"-->
 
     <TextView
         android:id="@+id/tvToolbarCustom"
@@ -16,7 +19,9 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:textAppearance="@style/toolbar_textAppearance"
-        android:textColor="?attr/wallpaperToolbarTextColor" />
+         />
+
+    <!--android:textColor="?attr/wallpaperToolbarTextColor"-->
 
 </android.support.v7.widget.Toolbar>
 
