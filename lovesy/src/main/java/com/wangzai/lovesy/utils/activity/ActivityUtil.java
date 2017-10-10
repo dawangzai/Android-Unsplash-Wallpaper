@@ -16,6 +16,7 @@
 
 package com.wangzai.lovesy.utils.activity;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.wangzai.lovesy.Constant;
 import com.wangzai.lovesy.sign.SignInActivity;
+import com.wangzai.lovesy.user.UserProfileActivity;
 
 public class ActivityUtil {
 
@@ -45,6 +47,11 @@ public class ActivityUtil {
     public static void startSignInActivityResult(Fragment fragment) {
         Intent intent = new Intent(fragment.getActivity(), SignInActivity.class);
         fragment.startActivityForResult(intent, Constant.REQUEST_CODE.PERSONAL_FRAGMENT);
+    }
+
+    public static void startUserProfileActivity(Activity activity) {
+        Intent intent = new Intent(activity, UserProfileActivity.class);
+        activity.startActivity(intent);
     }
 
 }

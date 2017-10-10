@@ -3,6 +3,7 @@ package com.wangzai.lovesy.core.fragment.web;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.webkit.WebView;
 
 import com.wangzai.lovesy.core.fragment.LoveSyFragment;

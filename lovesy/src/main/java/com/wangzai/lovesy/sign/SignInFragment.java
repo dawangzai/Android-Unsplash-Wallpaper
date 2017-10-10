@@ -60,4 +60,6 @@ public class SignInFragment extends WebFragment implements IWebViewInitializer {
     public WebChromeClient initWebChromeClient() {
         return new WebChromeClientImpl();
     }
+
+
 }

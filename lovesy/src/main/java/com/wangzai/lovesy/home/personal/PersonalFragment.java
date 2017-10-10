@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.wangzai.lovesy.R;
@@ -22,7 +23,6 @@ import com.wangzai.lovesy.core.widget.SimpleImageView;
 import com.wangzai.lovesy.utils.activity.ActivityUtil;
 
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.OnClick;
 
 /**
@@ -47,6 +47,12 @@ public class PersonalFragment extends BaseHomeFragment implements IUserChecker, 
     TextView mTvWebSite;
     @BindView(R.id.tv_bio)
     TextView mTvBio;
+    @BindView(R.id.ll_collection)
+    LinearLayout mLlCollection;
+    @BindView(R.id.ll_like)
+    LinearLayout mLlLike;
+    @BindView(R.id.ll_download)
+    LinearLayout mLlDownload;
 
     @Override
     public Object setLayout() {
@@ -58,13 +64,12 @@ public class PersonalFragment extends BaseHomeFragment implements IUserChecker, 
 
         //检查登录状态
         AccountManager.checkAccount(this);
+        mLlDownload.setOnClickListener(this);
 
     }
 
     @Override
     public void onSignIn() {
-        mLlUserInfo.setVisibility(View.VISIBLE);
-        mTvSignIn.setVisibility(View.INVISIBLE);
         //设置用户信息
         RxHttpClient.builder()
                 .url("me")
@@ -86,8 +91,11 @@ public class PersonalFragment extends BaseHomeFragment implements IUserChecker, 
 
     @Override
     public void onNotSignIn() {
-        //显示登录按钮
+
+        mLlCollection.setVisibility(View.GONE);
+        mLlLike.setVisibility(View.GONE);
         mLlUserInfo.setVisibility(View.INVISIBLE);
+        //显示登录按钮
         mTvSignIn.setVisibility(View.VISIBLE);
         mTvSignIn.setOnClickListener(this);
         String defaultAvatar = "res://" + getActivity().getPackageName() + "/" + R.mipmap.ic_avatar_default;
@@ -102,6 +110,8 @@ public class PersonalFragment extends BaseHomeFragment implements IUserChecker, 
                 ActivityUtil.startSignInActivityResult(this);
                 break;
             case R.id.ll_download:
+                Toast.makeText(getActivity(), "点击了", Toast.LENGTH_SHORT).show();
+                ActivityUtil.startUserProfileActivity(getActivity());
                 break;
             case R.id.ll_like:
                 break;
@@ -117,6 +127,11 @@ public class PersonalFragment extends BaseHomeFragment implements IUserChecker, 
     }
 
     private void setUserInfo(String userInfo) {
+        mLlUserInfo.setVisibility(View.VISIBLE);
+        mTvSignIn.setVisibility(View.INVISIBLE);
+        mLlCollection.setVisibility(View.VISIBLE);
+        mLlLike.setVisibility(View.VISIBLE);
+
         final UserBean userBean = JSON.parseObject(userInfo, UserBean.class);
         final ProfileImageBean profileImage = userBean.getProfile_image();
         final String large = profileImage.getLarge();

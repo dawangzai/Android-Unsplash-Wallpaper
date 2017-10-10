@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    android:layout_marginBottom="10dp"
     android:clickable="true"
     app:cardBackgroundColor="@color/windowBackground"
-    app:cardCornerRadius="5dp"
+
     app:cardElevation="8dp">
 
     <LinearLayout
@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             app:placeholderImage="@color/image_place_color" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"

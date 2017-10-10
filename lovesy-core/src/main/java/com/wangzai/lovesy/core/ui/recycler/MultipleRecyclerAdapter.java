@@ -31,7 +31,7 @@ public class MultipleRecyclerAdapter extends BaseMultiItemQuickAdapter<MultipleI
     private void init() {
         addItemType(ItemType.PHOTO, R.layout.item_photo);
         addItemType(ItemType.COLLECTION_PHOTO, R.layout.item_personal_collection);
-        addItemType(ItemType.COLLECTION, R.layout.item_collections);
+        addItemType(ItemType.COLLECTION, R.layout.item_collection);
         setSpanSizeLookup(this);
         openLoadAnimation();
         //多次执行动画
@@ -50,8 +50,8 @@ public class MultipleRecyclerAdapter extends BaseMultiItemQuickAdapter<MultipleI
         final String avatarUrl;
         final String userName;
         final int totalLikes;
-        final String collectionsName;
-        final int collectionsCount;
+        final String collectionName;
+        final int collectionPhotoCount;
 
         switch (holder.getItemViewType()) {
             case ItemType.PHOTO:
@@ -81,12 +81,16 @@ public class MultipleRecyclerAdapter extends BaseMultiItemQuickAdapter<MultipleI
                 break;
             case ItemType.COLLECTION:
                 photoUrl = item.getField(MultipleFields.PHOTO_URL);
-                collectionsName = item.getField(MultipleFields.COLLECTION_NAME);
-                collectionsCount = item.getField(MultipleFields.COLLECTION_COUNT);
+                avatarUrl = item.getField(MultipleFields.AVATAR_URL);
+                userName = item.getField(MultipleFields.USER_NAME);
+                collectionName = item.getField(MultipleFields.COLLECTION_NAME);
+                collectionPhotoCount = item.getField(MultipleFields.COLLECTION_PHOTO_COUNT);
 
+                ImageLoader.loaderImage((SimpleImageView) holder.getView(R.id.siv_avatar), avatarUrl);
                 ImageLoader.loaderImage((SimpleImageView) holder.getView(R.id.siv_photo), photoUrl);
-                holder.setText(R.id.tv_collections_name, collectionsName);
-                holder.setText(R.id.tv_collections_count, String.valueOf(collectionsCount));
+                holder.setText(R.id.tv_user_name, userName);
+                holder.setText(R.id.tv_collection_name, collectionName);
+                holder.setText(R.id.tv_collection_photo_count, String.valueOf(collectionPhotoCount));
                 break;
             default:
                 break;
