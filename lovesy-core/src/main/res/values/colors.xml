@@ -11,6 +11,7 @@
     <color name="text_white">#FFFFFF</color>
     <color name="text_E9EAED">#E9EAED</color>
     <color name="text_color_323232">#323232</color>
+    <color name="text_03e5bd">#03e5bd</color>
 
     <color name="image_place_color">#62727b</color>
 </resources>

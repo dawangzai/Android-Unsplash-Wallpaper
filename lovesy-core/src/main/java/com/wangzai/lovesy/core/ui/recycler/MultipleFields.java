@@ -12,5 +12,8 @@ public enum MultipleFields {
     USER_NAME,
     TOTAL_LIKES,
     COLLECTION_NAME,
-    COLLECTION_PHOTO_COUNT
+    COLLECTION_PHOTO_COUNT,
+
+    ID,
+    RAW_DATA
 }

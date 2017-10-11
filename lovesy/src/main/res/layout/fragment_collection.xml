@@ -1,27 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.wangzai.lovesy.view.layout.RefreshLayout
+    <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvCollection"
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </com.wangzai.lovesy.view.layout.RefreshLayout>
+            android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/viewLoading"
-        layout="@layout/view_loading"
-        android:visibility="invisible" />
+        </android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-    <include
-        android:id="@+id/viewError"
-        layout="@layout/view_error"
-        android:visibility="invisible" />
-
-</FrameLayout>
+</LinearLayout>

@@ -17,7 +17,7 @@ import java.util.List;
  * Created by wangzai on 2017/9/21
  */
 
-public class IndexDataConvert extends DataConverter {
+public class PhotoDataConvert extends DataConverter {
     @Override
     public ArrayList<MultipleItemEntity> convert() {
         String jsonData = getJsonData();
@@ -32,6 +32,7 @@ public class IndexDataConvert extends DataConverter {
             UrlsBean urls = photoBean.getUrls();
             ProfileImageBean profileImage = user.getProfile_image();
 
+            String id = photoBean.getId();
             String avatarUrl = profileImage.getMedium();
             String username = user.getUsername();
             String photoUrl = urls.getRegular();
@@ -45,6 +46,7 @@ public class IndexDataConvert extends DataConverter {
                     .setField(MultipleFields.PHOTO_URL, photoUrl)
                     .setField(MultipleFields.USER_NAME, username)
                     .setField(MultipleFields.TOTAL_LIKES, likes)
+                    .setField(MultipleFields.ID, id)
                     .build();
 
             itemEntities.add(entity);

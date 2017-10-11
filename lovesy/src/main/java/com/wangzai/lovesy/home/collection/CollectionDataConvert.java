@@ -36,8 +36,11 @@ public class CollectionDataConvert extends DataConverter {
 
             String collectionName = collectionBean.getTitle();
             int collectionCount = collectionBean.getTotal_photos();
-            UrlsBean urls = cover_photo.getUrls();
-            String photoUrl = urls.getRegular();
+            String photoUrl = null;
+            if (cover_photo != null) {
+                UrlsBean urls = cover_photo.getUrls();
+                photoUrl = urls.getRegular();
+            }
             String userName = user.getUsername();
             String avatarUrl = profileImage.getLarge();
 

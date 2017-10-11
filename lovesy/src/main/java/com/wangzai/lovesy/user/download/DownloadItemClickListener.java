@@ -1,4 +1,4 @@
-package com.wangzai.lovesy.home.index;
+package com.wangzai.lovesy.user.download;
 
 import android.view.View;
 import android.widget.Toast;
@@ -6,22 +6,18 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.SimpleClickListener;
 import com.wangzai.lovesy.R;
-import com.wangzai.lovesy.bean.PhotoBean;
 import com.wangzai.lovesy.core.account.AccountManager;
 import com.wangzai.lovesy.core.account.IUserChecker;
-import com.wangzai.lovesy.core.ui.recycler.MultipleFields;
-import com.wangzai.lovesy.core.ui.recycler.MultipleItemEntity;
-import com.wangzai.lovesy.utils.activity.ActivityUtil;
 
 /**
  * Created by wangzai on 2017/9/22
  */
 
-class IndexItemClickListener extends SimpleClickListener {
+class DownloadItemClickListener extends SimpleClickListener {
 
-    private final IndexFragment mFragment;
+    private final DownloadFragment mFragment;
 
-    IndexItemClickListener(IndexFragment fragment) {
+    DownloadItemClickListener(DownloadFragment fragment) {
         this.mFragment = fragment;
     }
 
@@ -36,12 +32,10 @@ class IndexItemClickListener extends SimpleClickListener {
 
     @Override
     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-        MultipleItemEntity entity = (MultipleItemEntity) adapter.getData().get(position);
         final int id = view.getId();
         switch (id) {
             case R.id.siv_photo:
                 Toast.makeText(mFragment.getContext(), "点击照片了~", Toast.LENGTH_SHORT).show();
-                ActivityUtil.startPhotoActivity(mFragment.getActivity(), (String) entity.getField(MultipleFields.ID));
                 break;
             case R.id.siv_avatar:
                 Toast.makeText(mFragment.getContext(), "点击头像了~", Toast.LENGTH_SHORT).show();

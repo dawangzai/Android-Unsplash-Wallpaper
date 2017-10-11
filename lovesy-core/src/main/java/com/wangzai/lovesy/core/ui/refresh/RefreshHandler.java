@@ -48,6 +48,8 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
         mRefreshLayout.setOnRefreshListener(this);
         mAdapter = MultipleRecyclerAdapter.create();
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnLoadMoreListener(RefreshHandler.this, mRecyclerView);
+        mAdapter.disableLoadMoreIfNotFullPage();
         mErrorView = (LinearLayout) LayoutInflater.from(mRecyclerView.getContext()).inflate(R.layout.view_error, null);
         mErrorView.setOnClickListener(this);
     }
@@ -84,7 +86,7 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
                         mAdapter.replaceData(mConvert.setJsonData(result).convert());
                         mPagingBean.addIndex();
                         mAdapter.loadMoreComplete();
-                        mAdapter.setOnLoadMoreListener(RefreshHandler.this, mRecyclerView);
+//                        mAdapter.setOnLoadMoreListener(RefreshHandler.this, mRecyclerView);
                         mPagingBean.setCurrentCount(mAdapter.getData().size());
                     }
 

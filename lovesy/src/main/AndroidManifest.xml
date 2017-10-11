@@ -38,6 +38,8 @@
 
         <activity android:name=".user.UserProfileActivity" />
 
+        <activity android:name=".detail.photo.PhotoActivity" />
+
     </application>
 
 </manifest>

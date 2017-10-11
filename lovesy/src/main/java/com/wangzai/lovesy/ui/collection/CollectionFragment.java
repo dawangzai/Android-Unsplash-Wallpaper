@@ -29,7 +29,7 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
  * Created by wangzai on 2017/2/21.
  */
 public class CollectionFragment extends ViewPagerFragment implements CollectionContract.View {
-    @BindView(R.id.rvCollection)
+    @BindView(R.id.recyclerView)
     RecyclerView rvCollection;
     @BindView(R.id.refreshLayout)
     RefreshLayout refreshLayout;

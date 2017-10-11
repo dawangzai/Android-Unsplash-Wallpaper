@@ -3,9 +3,12 @@ package com.wangzai.lovesy.core.fragment.user;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
@@ -32,11 +35,13 @@ public abstract class BaseTabPageFragment extends LoveSyFragment {
 
     private int mIndexPage = 0;
     private int mCurrentPge = 0;
-    private int mIndicatorColor = Color.RED;
+
+    @ColorRes
+    private int mIndicatorColor = R.color.text_03e5bd;
 
     protected abstract int setIndexPage();
 
-    @ColorInt
+    @ColorRes
     protected abstract int setIndicatorColor();
 
     @BindView(R2.id.tab_layout)
@@ -78,8 +83,8 @@ public abstract class BaseTabPageFragment extends LoveSyFragment {
 
         //初始化 TabLayout
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
-        mTabLayout.setSelectedTabIndicatorColor(mIndicatorColor);
-        mTabLayout.setSelectedTabIndicatorHeight(10);
+        mTabLayout.setSelectedTabIndicatorHeight(0);
+        mTabLayout.setTabTextColors(ContextCompat.getColor(getActivity(), R.color.text_white), ContextCompat.getColor(getActivity(), mIndicatorColor));
 
         //关联 ViewPager和TabLayout
         mTabLayout.setupWithViewPager(mViewPager);

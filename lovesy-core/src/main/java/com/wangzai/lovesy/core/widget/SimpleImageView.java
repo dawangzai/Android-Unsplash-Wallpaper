@@ -24,10 +24,10 @@ public class SimpleImageView extends SimpleDraweeView {
 //        initImageView();
 //    }
 
-    public SimpleImageView(Context context) {
-        super(context);
-        initImageView();
-    }
+//    public SimpleImageView(Context context) {
+//        super(context);
+//        initImageView();
+//    }
 
     public SimpleImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -62,8 +62,8 @@ public class SimpleImageView extends SimpleDraweeView {
      */
     public void setDetailImage(String lowResUrl, String highResUrl) {
         if (!StringUtil.isEmpty(lowResUrl) && !StringUtil.isEmpty(highResUrl)) {
-            Uri lowResUri = Uri.parse(lowResUrl);
-            Uri highResUri = Uri.parse(highResUrl);
+            final Uri lowResUri = Uri.parse(lowResUrl);
+            final Uri highResUri = Uri.parse(highResUrl);
             DraweeController controller = Fresco.newDraweeControllerBuilder()
                     .setLowResImageRequest(ImageRequest.fromUri(lowResUri))
                     .setImageRequest(ImageRequest.fromUri(highResUri))

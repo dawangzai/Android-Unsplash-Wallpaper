@@ -3,7 +3,6 @@ package com.wangzai.lovesy.mvp.operator;
 import android.content.Context;
 
 import com.wangzai.lovesy.view.widget.DraweeImageView;
-import com.wangzai.lovesy.view.widget.ZoomableImageView;
 import com.facebook.drawee.generic.RoundingParams;
 
 /**
@@ -27,9 +26,9 @@ public class ImageLoaderOp {
         t.setDetailImage(lowResUrl, highResUrl);
     }
 
-    public static <T extends ZoomableImageView> void setZoomableImage(T t, String lowResUrl, String highResUrl) {
-        t.setImage(lowResUrl, highResUrl);
-    }
+//    public static <T extends ZoomableImageView> void setZoomableImage(T t, String lowResUrl, String highResUrl) {
+//        t.setImage(lowResUrl, highResUrl);
+//    }
 
     public static <T extends DraweeImageView> void setRoundedCornerImage(T t, String imageUrl, Context context) {
         t.setRoundedCornerImage(imageUrl,context);

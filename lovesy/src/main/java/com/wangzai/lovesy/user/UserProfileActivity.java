@@ -2,12 +2,9 @@ package com.wangzai.lovesy.user;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.widget.FrameLayout;
 
 import com.wangzai.lovesy.R;
 import com.wangzai.lovesy.core.activity.LoveSyActivity;
-
-import butterknife.BindView;
 
 /**
  * Created by wangzai on 2017/10/10

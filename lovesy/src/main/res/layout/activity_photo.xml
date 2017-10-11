@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_photo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.wangzai.lovesy.core.widget.SimpleZoomableImageView
+            android:id="@+id/siv_photo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+    </LinearLayout>
+
+    <include layout="@layout/toolbar" />
+
+    <LinearLayout
+        android:id="@+id/ll_container"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:gravity="center_vertical">
+
+        <com.joanzapata.iconify.widget.IconTextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="{fa-credit-card}"
+            android:textSize="20sp" />
+
+        <com.joanzapata.iconify.widget.IconTextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="{fa-credit-card}"
+            android:textSize="20sp" />
+
+        <com.joanzapata.iconify.widget.IconTextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="{fa-credit-card}"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
