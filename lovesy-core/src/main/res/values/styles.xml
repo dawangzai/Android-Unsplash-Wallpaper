@@ -2,6 +2,7 @@
 <resources>
 
     <style name="LoveSyToolbarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">@color/color_white</item>
     </style>
 
     <style name="ToolbarTitleTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">

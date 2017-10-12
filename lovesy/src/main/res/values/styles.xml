@@ -9,18 +9,18 @@
     <style name="LoveSyActionBarTheme" parent="LoveSyTheme">
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">false</item>
+        <item name="android:textColorPrimary">@color/color_white</item>
+        <!--<item name="actionBarStyle">@style/LoveSyToolbarTheme</item>-->
+        <!--<item name="toolbarStyle">@style/LoveSyToolbarTheme</item>item-->
     </style>
 
     <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@color/windowBackground</item>
     </style>
 
-    <style name="LoveSyToolbarTheme" parent="ThemeOverlay.AppCompat.ActionBar" />
-
-    <style name="LoveSyActionBar" parent="Widget.AppCompat.ActionBar">
-        <item name="displayOptions">showTitle</item>
-
-    </style>
+    <!--<style name="LoveSyActionBar" parent="Widget.AppCompat.ActionBar">-->
+        <!--<item name="displayOptions">showTitle</item>-->
+    <!--</style>-->
 
 
     <!--parent="Theme.AppCompat.Light.DarkActionBar"-->

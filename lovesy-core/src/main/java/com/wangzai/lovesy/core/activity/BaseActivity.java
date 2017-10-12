@@ -43,7 +43,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (setLayout() > 0) {
             setContentView(setLayout());
         } else {
-            throw new NullPointerException("type of setLayout() must be LayoutRes !");
+            throw new
+                    NullPointerException("type of setLayout() must be LayoutRes !");
         }
 
         ButterKnife.bind(this);
