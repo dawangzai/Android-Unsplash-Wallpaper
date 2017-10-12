@@ -1,4 +1,4 @@
-package com.wangzai.lovesy.home.personal;
+package com.wangzai.lovesy.home.user;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,18 +18,17 @@ import com.wangzai.lovesy.core.account.IUserChecker;
 import com.wangzai.lovesy.core.activity.home.BaseHomeFragment;
 import com.wangzai.lovesy.core.net.rx.RxHttpClient;
 import com.wangzai.lovesy.core.net.rx.observer.ResultObserver;
-import com.wangzai.lovesy.core.ui.imageloader.ImageLoader;
+import com.wangzai.lovesy.core.ui.image.loader.ImageLoader;
 import com.wangzai.lovesy.core.widget.SimpleImageView;
 import com.wangzai.lovesy.utils.activity.ActivityUtil;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * Created by wangzai on 2017/10/9
  */
 
-public class PersonalFragment extends BaseHomeFragment implements IUserChecker, View.OnClickListener {
+public class UserFragment extends BaseHomeFragment implements IUserChecker, View.OnClickListener {
 
     @BindView(R.id.siv_avatar)
     SimpleImageView mSivAvatar;
@@ -65,6 +64,8 @@ public class PersonalFragment extends BaseHomeFragment implements IUserChecker, 
         //检查登录状态
         AccountManager.checkAccount(this);
         mLlDownload.setOnClickListener(this);
+        mLlLike.setOnClickListener(this);
+        mLlCollection.setOnClickListener(this);
 
     }
 
@@ -91,7 +92,7 @@ public class PersonalFragment extends BaseHomeFragment implements IUserChecker, 
 
     @Override
     public void onNotSignIn() {
-
+        mLlDownload.setVisibility(View.VISIBLE);
         mLlCollection.setVisibility(View.GONE);
         mLlLike.setVisibility(View.GONE);
         mLlUserInfo.setVisibility(View.INVISIBLE);
@@ -110,8 +111,7 @@ public class PersonalFragment extends BaseHomeFragment implements IUserChecker, 
                 ActivityUtil.startSignInActivityResult(this);
                 break;
             case R.id.ll_download:
-                Toast.makeText(getActivity(), "点击了", Toast.LENGTH_SHORT).show();
-                ActivityUtil.startUserProfileActivity(getActivity());
+                ActivityUtil.startUserProfileActivity(getActivity(),getString(R.string.text_user_profile_download));
                 break;
             case R.id.ll_like:
                 break;
@@ -127,6 +127,7 @@ public class PersonalFragment extends BaseHomeFragment implements IUserChecker, 
     }
 
     private void setUserInfo(String userInfo) {
+        mLlDownload.setVisibility(View.VISIBLE);
         mLlUserInfo.setVisibility(View.VISIBLE);
         mTvSignIn.setVisibility(View.INVISIBLE);
         mLlCollection.setVisibility(View.VISIBLE);

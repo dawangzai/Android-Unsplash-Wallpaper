@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.wangzai.lovesy.R;
 import com.wangzai.lovesy.mvp.base.ViewPagerFragment;
-import com.wangzai.lovesy.core.ui.imageloader.ImageLoader;
+import com.wangzai.lovesy.core.ui.image.loader.ImageLoader;
 import com.wangzai.lovesy.core.widget.SimpleImageView;
 import com.wangzai.lovesy.ui.adapter.MeGvAdapter;
 import com.wangzai.lovesy.sign.SignInActivity;

@@ -4,26 +4,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/ll_photo"
+    <com.wangzai.lovesy.core.widget.SimpleZoomableImageView
+        android:id="@+id/siv_photo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.wangzai.lovesy.core.widget.SimpleZoomableImageView
-            android:id="@+id/siv_photo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
-    </LinearLayout>
-
-    <include layout="@layout/toolbar" />
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
 
     <LinearLayout
         android:id="@+id/ll_container"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:clickable="true"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
+        android:background="@color/bg_white"
         android:gravity="center_vertical">
 
         <com.joanzapata.iconify.widget.IconTextView
@@ -31,7 +24,7 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="{fa-credit-card}"
+            android:text="@string/text_icon_download"
             android:textSize="20sp" />
 
         <com.joanzapata.iconify.widget.IconTextView
@@ -39,7 +32,7 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="{fa-credit-card}"
+            android:text="@string/text_icon_like"
             android:textSize="20sp" />
 
         <com.joanzapata.iconify.widget.IconTextView
@@ -47,7 +40,7 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="{fa-credit-card}"
+            android:text="@string/text_icon_album"
             android:textSize="20sp" />
 
     </LinearLayout>

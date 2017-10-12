@@ -35,6 +35,7 @@ public class CollectionFragment extends BaseHomeFragment implements OnRequestLis
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
+        setTitle(R.string.app_name);
         refreshLayout.setProgressViewOffset(true, 0, 300);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         refreshHandler = RefreshHandler.create(refreshLayout, recyclerView, new CollectionDataConvert(), this);

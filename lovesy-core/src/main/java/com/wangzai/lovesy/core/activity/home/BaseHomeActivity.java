@@ -2,7 +2,10 @@ package com.wangzai.lovesy.core.activity.home;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutCompat;
@@ -34,7 +37,7 @@ public abstract class BaseHomeActivity extends LoveSyActivity implements ViewPag
     private final LinkedHashMap<BottomTabBean, BaseHomeFragment> mItems = new LinkedHashMap<>();
 
     private int mCurrentPage = 0;
-    private int mClickedColor = Color.RED;
+    private int mClickedColor = R.color.colorPrimary;
 
     @BindView(R2.id.vp_container)
     ViewPager mVpContainer;
@@ -45,6 +48,7 @@ public abstract class BaseHomeActivity extends LoveSyActivity implements ViewPag
 
     protected abstract int setIndexFragment();
 
+    @ColorRes
     protected abstract int setClickedColor();
 
     @Override
@@ -83,8 +87,8 @@ public abstract class BaseHomeActivity extends LoveSyActivity implements ViewPag
             tvBottomTitle.setText(bean.getTitle());
             bottomItem.setOnClickListener(this);
             if (i == mIndexPage) {
-                itvBottomIcon.setTextColor(mClickedColor);
-                tvBottomTitle.setTextColor(mClickedColor);
+                itvBottomIcon.setTextColor(ContextCompat.getColor(this, mClickedColor));
+                tvBottomTitle.setTextColor(ContextCompat.getColor(this, mClickedColor));
             }
         }
 
@@ -122,8 +126,8 @@ public abstract class BaseHomeActivity extends LoveSyActivity implements ViewPag
         final RelativeLayout item = (RelativeLayout) mBottomBar.getChildAt(position);
         final IconTextView itvBottomIcon = (IconTextView) item.getChildAt(0);
         final AppCompatTextView tvBottomTitle = (AppCompatTextView) item.getChildAt(1);
-        itvBottomIcon.setTextColor(mClickedColor);
-        tvBottomTitle.setTextColor(mClickedColor);
+        itvBottomIcon.setTextColor(ContextCompat.getColor(this, mClickedColor));
+        tvBottomTitle.setTextColor(ContextCompat.getColor(this, mClickedColor));
         mVpContainer.setCurrentItem(position);
         mCurrentPage = position;
     }

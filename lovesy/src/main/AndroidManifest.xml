@@ -38,7 +38,10 @@
 
         <activity android:name=".user.UserProfileActivity" />
 
-        <activity android:name=".detail.photo.PhotoActivity" />
+        <activity
+            android:name=".detail.photo.PhotoActivity"
+            android:theme="@style/LoveSyActionBarTheme"
+            android:process=":remote" />
 
     </application>
 

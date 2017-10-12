@@ -3,14 +3,16 @@ package com.wangzai.lovesy.core.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.wangzai.lovesy.core.R2;
-import com.wangzai.lovesy.core.util.LogUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +28,10 @@ public abstract class BaseFragment extends Fragment {
     private boolean isAlreadyVisible = false;
 
     private Unbinder mUnBinder;
+
+    @Nullable
+    @BindView(R2.id.toolbar_fragment)
+    Toolbar toolbar;
 
     public abstract Object setLayout();
 
@@ -43,9 +49,32 @@ public abstract class BaseFragment extends Fragment {
             throw new ClassCastException("type of setLayout() must be int or View!");
         }
         mUnBinder = ButterKnife.bind(this, rootView);
+        initToolbar();
         onBindView(savedInstanceState, rootView);
 
         return rootView;
+    }
+
+    private void initToolbar() {
+        if (toolbar != null) {
+            AppCompatActivity mActivity = (AppCompatActivity) getActivity();
+            mActivity.setSupportActionBar(toolbar);
+            final ActionBar actionBar = mActivity.getSupportActionBar();
+            if (actionBar != null) {
+                actionBar.setDisplayHomeAsUpEnabled(true);
+                actionBar.setDisplayShowTitleEnabled(true);
+            }
+        }
+    }
+
+    public void setTitle(@StringRes int title) {
+        setTitle(getString(title));
+    }
+
+    public void setTitle(String title) {
+        if (toolbar != null) {
+            toolbar.setTitle(title);
+        }
     }
 
     @Override

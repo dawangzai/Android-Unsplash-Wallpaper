@@ -6,7 +6,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.wangzai.lovesy.core.R;
-import com.wangzai.lovesy.core.ui.imageloader.ImageLoader;
+import com.wangzai.lovesy.core.ui.image.loader.ImageLoader;
 import com.wangzai.lovesy.core.widget.SimpleImageView;
 
 import java.util.ArrayList;

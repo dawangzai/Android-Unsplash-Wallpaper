@@ -1,4 +1,4 @@
-package com.wangzai.lovesy.core.ui.imageloader;
+package com.wangzai.lovesy.core.ui.image.loader;
 
 import com.wangzai.lovesy.core.widget.SimpleImageView;
 import com.wangzai.lovesy.core.widget.SimpleZoomableImageView;

@@ -2,8 +2,9 @@ package com.wangzai.lovesy;
 
 import android.app.Application;
 
-import com.joanzapata.iconify.fonts.FontAwesomeModule;
+import com.joanzapata.iconify.fonts.MaterialModule;
 import com.wangzai.lovesy.core.app.LoveSy;
+import com.wangzai.lovesy.core.icon.FontLoveSyModule;
 import com.wangzai.lovesy.core.net.interceptor.HeaderInterceptor;
 import com.wangzai.lovesy.core.net.interceptor.InterceptorType;
 import com.wangzai.lovesy.core.net.interceptor.Logger;
@@ -32,7 +33,8 @@ public class LoveSyApp extends Application {
         LoveSy.init(this)
                 .withLogEnable(BuildConfig.LOG_DEBUG, "LoveSyDebug")
                 .withApiHost("https://api.unsplash.com/")
-                .withIcon(new FontAwesomeModule())
+                .withIcon(new MaterialModule())
+                .withIcon(new FontLoveSyModule())
                 .withInterceptor(new HeaderInterceptor(InterceptorType.INTERCEPTOR))
                 .withInterceptor(new HttpLoggingInterceptor(new Logger()).setLevel(HttpLoggingInterceptor.Level.BODY))
                 .configure();

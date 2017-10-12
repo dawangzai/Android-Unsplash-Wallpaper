@@ -5,8 +5,10 @@ import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.wangzai.lovesy.core.R2;
@@ -52,6 +54,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     private void initToolbar() {
         if (toolbar != null) {
             setSupportActionBar(toolbar);
+            final ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null) {
+                actionBar.setDisplayShowTitleEnabled(true);
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            }
         }
     }
 
@@ -82,6 +89,17 @@ public abstract class BaseActivity extends AppCompatActivity {
                     .addToBackStack(null)
                     .commit();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        final int itemId = item.getItemId();
+        switch (itemId) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

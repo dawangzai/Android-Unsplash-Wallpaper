@@ -35,6 +35,7 @@ public class IndexFragment extends BaseHomeFragment implements OnRequestListener
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
+        setTitle(R.string.app_name);
         refreshLayout.setProgressViewOffset(true, 0, 300);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         recyclerView.addOnItemTouchListener(new IndexItemClickListener(this));

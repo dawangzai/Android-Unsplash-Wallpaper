@@ -102,17 +102,18 @@
         <LinearLayout
             android:id="@+id/ll_download"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <com.joanzapata.iconify.widget.IconTextView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:text="{fa-credit-card}"
+                android:text="@string/text_icon_download"
                 android:textSize="20sp" />
 
             <TextView
@@ -121,15 +122,15 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:text="我的下载"
+                android:text="@string/text_download"
                 android:textSize="10sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_like"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical"
             android:visibility="gone">
@@ -139,7 +140,7 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:text="{fa-credit-card}"
+                android:text="@string/text_icon_like"
                 android:textSize="20sp" />
 
             <TextView
@@ -148,15 +149,15 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:text="我的喜欢"
+                android:text="@string/text_like"
                 android:textSize="10sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_collection"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical"
             android:visibility="gone">
@@ -166,7 +167,7 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:text="{fa-credit-card}"
+                android:text="@string/text_icon_album"
                 android:textSize="20sp" />
 
             <TextView
@@ -175,7 +176,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:text="我的影集"
+                android:text="@string/text_album"
                 android:textSize="10sp" />
         </LinearLayout>
 

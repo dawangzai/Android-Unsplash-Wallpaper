@@ -51,8 +51,11 @@ public class ActivityUtil {
         fragment.startActivityForResult(intent, Constant.REQUEST_CODE.PERSONAL_FRAGMENT);
     }
 
-    public static void startUserProfileActivity(Activity activity) {
+    public static void startUserProfileActivity(Activity activity, String title) {
+        Bundle bundle = new Bundle();
+        bundle.putString(Constant.INTENT_DATA.ONE, title);
         Intent intent = new Intent(activity, UserProfileActivity.class);
+        intent.putExtras(bundle);
         activity.startActivity(intent);
     }
 

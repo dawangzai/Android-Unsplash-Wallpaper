@@ -19,6 +19,9 @@ public class UserProfileActivity extends LoveSyActivity {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState) {
-        loadRootFragment(savedInstanceState, R.id.fragment_container, new UserProfileFragment());
+        final UserProfileFragment userProfileFragment = new UserProfileFragment();
+        userProfileFragment.setArguments(getIntent().getExtras());
+        loadRootFragment(savedInstanceState, R.id.fragment_container, userProfileFragment);
     }
+
 }
