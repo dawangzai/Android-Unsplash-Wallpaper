@@ -43,9 +43,8 @@ public class DownloadFragment extends BaseTabItemFragment implements OnRequestLi
     }
 
     @Override
-    protected void onLazyLoad() {
-        super.onLazyLoad();
-//        onRefresh();
+    protected void onFragmentVisible() {
+        //        onRefresh();
     }
 
     @Override

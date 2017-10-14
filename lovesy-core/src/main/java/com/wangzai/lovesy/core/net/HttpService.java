@@ -1,6 +1,6 @@
 package com.wangzai.lovesy.core.net;
 
-import java.util.WeakHashMap;
+import java.util.HashMap;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -21,22 +21,22 @@ import retrofit2.http.Url;
 public interface HttpService {
 
     @GET
-    Call<String> get(@Url String url, @QueryMap WeakHashMap<String, Object> params);
+    Call<String> get(@Url String url, @QueryMap HashMap<String, Object> params);
 
     @FormUrlEncoded
     @POST
-    Call<String> post(@Url String url, @FieldMap WeakHashMap<String, Object> params);
+    Call<String> post(@Url String url, @FieldMap HashMap<String, Object> params);
 
     @POST
     Call<String> postRaw(@Url String url, @Body RequestBody body);
 
     @FormUrlEncoded
     @PUT
-    Call<String> put(@Url String url, @FieldMap WeakHashMap<String, Object> params);
+    Call<String> put(@Url String url, @FieldMap HashMap<String, Object> params);
 
     @PUT
     Call<String> putRaw(@Url String url, @Body RequestBody body);
 
     @DELETE
-    Call<String> delete(@Url String url, @QueryMap WeakHashMap<String, Object> params);
+    Call<String> delete(@Url String url, @QueryMap HashMap<String, Object> params);
 }

@@ -79,11 +79,10 @@ public abstract class BaseTabPageFragment extends LoveSyFragment {
         TabPagerAdapter adapter = new TabPagerAdapter(mTabTitle, mTabFragments, getActivity().getSupportFragmentManager());
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(mIndexPage);
-//        mViewPager.addOnPageChangeListener(this);
 
         //初始化 TabLayout
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
-        mTabLayout.setSelectedTabIndicatorHeight(0);
+        mTabLayout.setSelectedTabIndicatorHeight(7);
         mTabLayout.setBackgroundResource(setTabBackgroundColor());
         mTabLayout.setTabTextColors(ContextCompat.getColor(getActivity(), android.R.color.tertiary_text_light), ContextCompat.getColor(getActivity(), mIndicatorColor));
 

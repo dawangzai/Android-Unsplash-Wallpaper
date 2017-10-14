@@ -36,8 +36,8 @@ public abstract class BaseHomeActivity extends LoveSyActivity implements ViewPag
     private final ArrayList<BaseHomeFragment> mHomeFragments = new ArrayList<>();
     private final LinkedHashMap<BottomTabBean, BaseHomeFragment> mItems = new LinkedHashMap<>();
 
-    private int mCurrentPage = 0;
-    private int mClickedColor = R.color.colorPrimary;
+    protected int mCurrentPage = 0;
+    private int mClickedColor = R.color.colorAccent;
 
     @BindView(R2.id.vp_container)
     ViewPager mVpContainer;
@@ -108,6 +108,9 @@ public abstract class BaseHomeActivity extends LoveSyActivity implements ViewPag
     public void onPageSelected(int position) {
         mCurrentPage = position;
         bottomTabClick(position);
+
+        //刷新menu
+        supportInvalidateOptionsMenu();
     }
 
     @Override

@@ -80,7 +80,7 @@ public class BaseFragmentFragment extends Fragment implements BaseFragmentFuncti
                 viewLoading.setVisibility(View.INVISIBLE);
             }
             if (viewError != null) {
-                tvErrorMsg = (TextView) viewError.findViewById(R.id.tvErrorMsg);
+                tvErrorMsg = (TextView) viewError.findViewById(R.id.tv_error_msg);
                 viewError.setVisibility(View.INVISIBLE);
             }
         }

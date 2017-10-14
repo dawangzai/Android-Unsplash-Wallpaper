@@ -14,6 +14,9 @@ import com.wangzai.lovesy.core.net.rx.observer.ResultObserver;
 import com.wangzai.lovesy.core.ui.recycler.DataConverter;
 import com.wangzai.lovesy.core.ui.recycler.MultipleRecyclerAdapter;
 
+import java.util.HashMap;
+import java.util.WeakHashMap;
+
 import io.reactivex.annotations.NonNull;
 
 /**
@@ -23,6 +26,9 @@ import io.reactivex.annotations.NonNull;
 public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
         BaseQuickAdapter.RequestLoadMoreListener, View.OnClickListener {
 
+    private static final HashMap<String, Object> mParams = new HashMap<>();
+    private static String mUrl = null;
+
     private final SwipeRefreshLayout mRefreshLayout;
     private final RecyclerView mRecyclerView;
     private final PagingBean mPagingBean;
@@ -30,6 +36,7 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
     private MultipleRecyclerAdapter mAdapter;
     private OnRequestListener mListener;
     private LinearLayout mErrorView;
+
 
     private RefreshHandler(SwipeRefreshLayout refreshLayout,
                            RecyclerView recyclerView,
@@ -70,11 +77,17 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
         mListener.onLoadMore();
     }
 
-    public void refresh(String url) {
+    public void refresh(String url, HashMap<String, Object> params) {
+        mUrl = url;
+        if (!mParams.isEmpty()) {
+            mParams.clear();
+        }
+        params.put("page", 1);
+        mParams.putAll(params);
         mRefreshLayout.setRefreshing(true);
         RxHttpClient.builder()
-                .url(url)
-                .params("page", 1)
+                .url(mUrl)
+                .params(mParams)
                 .build()
                 .get()
                 .subscribe(new ResultObserver() {
@@ -102,11 +115,12 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
                 });
     }
 
-    public void loadMore(String url) {
+    public void loadMore() {
         final int pageIndex = mPagingBean.getPageIndex();
+        mParams.put("page", pageIndex);
         RxHttpClient.builder()
-                .url(url)
-                .params("page", pageIndex)
+                .url(mUrl)
+                .params(mParams)
                 .build()
                 .get()
                 .subscribe(new ResultObserver() {

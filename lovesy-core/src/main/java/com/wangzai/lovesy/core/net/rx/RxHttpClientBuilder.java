@@ -5,7 +5,7 @@ import android.content.Context;
 import com.wangzai.lovesy.core.net.HttpCreator;
 import com.wangzai.lovesy.core.ui.loader.LoaderStyle;
 
-import java.util.WeakHashMap;
+import java.util.HashMap;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -16,7 +16,7 @@ import okhttp3.RequestBody;
 
 public class RxHttpClientBuilder {
 
-    private static final WeakHashMap<String, Object> PARAMS = HttpCreator.getParams();
+    private static final HashMap<String, Object> PARAMS = HttpCreator.getParams();
     private String mUrl;
     private RequestBody mBody;
     private Context mContext;
@@ -42,7 +42,7 @@ public class RxHttpClientBuilder {
         return this;
     }
 
-    public final RxHttpClientBuilder params(WeakHashMap<String, Object> params) {
+    public final RxHttpClientBuilder params(HashMap<String, Object> params) {
         PARAMS.putAll(params);
         return this;
     }

@@ -6,7 +6,7 @@ import com.wangzai.lovesy.core.net.callback.IRequest;
 import com.wangzai.lovesy.core.net.callback.ISuccess;
 import com.wangzai.lovesy.core.net.callback.RequestCallBack;
 
-import java.util.WeakHashMap;
+import java.util.HashMap;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -17,7 +17,7 @@ import retrofit2.Call;
 
 public class HttpClient {
 
-    private static final WeakHashMap<String, Object> PARAMS = HttpCreator.getParams();
+    private static final HashMap<String, Object> PARAMS = HttpCreator.getParams();
     private final String mUrl;
     private final RequestBody mBody;
     private final IRequest mRequest;

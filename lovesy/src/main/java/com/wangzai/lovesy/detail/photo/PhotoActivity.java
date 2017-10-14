@@ -3,7 +3,10 @@ package com.wangzai.lovesy.detail.photo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.GestureDetectorCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -20,6 +23,7 @@ import com.wangzai.lovesy.core.net.rx.RxHttpClient;
 import com.wangzai.lovesy.core.net.rx.observer.ResultObserver;
 import com.wangzai.lovesy.core.ui.image.loader.ImageLoader;
 import com.wangzai.lovesy.core.widget.SimpleZoomableImageView;
+import com.wangzai.lovesy.view.widget.RefreshView;
 
 import butterknife.BindView;
 import io.reactivex.annotations.NonNull;
@@ -38,6 +42,9 @@ public class PhotoActivity extends LoveSyActivity implements View.OnTouchListene
     private GestureDetectorCompat mGestureDetector;
     private Animation hideAnimation;
     private Animation showAnimation;
+    private RefreshView mRefreshView;
+
+    private String photoId;
 
     @Override
     public int setLayout() {
@@ -46,6 +53,8 @@ public class PhotoActivity extends LoveSyActivity implements View.OnTouchListene
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState) {
+        final Bundle bundle = getIntent().getExtras();
+        photoId = bundle.getString(Constant.INTENT_DATA.ONE);
         initTitle();
         View mDecorView = getWindow().getDecorView();
         mGestureDetector = new GestureDetectorCompat(this, new PhotoGestureListener(mSivPhoto, mDecorView, this));
@@ -54,8 +63,10 @@ public class PhotoActivity extends LoveSyActivity implements View.OnTouchListene
         hideAnimation = AnimationUtils.loadAnimation(this, R.anim.widget_hide_animation);
         showAnimation = AnimationUtils.loadAnimation(this, R.anim.widget_show_animation);
 
-        final Bundle bundle = getIntent().getExtras();
-        final String photoId = bundle.getString(Constant.INTENT_DATA.ONE);
+        getPhoto();
+    }
+
+    private void getPhoto() {
         RxHttpClient.builder()
                 .url("photos/" + photoId)
                 .loader(this)
@@ -73,7 +84,6 @@ public class PhotoActivity extends LoveSyActivity implements View.OnTouchListene
 
                     @Override
                     public void onFailure(int code, String msg) {
-
                     }
                 });
     }
@@ -96,12 +106,31 @@ public class PhotoActivity extends LoveSyActivity implements View.OnTouchListene
 
     }
 
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.detail_photo, menu);
+//        final MenuItem item = menu.findItem(R.id.menu_refresh);
+//        mRefreshView = (RefreshView) MenuItemCompat.getActionView(item);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.menu_refresh:
+//                mRefreshView.startRefresh();
+////                getPhoto();
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
+
     private void initTitle() {
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
     }
 }

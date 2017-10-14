@@ -7,6 +7,7 @@ import com.wangzai.lovesy.core.net.callback.IFailure;
 import com.wangzai.lovesy.core.net.callback.IRequest;
 import com.wangzai.lovesy.core.net.callback.ISuccess;
 
+import java.util.HashMap;
 import java.util.WeakHashMap;
 
 import okhttp3.MediaType;
@@ -18,7 +19,7 @@ import okhttp3.RequestBody;
 
 public class HttpClientBuilder {
 
-    private static final WeakHashMap<String, Object> PARAMS = HttpCreator.getParams();
+    private static final HashMap<String, Object> PARAMS = HttpCreator.getParams();
     private String mUrl;
     private RequestBody mBody;
     private IRequest mRequest;

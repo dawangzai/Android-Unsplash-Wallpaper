@@ -3,6 +3,7 @@ package com.wangzai.lovesy.core.activity.home;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 class HomePagerAdapter extends FragmentPagerAdapter {
 
     private ArrayList<BaseHomeFragment> mHomeFragments = new ArrayList<>();
+    private FragmentManager mFragmentManager;
 
     public HomePagerAdapter(FragmentManager fm) {
         super(fm);
@@ -20,6 +22,7 @@ class HomePagerAdapter extends FragmentPagerAdapter {
 
     HomePagerAdapter(ArrayList<BaseHomeFragment> homeFragments, FragmentManager fm) {
         super(fm);
+        this.mFragmentManager = fm;
         this.mHomeFragments = homeFragments;
     }
 
@@ -31,5 +34,18 @@ class HomePagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return mHomeFragments.size();
+    }
+
+    @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+        Fragment fragment = (Fragment) super.instantiateItem(container, position);
+        mFragmentManager.beginTransaction().show(fragment).commit();
+        return fragment;
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        Fragment fragment = mHomeFragments.get(position);
+        mFragmentManager.beginTransaction().hide(fragment).commit();
     }
 }

@@ -8,6 +8,7 @@ import com.wangzai.lovesy.core.activity.LoveSyActivity;
 import com.wangzai.lovesy.core.app.LoveSy;
 import com.wangzai.lovesy.core.fragment.web.Route.BaseRoute;
 import com.wangzai.lovesy.core.ui.loader.LoveSyLoader;
+import com.wangzai.lovesy.core.util.LogUtil;
 
 /**
  * Created by wangzai on 2017/9/16
@@ -35,12 +36,14 @@ public class WebViewClientImpl extends WebViewClient {
     public void onPageStarted(WebView view, String url, Bitmap favicon) {
         super.onPageStarted(view, url, favicon);
 
+        LogUtil.i("onPageStarted" + url);
         LoveSyLoader.showLoading(mActivity);
     }
 
     @Override
     public void onPageFinished(WebView view, String url) {
         super.onPageFinished(view, url);
+        LogUtil.i("onPageFinished" + url);
         LoveSyLoader.stopLoading();
     }
 }

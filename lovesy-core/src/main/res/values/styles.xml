@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="LoveSyToolbarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
+    <style name="ThemeLoveSyToolbar" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:textColorPrimary">@color/color_white</item>
     </style>
 
-    <style name="ToolbarTitleTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+    <style name="PopupThemeLoveSyToolbar" parent="ThemeOverlay.AppCompat.Light">
+    </style>
+
+    <style name="TextAppearanceLoveSyToolbar" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
         <item name="android:textSize">@dimen/textSize_18</item>
     </style>

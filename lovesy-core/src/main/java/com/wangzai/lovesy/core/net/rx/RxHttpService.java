@@ -1,5 +1,6 @@
 package com.wangzai.lovesy.core.net.rx;
 
+import java.util.HashMap;
 import java.util.WeakHashMap;
 
 import io.reactivex.Observable;
@@ -9,10 +10,8 @@ import retrofit2.http.DELETE;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
-import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
 
@@ -23,22 +22,22 @@ import retrofit2.http.Url;
 public interface RxHttpService {
 
     @GET
-    Observable<String> get(@Url String url, @QueryMap WeakHashMap<String, Object> params);
+    Observable<String> get(@Url String url, @QueryMap HashMap<String, Object> params);
 
     @FormUrlEncoded
     @POST
-    Observable<String> post(@Url String url, @FieldMap WeakHashMap<String, Object> params);
+    Observable<String> post(@Url String url, @FieldMap HashMap<String, Object> params);
 
     @POST
     Observable<String> postRaw(@Url String url, @Body RequestBody body);
 
     @FormUrlEncoded
     @PUT
-    Observable<String> put(@Url String url, @FieldMap WeakHashMap<String, Object> params);
+    Observable<String> put(@Url String url, @FieldMap HashMap<String, Object> params);
 
     @PUT
     Observable<String> putRaw(@Url String url, @Body RequestBody body);
 
     @DELETE
-    Observable<String> delete(@Url String url, @QueryMap WeakHashMap<String, Object> params);
+    Observable<String> delete(@Url String url, @QueryMap HashMap<String, Object> params);
 }

@@ -11,4 +11,5 @@ public abstract class LoveSyFragment extends BaseFragment {
     protected LoveSyActivity getLoveSyActivity() {
         return (LoveSyActivity) getActivity();
     }
+
 }

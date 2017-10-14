@@ -7,7 +7,7 @@ import com.wangzai.lovesy.core.net.HttpMethod;
 import com.wangzai.lovesy.core.net.rx.lift.Transformer;
 import com.wangzai.lovesy.core.ui.loader.LoaderStyle;
 
-import java.util.WeakHashMap;
+import java.util.HashMap;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -17,7 +17,7 @@ import okhttp3.RequestBody;
  */
 
 public class RxHttpClient {
-    private static final WeakHashMap<String, Object> PARAMS = HttpCreator.getParams();
+    private static final HashMap<String, Object> PARAMS = HttpCreator.getParams();
     private final String mUrl;
     private final RequestBody mBody;
     private final Context mContext;

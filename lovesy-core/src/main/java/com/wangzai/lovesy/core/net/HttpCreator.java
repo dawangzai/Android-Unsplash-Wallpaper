@@ -6,12 +6,10 @@ import com.wangzai.lovesy.core.net.cookie.HttpCookieJar;
 import com.wangzai.lovesy.core.net.interceptor.BaseInterceptor;
 import com.wangzai.lovesy.core.net.interceptor.InterceptorType;
 import com.wangzai.lovesy.core.net.rx.RxHttpService;
-import com.wangzai.lovesy.core.net.rx.lift.Transformer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.WeakHashMap;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cookie;
@@ -33,7 +31,7 @@ public class HttpCreator {
      * 一个请求结束之后会将其清空供下一次请求使用
      */
     private static final class ParamsHolder {
-        private static final WeakHashMap<String, Object> PARAMS = new WeakHashMap<>();
+        private static final HashMap<String, Object> PARAMS = new HashMap<>();
     }
 
     /**
@@ -54,7 +52,7 @@ public class HttpCreator {
      * 构建 OkHttp Client
      */
     private static final class OkHttpHolder {
-        private static final int TIME_OUT = 60;
+        private static final int TIME_OUT = 30;
         private static final OkHttpClient.Builder BUILDER = new OkHttpClient.Builder();
 
         private static OkHttpClient.Builder addInterceptors() {
@@ -124,7 +122,7 @@ public class HttpCreator {
         return RxServiceHolder.HTTP_SERVICE;
     }
 
-    public static WeakHashMap<String, Object> getParams() {
+    public static HashMap<String, Object> getParams() {
         return ParamsHolder.PARAMS;
     }
 

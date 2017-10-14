@@ -34,16 +34,8 @@ public class UserFragment extends BaseHomeFragment implements IUserChecker, View
     SimpleImageView mSivAvatar;
     @BindView(R.id.tv_user_name)
     TextView mTvUserName;
-    @BindView(R.id.tv_sign_in)
-    TextView mTvSignIn;
     @BindView(R.id.ll_user_info)
     LinearLayout mLlUserInfo;
-    @BindView(R.id.ll_location_site)
-    LinearLayout mLlLocationSite;
-    @BindView(R.id.tv_location)
-    TextView mTvLocation;
-    @BindView(R.id.tv_web_site)
-    TextView mTvWebSite;
     @BindView(R.id.tv_bio)
     TextView mTvBio;
     @BindView(R.id.ll_collection)
@@ -53,25 +45,39 @@ public class UserFragment extends BaseHomeFragment implements IUserChecker, View
     @BindView(R.id.ll_download)
     LinearLayout mLlDownload;
 
+    @BindView(R.id.ll_container)
+    LinearLayout mLlContainer;
+    @BindView(R.id.ll_error_layout)
+    LinearLayout mLlErrorLayout;
+    @BindView(R.id.tv_error_msg)
+    TextView mTvErrorMsg;
+
     @Override
     public Object setLayout() {
-        return R.layout.fragment_personal;
+        return R.layout.fragment_user;
     }
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
 
-        //检查登录状态
-        AccountManager.checkAccount(this);
         mLlDownload.setOnClickListener(this);
         mLlLike.setOnClickListener(this);
         mLlCollection.setOnClickListener(this);
+        mLlUserInfo.setOnClickListener(this);
+        mLlErrorLayout.setOnClickListener(this);
 
     }
 
     @Override
+    protected void onFragmentVisible() {
+        //检查登录状态
+        AccountManager.checkAccount(this);
+        setDefault();
+    }
+
+    @Override
     public void onSignIn() {
-        //设置用户信息
+        //查用户信息
         RxHttpClient.builder()
                 .url("me")
                 .loader(getActivity())
@@ -85,20 +91,23 @@ public class UserFragment extends BaseHomeFragment implements IUserChecker, View
 
                     @Override
                     public void onFailure(int code, String msg) {
-
+                        mLlContainer.setVisibility(View.INVISIBLE);
+                        mLlErrorLayout.setVisibility(View.VISIBLE);
+                        mTvErrorMsg.setText(msg);
                     }
                 });
     }
 
     @Override
     public void onNotSignIn() {
+
+        mLlContainer.setVisibility(View.VISIBLE);
+        mLlErrorLayout.setVisibility(View.INVISIBLE);
+
         mLlDownload.setVisibility(View.VISIBLE);
         mLlCollection.setVisibility(View.GONE);
         mLlLike.setVisibility(View.GONE);
-        mLlUserInfo.setVisibility(View.INVISIBLE);
-        //显示登录按钮
-        mTvSignIn.setVisibility(View.VISIBLE);
-        mTvSignIn.setOnClickListener(this);
+        mLlUserInfo.setVisibility(View.VISIBLE);
         String defaultAvatar = "res://" + getActivity().getPackageName() + "/" + R.mipmap.ic_avatar_default;
         ImageLoader.loaderImage(mSivAvatar, defaultAvatar);
     }
@@ -107,13 +116,20 @@ public class UserFragment extends BaseHomeFragment implements IUserChecker, View
     public void onClick(View v) {
         final int id = v.getId();
         switch (id) {
-            case R.id.tv_sign_in:
-                ActivityUtil.startSignInActivityResult(this);
+            case R.id.ll_user_info:
+                if (AccountManager.isSignIn()) {
+                    Toast.makeText(this.getContext(), R.string.coming_soon, Toast.LENGTH_SHORT).show();
+                } else {
+                    ActivityUtil.startSignInActivityResult(this);
+                }
                 break;
             case R.id.ll_download:
-                ActivityUtil.startUserProfileActivity(getActivity(),getString(R.string.text_user_profile_download));
+                ActivityUtil.startUserProfileActivity(getActivity(), getString(R.string.text_user_profile_download));
                 break;
             case R.id.ll_like:
+                break;
+            case R.id.ll_error_layout:
+                AccountManager.checkAccount(this);
                 break;
             default:
                 break;
@@ -126,10 +142,24 @@ public class UserFragment extends BaseHomeFragment implements IUserChecker, View
         AccountManager.checkAccount(this);
     }
 
-    private void setUserInfo(String userInfo) {
+    private void setDefault() {
+        mLlContainer.setVisibility(View.VISIBLE);
+        mLlErrorLayout.setVisibility(View.INVISIBLE);
+
         mLlDownload.setVisibility(View.VISIBLE);
-        mLlUserInfo.setVisibility(View.VISIBLE);
-        mTvSignIn.setVisibility(View.INVISIBLE);
+        mTvUserName.setVisibility(View.VISIBLE);
+        mTvBio.setVisibility(View.GONE);
+        mTvUserName.setText(getString(R.string.text_fragment_user_sign_in));
+        String defaultAvatar = "res://" + getActivity().getPackageName() + "/" + R.mipmap.ic_avatar_default;
+        ImageLoader.loaderImage(mSivAvatar, defaultAvatar);
+    }
+
+    private void setUserInfo(String userInfo) {
+
+        mLlContainer.setVisibility(View.VISIBLE);
+        mLlErrorLayout.setVisibility(View.INVISIBLE);
+
+        mLlDownload.setVisibility(View.VISIBLE);
         mLlCollection.setVisibility(View.VISIBLE);
         mLlLike.setVisibility(View.VISIBLE);
 
@@ -137,8 +167,6 @@ public class UserFragment extends BaseHomeFragment implements IUserChecker, View
         final ProfileImageBean profileImage = userBean.getProfile_image();
         final String large = profileImage.getLarge();
         final String username = userBean.getUsername();
-        final String portfolioUrl = userBean.getPortfolio_url();
-        final String location = userBean.getLocation();
         final String bio = userBean.getBio();
 
         String avatarUrl;
@@ -151,25 +179,6 @@ public class UserFragment extends BaseHomeFragment implements IUserChecker, View
 
         if (username != null) {
             mTvUserName.setText(username);
-        }
-
-        if (location != null || portfolioUrl != null) {
-            mLlLocationSite.setVisibility(View.VISIBLE);
-            if (location != null) {
-                mTvLocation.setVisibility(View.VISIBLE);
-                mTvLocation.setText(location);
-            } else {
-                mTvLocation.setVisibility(View.GONE);
-            }
-            if (portfolioUrl != null) {
-                mTvWebSite.setVisibility(View.VISIBLE);
-                mTvWebSite.setText(portfolioUrl);
-            } else {
-                mTvWebSite.setVisibility(View.GONE);
-            }
-
-        } else {
-            mLlLocationSite.setVisibility(View.GONE);
         }
 
         if (bio != null) {

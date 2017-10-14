@@ -43,7 +43,7 @@ public class AccountManager {
         }
     }
 
-    private static boolean isSignIn() {
+    public static boolean isSignIn() {
         return LoveSyPreference.getAppFlag(SignTag.SIGN_TAG.name());
     }
 

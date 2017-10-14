@@ -6,13 +6,19 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.wangzai.lovesy.R;
 import com.wangzai.lovesy.core.fragment.user.BaseTabItemFragment;
 import com.wangzai.lovesy.core.ui.refresh.OnRequestListener;
 import com.wangzai.lovesy.core.ui.refresh.RefreshHandler;
+import com.wangzai.lovesy.core.util.LogUtil;
 import com.wangzai.lovesy.home.collection.CollectionDataConvert;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 
@@ -28,6 +34,7 @@ public class CollectionFragment extends BaseTabItemFragment implements OnRequest
     SwipeRefreshLayout refreshLayout;
 
     private RefreshHandler refreshHandler;
+    private HashMap<String, Object> mParams = new HashMap<>();
 
     @Override
     public Object setLayout() {
@@ -43,18 +50,23 @@ public class CollectionFragment extends BaseTabItemFragment implements OnRequest
     }
 
     @Override
-    protected void onLazyLoad() {
-        super.onLazyLoad();
+    protected void onFragmentVisible() {
         onRefresh();
     }
 
     @Override
     public void onRefresh() {
-        refreshHandler.refresh("https://api.unsplash.com/users/wangzai/collections");
+        refreshHandler.refresh("https://api.unsplash.com/users/wangzai/collections", mParams);
     }
 
     @Override
     public void onLoadMore() {
-        refreshHandler.loadMore("https://api.unsplash.com/users/wangzai/collections");
+        refreshHandler.loadMore();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        LogUtil.i("onOptionsItemSelected---collection---" + item.toString());
+        return super.onOptionsItemSelected(item);
     }
 }

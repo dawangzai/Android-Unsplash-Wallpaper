@@ -14,6 +14,8 @@ import com.wangzai.lovesy.core.ui.refresh.OnRequestListener;
 import com.wangzai.lovesy.core.ui.refresh.RefreshHandler;
 import com.wangzai.lovesy.home.index.PhotoDataConvert;
 
+import java.util.HashMap;
+
 import butterknife.BindView;
 
 /**
@@ -28,6 +30,7 @@ public class LikeFragment extends BaseTabItemFragment implements OnRequestListen
     SwipeRefreshLayout refreshLayout;
 
     private RefreshHandler refreshHandler;
+    private HashMap<String, Object> mParams = new HashMap<>();
 
     @Override
     public Object setLayout() {
@@ -43,18 +46,17 @@ public class LikeFragment extends BaseTabItemFragment implements OnRequestListen
     }
 
     @Override
-    protected void onLazyLoad() {
-        super.onLazyLoad();
+    protected void onFragmentVisible() {
         onRefresh();
     }
 
     @Override
     public void onRefresh() {
-        refreshHandler.refresh("https://api.unsplash.com/users/wangzai/likes");
+        refreshHandler.refresh("https://api.unsplash.com/users/wangzai/likes", mParams);
     }
 
     @Override
     public void onLoadMore() {
-        refreshHandler.loadMore("https://api.unsplash.com/users/wangzai/likes");
+        refreshHandler.loadMore();
     }
 }

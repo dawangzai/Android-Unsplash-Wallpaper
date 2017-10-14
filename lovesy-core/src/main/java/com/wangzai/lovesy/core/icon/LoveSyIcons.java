@@ -10,7 +10,8 @@ public enum LoveSyIcons implements Icon {
     icon_sousuo('\ue62f'),
     icon_xiazai('\ue608'),
     icon_xihuan('\ue62c'),
-    icon_album('\ue61d');
+    icon_album('\ue61d'),
+    icon_refresh('\ue652');
 
     private char character;
 
