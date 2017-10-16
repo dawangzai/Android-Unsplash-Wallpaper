@@ -15,7 +15,7 @@ import com.wangzai.lovesy.bean.ProfileImageBean;
 import com.wangzai.lovesy.bean.UserBean;
 import com.wangzai.lovesy.core.account.AccountManager;
 import com.wangzai.lovesy.core.account.IUserChecker;
-import com.wangzai.lovesy.core.activity.home.BaseHomeFragment;
+import com.wangzai.lovesy.core.fragment.LoveSyFragment;
 import com.wangzai.lovesy.core.net.rx.RxHttpClient;
 import com.wangzai.lovesy.core.net.rx.observer.ResultObserver;
 import com.wangzai.lovesy.core.ui.image.loader.ImageLoader;
@@ -28,7 +28,7 @@ import butterknife.BindView;
  * Created by wangzai on 2017/10/9
  */
 
-public class UserFragment extends BaseHomeFragment implements IUserChecker, View.OnClickListener {
+public class UserFragment extends LoveSyFragment implements IUserChecker, View.OnClickListener {
 
     @BindView(R.id.siv_avatar)
     SimpleImageView mSivAvatar;
@@ -42,8 +42,8 @@ public class UserFragment extends BaseHomeFragment implements IUserChecker, View
     LinearLayout mLlCollection;
     @BindView(R.id.ll_like)
     LinearLayout mLlLike;
-    @BindView(R.id.ll_download)
-    LinearLayout mLlDownload;
+    @BindView(R.id.ll_photo)
+    LinearLayout mLlPhoto;
 
     @BindView(R.id.ll_container)
     LinearLayout mLlContainer;
@@ -51,6 +51,8 @@ public class UserFragment extends BaseHomeFragment implements IUserChecker, View
     LinearLayout mLlErrorLayout;
     @BindView(R.id.tv_error_msg)
     TextView mTvErrorMsg;
+
+    private String username;
 
     @Override
     public Object setLayout() {
@@ -60,19 +62,20 @@ public class UserFragment extends BaseHomeFragment implements IUserChecker, View
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
 
-        mLlDownload.setOnClickListener(this);
+        mLlPhoto.setOnClickListener(this);
         mLlLike.setOnClickListener(this);
         mLlCollection.setOnClickListener(this);
         mLlUserInfo.setOnClickListener(this);
         mLlErrorLayout.setOnClickListener(this);
 
+        setHasOptionsMenu(true);
     }
 
     @Override
     protected void onFragmentVisible() {
+        setDefault();
         //检查登录状态
         AccountManager.checkAccount(this);
-        setDefault();
     }
 
     @Override
@@ -104,10 +107,8 @@ public class UserFragment extends BaseHomeFragment implements IUserChecker, View
         mLlContainer.setVisibility(View.VISIBLE);
         mLlErrorLayout.setVisibility(View.INVISIBLE);
 
-        mLlDownload.setVisibility(View.VISIBLE);
-        mLlCollection.setVisibility(View.GONE);
-        mLlLike.setVisibility(View.GONE);
-        mLlUserInfo.setVisibility(View.VISIBLE);
+        mTvBio.setVisibility(View.GONE);
+        mTvUserName.setText(getString(R.string.text_fragment_user_sign_in));
         String defaultAvatar = "res://" + getActivity().getPackageName() + "/" + R.mipmap.ic_avatar_default;
         ImageLoader.loaderImage(mSivAvatar, defaultAvatar);
     }
@@ -123,10 +124,26 @@ public class UserFragment extends BaseHomeFragment implements IUserChecker, View
                     ActivityUtil.startSignInActivityResult(this);
                 }
                 break;
-            case R.id.ll_download:
-                ActivityUtil.startUserProfileActivity(getActivity(), getString(R.string.text_user_profile_download));
+            case R.id.ll_photo:
+                if (AccountManager.isSignIn()) {
+                    ActivityUtil.startUserProfileActivity(getActivity(), 0, username);
+                } else {
+                    Toast.makeText(getActivity(), getString(R.string.text_login), Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.ll_like:
+                if (AccountManager.isSignIn()) {
+                    ActivityUtil.startUserProfileActivity(getActivity(), 1, username);
+                } else {
+                    Toast.makeText(getActivity(), getString(R.string.text_login), Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.ll_collection:
+                if (AccountManager.isSignIn()) {
+                    ActivityUtil.startUserProfileActivity(getActivity(), 2, username);
+                } else {
+                    Toast.makeText(getActivity(), getString(R.string.text_login), Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.ll_error_layout:
                 AccountManager.checkAccount(this);
@@ -146,10 +163,7 @@ public class UserFragment extends BaseHomeFragment implements IUserChecker, View
         mLlContainer.setVisibility(View.VISIBLE);
         mLlErrorLayout.setVisibility(View.INVISIBLE);
 
-        mLlDownload.setVisibility(View.VISIBLE);
-        mTvUserName.setVisibility(View.VISIBLE);
         mTvBio.setVisibility(View.GONE);
-        mTvUserName.setText(getString(R.string.text_fragment_user_sign_in));
         String defaultAvatar = "res://" + getActivity().getPackageName() + "/" + R.mipmap.ic_avatar_default;
         ImageLoader.loaderImage(mSivAvatar, defaultAvatar);
     }
@@ -159,14 +173,10 @@ public class UserFragment extends BaseHomeFragment implements IUserChecker, View
         mLlContainer.setVisibility(View.VISIBLE);
         mLlErrorLayout.setVisibility(View.INVISIBLE);
 
-        mLlDownload.setVisibility(View.VISIBLE);
-        mLlCollection.setVisibility(View.VISIBLE);
-        mLlLike.setVisibility(View.VISIBLE);
-
         final UserBean userBean = JSON.parseObject(userInfo, UserBean.class);
         final ProfileImageBean profileImage = userBean.getProfile_image();
         final String large = profileImage.getLarge();
-        final String username = userBean.getUsername();
+        username = userBean.getUsername();
         final String bio = userBean.getBio();
 
         String avatarUrl;

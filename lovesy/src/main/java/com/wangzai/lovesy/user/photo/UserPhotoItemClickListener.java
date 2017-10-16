@@ -1,4 +1,4 @@
-package com.wangzai.lovesy.user.download;
+package com.wangzai.lovesy.user.photo;
 
 import android.view.View;
 import android.widget.Toast;
@@ -13,11 +13,11 @@ import com.wangzai.lovesy.core.account.IUserChecker;
  * Created by wangzai on 2017/9/22
  */
 
-class DownloadItemClickListener extends SimpleClickListener {
+class UserPhotoItemClickListener extends SimpleClickListener {
 
-    private final DownloadFragment mFragment;
+    private final UserPhotoFragment mFragment;
 
-    DownloadItemClickListener(DownloadFragment fragment) {
+    UserPhotoItemClickListener(UserPhotoFragment fragment) {
         this.mFragment = fragment;
     }
 

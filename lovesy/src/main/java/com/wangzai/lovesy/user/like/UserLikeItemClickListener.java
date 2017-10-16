@@ -8,17 +8,16 @@ import com.chad.library.adapter.base.listener.SimpleClickListener;
 import com.wangzai.lovesy.R;
 import com.wangzai.lovesy.core.account.AccountManager;
 import com.wangzai.lovesy.core.account.IUserChecker;
-import com.wangzai.lovesy.user.download.DownloadFragment;
 
 /**
  * Created by wangzai on 2017/9/22
  */
 
-class LikeItemClickListener extends SimpleClickListener {
+class UserLikeItemClickListener extends SimpleClickListener {
 
-    private final LikeFragment mFragment;
+    private final UserLikeFragment mFragment;
 
-    LikeItemClickListener(LikeFragment fragment) {
+    UserLikeItemClickListener(UserLikeFragment fragment) {
         this.mFragment = fragment;
     }
 

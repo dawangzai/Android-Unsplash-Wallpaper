@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.wangzai.lovesy.core.R;
 import com.wangzai.lovesy.core.R2;
+import com.wangzai.lovesy.core.fragment.BaseRefreshFragment;
 import com.wangzai.lovesy.core.fragment.LoveSyFragment;
 
 import java.util.ArrayList;
@@ -26,9 +27,9 @@ import butterknife.BindView;
 public abstract class BaseTabPageFragment extends LoveSyFragment {
 
     //页面数据集合
-    private final LinkedHashMap<String, BaseTabItemFragment> mTabs = new LinkedHashMap<>();
+    private final LinkedHashMap<String, BaseRefreshFragment> mTabs = new LinkedHashMap<>();
     private final ArrayList<String> mTabTitle = new ArrayList<>();
-    private final ArrayList<BaseTabItemFragment> mTabFragments = new ArrayList<>();
+    private final ArrayList<BaseRefreshFragment> mTabFragments = new ArrayList<>();
 
     private int mIndexPage = 0;
     private int mCurrentPge = 0;
@@ -49,7 +50,7 @@ public abstract class BaseTabPageFragment extends LoveSyFragment {
     @BindView(R2.id.view_pager)
     ViewPager mViewPager;
 
-    protected abstract LinkedHashMap<String, BaseTabItemFragment> setTabs(TabBuilder builder);
+    protected abstract LinkedHashMap<String, BaseRefreshFragment> setTabs(TabBuilder builder);
 
     @Override
     public Object setLayout() {
@@ -65,11 +66,11 @@ public abstract class BaseTabPageFragment extends LoveSyFragment {
 
         //初始化数据
         TabBuilder builder = new TabBuilder();
-        final LinkedHashMap<String, BaseTabItemFragment> tabs = setTabs(builder);
+        final LinkedHashMap<String, BaseRefreshFragment> tabs = setTabs(builder);
         mTabs.putAll(tabs);
-        for (Map.Entry<String, BaseTabItemFragment> tab : tabs.entrySet()) {
+        for (Map.Entry<String, BaseRefreshFragment> tab : tabs.entrySet()) {
             final String key = tab.getKey();
-            final BaseTabItemFragment value = tab.getValue();
+            final BaseRefreshFragment value = tab.getValue();
 
             mTabTitle.add(key);
             mTabFragments.add(value);

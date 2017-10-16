@@ -3,10 +3,7 @@ package com.wangzai.lovesy.detail.photo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.GestureDetectorCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -54,7 +51,7 @@ public class PhotoActivity extends LoveSyActivity implements View.OnTouchListene
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState) {
         final Bundle bundle = getIntent().getExtras();
-        photoId = bundle.getString(Constant.INTENT_DATA.ONE);
+        photoId = bundle.getString(Constant.BUNDLE.ONE);
         initTitle();
         View mDecorView = getWindow().getDecorView();
         mGestureDetector = new GestureDetectorCompat(this, new PhotoGestureListener(mSivPhoto, mDecorView, this));

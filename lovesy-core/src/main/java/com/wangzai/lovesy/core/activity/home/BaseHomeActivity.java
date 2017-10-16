@@ -7,6 +7,7 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import com.joanzapata.iconify.widget.IconTextView;
 import com.wangzai.lovesy.core.R;
 import com.wangzai.lovesy.core.R2;
 import com.wangzai.lovesy.core.activity.LoveSyActivity;
+import com.wangzai.lovesy.core.fragment.LoveSyFragment;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -33,8 +35,8 @@ import static android.R.attr.tag;
 public abstract class BaseHomeActivity extends LoveSyActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
 
     private final ArrayList<BottomTabBean> mTabBeans = new ArrayList<>();
-    private final ArrayList<BaseHomeFragment> mHomeFragments = new ArrayList<>();
-    private final LinkedHashMap<BottomTabBean, BaseHomeFragment> mItems = new LinkedHashMap<>();
+    private final ArrayList<LoveSyFragment> mHomeFragments = new ArrayList<>();
+    private final LinkedHashMap<BottomTabBean, LoveSyFragment> mItems = new LinkedHashMap<>();
 
     protected int mCurrentPage = 0;
     private int mClickedColor = R.color.colorAccent;
@@ -44,7 +46,7 @@ public abstract class BaseHomeActivity extends LoveSyActivity implements ViewPag
     @BindView(R2.id.bottom_bar)
     LinearLayoutCompat mBottomBar;
 
-    protected abstract LinkedHashMap<BottomTabBean, BaseHomeFragment> setItems(ItemBuilder builder);
+    protected abstract LinkedHashMap<BottomTabBean, LoveSyFragment> setItems(ItemBuilder builder);
 
     protected abstract int setIndexFragment();
 
@@ -58,6 +60,7 @@ public abstract class BaseHomeActivity extends LoveSyActivity implements ViewPag
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState) {
+        initTitle();
         int mIndexPage = setIndexFragment();
         if (setClickedColor() != 0) {
             mClickedColor = setClickedColor();
@@ -65,11 +68,11 @@ public abstract class BaseHomeActivity extends LoveSyActivity implements ViewPag
 
         //初始化数据
         final ItemBuilder builder = new ItemBuilder();
-        final LinkedHashMap<BottomTabBean, BaseHomeFragment> items = setItems(builder);
+        final LinkedHashMap<BottomTabBean, LoveSyFragment> items = setItems(builder);
         mItems.putAll(items);
-        for (Map.Entry<BottomTabBean, BaseHomeFragment> item : mItems.entrySet()) {
+        for (Map.Entry<BottomTabBean, LoveSyFragment> item : mItems.entrySet()) {
             final BottomTabBean key = item.getKey();
-            final BaseHomeFragment value = item.getValue();
+            final LoveSyFragment value = item.getValue();
             mTabBeans.add(key);
             mHomeFragments.add(value);
         }
@@ -97,6 +100,14 @@ public abstract class BaseHomeActivity extends LoveSyActivity implements ViewPag
         mVpContainer.setAdapter(adapter);
         mVpContainer.setCurrentItem(mIndexPage);
         mVpContainer.addOnPageChangeListener(this);
+    }
+
+    private void initTitle() {
+        final ActionBar actionbar = getSupportActionBar();
+        if (actionbar != null) {
+            actionbar.setDisplayHomeAsUpEnabled(false);
+            actionbar.setTitle(getString(R.string.app_name));
+        }
     }
 
     @Override

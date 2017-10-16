@@ -1,5 +1,7 @@
 package com.wangzai.lovesy.core.fragment.user;
 
+import com.wangzai.lovesy.core.fragment.BaseRefreshFragment;
+
 import java.util.LinkedHashMap;
 
 /**
@@ -8,18 +10,18 @@ import java.util.LinkedHashMap;
 
 public class TabBuilder {
 
-    private final LinkedHashMap<String, BaseTabItemFragment> mTabs = new LinkedHashMap<>();
+    private final LinkedHashMap<String, BaseRefreshFragment> mTabs = new LinkedHashMap<>();
 
     static TabBuilder builder() {
         return new TabBuilder();
     }
 
-    public final TabBuilder addTab(String tabItemTitle, BaseTabItemFragment tabItemFragment) {
+    public final TabBuilder addTab(String tabItemTitle, BaseRefreshFragment tabItemFragment) {
         mTabs.put(tabItemTitle, tabItemFragment);
         return this;
     }
 
-    public final LinkedHashMap<String, BaseTabItemFragment> build() {
+    public final LinkedHashMap<String, BaseRefreshFragment> build() {
         return mTabs;
     }
 }

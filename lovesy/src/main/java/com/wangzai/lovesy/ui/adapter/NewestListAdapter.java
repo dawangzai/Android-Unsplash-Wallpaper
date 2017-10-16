@@ -152,7 +152,7 @@ public class NewestListAdapter extends RecyclerView.Adapter<NewestListAdapter.Vi
             @Override
             public void onClick(View v) {
 //                newestFragment.downloadPicture(finalPhotoId);
-                ToastUtil.showShort(R.string.login_note);
+                ToastUtil.showShort(R.string.text_login);
             }
         });
 
@@ -163,7 +163,7 @@ public class NewestListAdapter extends RecyclerView.Adapter<NewestListAdapter.Vi
         holder.tvLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.showShort(R.string.login_note);
+                ToastUtil.showShort(R.string.text_login);
             }
         });
     }

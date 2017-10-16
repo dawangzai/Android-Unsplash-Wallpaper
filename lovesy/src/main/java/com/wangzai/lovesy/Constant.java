@@ -10,7 +10,8 @@ public class Constant {
         public final static int PERSONAL_FRAGMENT = 1;
     }
 
-    public final static class INTENT_DATA {
+    public final static class BUNDLE {
         public final static String ONE = "ONE";
+        public final static String TWO = "TWO";
     }
 }

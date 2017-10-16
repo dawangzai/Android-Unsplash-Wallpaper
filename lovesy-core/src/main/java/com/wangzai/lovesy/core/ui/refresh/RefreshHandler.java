@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -36,6 +37,7 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
     private MultipleRecyclerAdapter mAdapter;
     private OnRequestListener mListener;
     private LinearLayout mErrorView;
+    private RelativeLayout mEmptyView;
 
 
     private RefreshHandler(SwipeRefreshLayout refreshLayout,
@@ -58,6 +60,7 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
         mAdapter.setOnLoadMoreListener(RefreshHandler.this, mRecyclerView);
         mAdapter.disableLoadMoreIfNotFullPage();
         mErrorView = (LinearLayout) LayoutInflater.from(mRecyclerView.getContext()).inflate(R.layout.view_error, null);
+        mEmptyView = (RelativeLayout) LayoutInflater.from(mRecyclerView.getContext()).inflate(R.layout.view_empty, null);
         mErrorView.setOnClickListener(this);
     }
 
@@ -94,13 +97,17 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
                     @Override
                     public void onSuccess(@NonNull String result) {
                         mRefreshLayout.setRefreshing(false);
-                        mConvert.clearData();
-                        mPagingBean.reset();
-                        mAdapter.replaceData(mConvert.setJsonData(result).convert());
-                        mPagingBean.addIndex();
-                        mAdapter.loadMoreComplete();
+                        if (result.equals("[]")) {
+                            mAdapter.setEmptyView(mEmptyView);
+                        } else {
+                            mConvert.clearData();
+                            mPagingBean.reset();
+                            mAdapter.replaceData(mConvert.setJsonData(result).convert());
+                            mPagingBean.addIndex();
+                            mAdapter.loadMoreComplete();
 //                        mAdapter.setOnLoadMoreListener(RefreshHandler.this, mRecyclerView);
-                        mPagingBean.setCurrentCount(mAdapter.getData().size());
+                            mPagingBean.setCurrentCount(mAdapter.getData().size());
+                        }
                     }
 
                     @Override

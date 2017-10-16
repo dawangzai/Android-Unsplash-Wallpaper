@@ -9,8 +9,8 @@ import com.chad.library.adapter.base.listener.SimpleClickListener;
  * Created by wangzai on 2017/10/11
  */
 
-public class CollectionItemClickListener extends SimpleClickListener {
-    public CollectionItemClickListener(CollectionFragment collectionFragment) {
+public class UserCollectionItemClickListener extends SimpleClickListener {
+    public UserCollectionItemClickListener(UserCollectionFragment userCollectionFragment) {
 
     }
 

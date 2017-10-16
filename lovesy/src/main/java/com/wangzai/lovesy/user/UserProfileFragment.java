@@ -1,20 +1,15 @@
 package com.wangzai.lovesy.user;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
 import com.wangzai.lovesy.Constant;
 import com.wangzai.lovesy.R;
-import com.wangzai.lovesy.core.fragment.user.BaseTabItemFragment;
+import com.wangzai.lovesy.core.fragment.BaseRefreshFragment;
 import com.wangzai.lovesy.core.fragment.user.BaseTabPageFragment;
 import com.wangzai.lovesy.core.fragment.user.TabBuilder;
-import com.wangzai.lovesy.user.collection.CollectionFragment;
-import com.wangzai.lovesy.user.download.DownloadFragment;
-import com.wangzai.lovesy.user.like.LikeFragment;
+import com.wangzai.lovesy.user.collection.UserCollectionFragment;
+import com.wangzai.lovesy.user.photo.UserPhotoFragment;
+import com.wangzai.lovesy.user.like.UserLikeFragment;
 
 import java.util.LinkedHashMap;
 
@@ -26,7 +21,7 @@ public class UserProfileFragment extends BaseTabPageFragment {
 
     @Override
     protected int setIndexPage() {
-        return 0;
+        return getArguments().getInt(Constant.BUNDLE.TWO);
     }
 
     @Override
@@ -40,22 +35,19 @@ public class UserProfileFragment extends BaseTabPageFragment {
     }
 
     @Override
-    protected LinkedHashMap<String, BaseTabItemFragment> setTabs(TabBuilder builder) {
-        builder.addTab("下载", new DownloadFragment());
-        builder.addTab("喜欢", new LikeFragment());
-        builder.addTab("影集", new CollectionFragment());
-        return builder.build();
-    }
-
-    @Override
-    public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
-        super.onBindView(savedInstanceState, rootView);
+    protected LinkedHashMap<String, BaseRefreshFragment> setTabs(TabBuilder builder) {
         final Bundle bundle = getArguments();
-        final String title = bundle.getString(Constant.INTENT_DATA.ONE);
-        AppCompatActivity mActivity = (AppCompatActivity) getActivity();
-        final ActionBar actionBar = mActivity.getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle(title);
-        }
+
+        final UserPhotoFragment userPhotoFragment = new UserPhotoFragment();
+        final UserLikeFragment userLikeFragment = new UserLikeFragment();
+        final UserCollectionFragment userCollectionFragment = new UserCollectionFragment();
+        userPhotoFragment.setArguments(bundle);
+        userLikeFragment.setArguments(bundle);
+        userCollectionFragment.setArguments(bundle);
+
+        builder.addTab("照片", userPhotoFragment);
+        builder.addTab("喜欢", userLikeFragment);
+        builder.addTab("影集", userCollectionFragment);
+        return builder.build();
     }
 }

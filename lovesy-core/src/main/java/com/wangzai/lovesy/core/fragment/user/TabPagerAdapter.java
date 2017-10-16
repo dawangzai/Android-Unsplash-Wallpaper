@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.wangzai.lovesy.core.activity.home.BaseHomeFragment;
+import com.wangzai.lovesy.core.fragment.BaseRefreshFragment;
 
 import java.util.ArrayList;
 
@@ -14,14 +14,14 @@ import java.util.ArrayList;
 
 class TabPagerAdapter extends FragmentPagerAdapter {
 
-    private ArrayList<BaseTabItemFragment> mTabItemFragment = new ArrayList<>();
+    private ArrayList<BaseRefreshFragment> mTabItemFragment = new ArrayList<>();
     private ArrayList<String> mTabTitle = new ArrayList<>();
 
     public TabPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
-    TabPagerAdapter(ArrayList<String> tabTitle, ArrayList<BaseTabItemFragment> homeFragments, FragmentManager fm) {
+    TabPagerAdapter(ArrayList<String> tabTitle, ArrayList<BaseRefreshFragment> homeFragments, FragmentManager fm) {
         super(fm);
         this.mTabItemFragment = homeFragments;
         this.mTabTitle = tabTitle;

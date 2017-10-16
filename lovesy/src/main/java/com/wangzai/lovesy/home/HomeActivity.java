@@ -7,6 +7,7 @@ import com.wangzai.lovesy.core.activity.home.BaseHomeActivity;
 import com.wangzai.lovesy.core.activity.home.BaseHomeFragment;
 import com.wangzai.lovesy.core.activity.home.BottomTabBean;
 import com.wangzai.lovesy.core.activity.home.ItemBuilder;
+import com.wangzai.lovesy.core.fragment.LoveSyFragment;
 import com.wangzai.lovesy.core.util.LogUtil;
 import com.wangzai.lovesy.home.collection.CollectionFragment;
 import com.wangzai.lovesy.home.index.IndexFragment;
@@ -21,8 +22,8 @@ import java.util.LinkedHashMap;
 public class HomeActivity extends BaseHomeActivity {
 
     @Override
-    protected LinkedHashMap<BottomTabBean, BaseHomeFragment> setItems(ItemBuilder builder) {
-        final LinkedHashMap<BottomTabBean, BaseHomeFragment> items = new LinkedHashMap<>();
+    protected LinkedHashMap<BottomTabBean, LoveSyFragment> setItems(ItemBuilder builder) {
+        final LinkedHashMap<BottomTabBean, LoveSyFragment> items = new LinkedHashMap<>();
         items.put(new BottomTabBean("{md-photo-camera}", getString(R.string.bottom_index_title)), new IndexFragment());
         items.put(new BottomTabBean("{md-photo-album}", getString(R.string.bottom_collection_title)), new CollectionFragment());
         items.put(new BottomTabBean("{md-person}", getString(R.string.bottom_personal_title)), new UserFragment());

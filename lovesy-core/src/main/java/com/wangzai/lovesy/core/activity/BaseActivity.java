@@ -36,6 +36,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     @BindView(R2.id.fragment_container)
     FrameLayout fragmentContainer;
 
+    private ActionBar actionBar;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +57,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private void initToolbar() {
         if (toolbar != null) {
             setSupportActionBar(toolbar);
-            final ActionBar actionBar = getSupportActionBar();
+            actionBar = getSupportActionBar();
             if (actionBar != null) {
                 actionBar.setDisplayShowTitleEnabled(true);
                 actionBar.setDisplayHomeAsUpEnabled(true);
@@ -68,8 +70,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void setTitle(String title) {
-        if (toolbar != null) {
-            toolbar.setTitle(title);
+        if (actionBar != null) {
+            actionBar.setTitle(title);
         }
     }
 

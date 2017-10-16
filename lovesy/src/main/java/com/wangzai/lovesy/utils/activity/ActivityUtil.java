@@ -16,8 +16,6 @@
 
 package com.wangzai.lovesy.utils.activity;
 
-import android.animation.PropertyValuesHolder;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -51,9 +49,10 @@ public class ActivityUtil {
         fragment.startActivityForResult(intent, Constant.REQUEST_CODE.PERSONAL_FRAGMENT);
     }
 
-    public static void startUserProfileActivity(Activity activity, String title) {
+    public static void startUserProfileActivity(Activity activity, int index, String title) {
         Bundle bundle = new Bundle();
-        bundle.putString(Constant.INTENT_DATA.ONE, title);
+        bundle.putString(Constant.BUNDLE.ONE, title);
+        bundle.putInt(Constant.BUNDLE.TWO, index);
         Intent intent = new Intent(activity, UserProfileActivity.class);
         intent.putExtras(bundle);
         activity.startActivity(intent);
@@ -61,7 +60,7 @@ public class ActivityUtil {
 
     public static void startPhotoActivity(Activity activity, String photoId) {
         Bundle bundle = new Bundle();
-        bundle.putString(Constant.INTENT_DATA.ONE, photoId);
+        bundle.putString(Constant.BUNDLE.ONE, photoId);
         Intent intent = new Intent(activity, PhotoActivity.class);
         intent.putExtras(bundle);
         activity.startActivity(intent);

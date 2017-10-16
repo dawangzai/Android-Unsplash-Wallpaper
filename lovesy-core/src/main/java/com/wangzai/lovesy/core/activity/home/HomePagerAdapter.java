@@ -5,6 +5,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
+import com.wangzai.lovesy.core.fragment.LoveSyFragment;
+
 import java.util.ArrayList;
 
 /**
@@ -13,14 +15,14 @@ import java.util.ArrayList;
 
 class HomePagerAdapter extends FragmentPagerAdapter {
 
-    private ArrayList<BaseHomeFragment> mHomeFragments = new ArrayList<>();
+    private ArrayList<LoveSyFragment> mHomeFragments = new ArrayList<>();
     private FragmentManager mFragmentManager;
 
     public HomePagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
-    HomePagerAdapter(ArrayList<BaseHomeFragment> homeFragments, FragmentManager fm) {
+    HomePagerAdapter(ArrayList<LoveSyFragment> homeFragments, FragmentManager fm) {
         super(fm);
         this.mFragmentManager = fm;
         this.mHomeFragments = homeFragments;

@@ -1,5 +1,7 @@
 package com.wangzai.lovesy.core.activity.home;
 
+import com.wangzai.lovesy.core.fragment.LoveSyFragment;
+
 import java.util.LinkedHashMap;
 
 /**
@@ -8,23 +10,23 @@ import java.util.LinkedHashMap;
 
 public class ItemBuilder {
 
-    private final LinkedHashMap<BottomTabBean, BaseHomeFragment> items = new LinkedHashMap<>();
+    private final LinkedHashMap<BottomTabBean, LoveSyFragment> items = new LinkedHashMap<>();
 
     static ItemBuilder builder() {
         return new ItemBuilder();
     }
 
-    public final ItemBuilder addItem(BottomTabBean bean, BaseHomeFragment fragment) {
+    public final ItemBuilder addItem(BottomTabBean bean, LoveSyFragment fragment) {
         items.put(bean, fragment);
         return this;
     }
 
-    public final ItemBuilder addItems(LinkedHashMap<BottomTabBean, BaseHomeFragment> items) {
+    public final ItemBuilder addItems(LinkedHashMap<BottomTabBean, LoveSyFragment> items) {
         this.items.putAll(items);
         return this;
     }
 
-    public final LinkedHashMap<BottomTabBean, BaseHomeFragment> build() {
+    public final LinkedHashMap<BottomTabBean, LoveSyFragment> build() {
         return items;
     }
 }
