@@ -5,8 +5,7 @@
         <item name="android:textColorPrimary">@color/color_white</item>
     </style>
 
-    <style name="PopupThemeLoveSyToolbar" parent="ThemeOverlay.AppCompat.Light">
-    </style>
+    <style name="PopupThemeLoveSyToolbar" parent="ThemeOverlay.AppCompat.Light"></style>
 
     <style name="TextAppearanceLoveSyToolbar" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
@@ -28,5 +27,7 @@
         <item name="android:backgroundDimEnabled">true</item>
         <!--全屏幕-->
         <item name="android:windowFullscreen">true</item>
+        <!--点击屏幕不消失-->
+        <item name="android:windowCloseOnTouchOutside">false</item>
     </style>
 </resources>

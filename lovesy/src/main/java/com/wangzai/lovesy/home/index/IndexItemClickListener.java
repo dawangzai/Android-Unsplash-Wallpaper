@@ -40,22 +40,21 @@ class IndexItemClickListener extends SimpleClickListener {
         final int id = view.getId();
         switch (id) {
             case R.id.siv_photo:
-                Toast.makeText(mFragment.getContext(), "点击照片了~", Toast.LENGTH_SHORT).show();
                 ActivityUtil.startPhotoActivity(mFragment.getActivity(), (String) entity.getField(MultipleFields.ID));
                 break;
             case R.id.siv_avatar:
-                Toast.makeText(mFragment.getContext(), "点击头像了~", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mFragment.getContext(), mFragment.getContext().getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tv_like:
                 AccountManager.checkAccount(new IUserChecker() {
                     @Override
                     public void onSignIn() {
-                        Toast.makeText(mFragment.getContext(), "登录了~", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mFragment.getContext(), mFragment.getContext().getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onNotSignIn() {
-                        Toast.makeText(mFragment.getContext(), "请先登录~", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mFragment.getContext(), mFragment.getContext().getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
                     }
                 });
                 break;
@@ -63,12 +62,12 @@ class IndexItemClickListener extends SimpleClickListener {
                 AccountManager.checkAccount(new IUserChecker() {
                     @Override
                     public void onSignIn() {
-                        Toast.makeText(mFragment.getContext(), "登录了~", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mFragment.getContext(), mFragment.getContext().getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onNotSignIn() {
-                        Toast.makeText(mFragment.getContext(), "请先登录~", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mFragment.getContext(), mFragment.getContext().getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
                     }
                 });
                 break;

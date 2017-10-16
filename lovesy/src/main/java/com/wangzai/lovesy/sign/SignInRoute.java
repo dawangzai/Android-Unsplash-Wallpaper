@@ -1,6 +1,7 @@
 package com.wangzai.lovesy.sign;
 
 import com.alibaba.fastjson.JSON;
+import com.wangzai.lovesy.BuildConfig;
 import com.wangzai.lovesy.bean.Token;
 import com.wangzai.lovesy.core.account.AccountManager;
 import com.wangzai.lovesy.core.activity.LoveSyActivity;
@@ -36,14 +37,14 @@ class SignInRoute extends BaseRoute {
     @Override
     public boolean handleWebUrl(final LoveSyActivity activity, String url) {
         LogUtil.i(url);
+        mActivity = (SignInActivity) activity;
         if (!url.contains("authorize") && url.contains("http://dawangzai.com")) {
-            mActivity = (SignInActivity) activity;
 
             String[] split = url.split("code=");
             LogUtil.i(split[1]);
             HashMap<String, Object> params = new HashMap<>();
-            params.put("client_id", "b05bfc46a0de4842346cb5ce7c766b3a8c9da071ec77f3b5f719406829c2fb31");
-            params.put("client_secret", "af3b7125ce78c9a05bac4f9b9f216260919c3646eaf02ea9f36f0f10b014a965");
+            params.put("client_id", BuildConfig.CLIENT_ID);
+            params.put("client_secret", BuildConfig.CLIENT_SECRET);
             params.put("redirect_uri", "http://dawangzai.com");
             params.put("code", split[1]);
             params.put("grant_type", "authorization_code");
@@ -65,16 +66,12 @@ class SignInRoute extends BaseRoute {
                             LogUtil.i(code + msg);
                         }
                     });
-        }
-//        else if (url.equals("https://unsplash.com/oauth/authorize?client_id=b05bfc46a0de4842346cb5ce7c766b3a8c9da071ec77f3b5f719406829c2fb31&redirect_uri=http://dawangzai.com&response_type=code&scope=public+read_user+write_user+read_collections+write_collections")) {
-//            LogUtil.i("到这了");
-//        } else if (url.equals("https://unsplash.com/oauth/login")) {
-//            mActivity.finish();
-//        }
-        else {
+        } else if (url.equals("https://unsplash.com/oauth/login")) {
+            return false;
+        } else {
             activity.loadFragment(SignInFragment.create(url));
         }
-        return false;
+        return true;
     }
 
     private void signInSuccess(String tokenString) {
