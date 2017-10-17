@@ -2,6 +2,7 @@ package com.wangzai.lovesy.sign;
 
 import com.alibaba.fastjson.JSON;
 import com.wangzai.lovesy.BuildConfig;
+import com.wangzai.lovesy.api.ApiService;
 import com.wangzai.lovesy.bean.Token;
 import com.wangzai.lovesy.core.account.AccountManager;
 import com.wangzai.lovesy.core.activity.LoveSyActivity;
@@ -21,6 +22,10 @@ import io.reactivex.annotations.NonNull;
 
 class SignInRoute extends BaseRoute {
 
+    private static final String SPLIT_CODE = "code=";
+    private static final String AUTHORIZE = "authorize";
+    private static final String LOGIN_URL = "https://unsplash.com/oauth/login";
+
     private SignInActivity mActivity;
 
     private SignInRoute() {
@@ -38,18 +43,18 @@ class SignInRoute extends BaseRoute {
     public boolean handleWebUrl(final LoveSyActivity activity, String url) {
         LogUtil.i(url);
         mActivity = (SignInActivity) activity;
-        if (!url.contains("authorize") && url.contains("http://dawangzai.com")) {
+        if (!url.contains(AUTHORIZE) && url.contains(BuildConfig.REDIRECT_URL)) {
 
-            String[] split = url.split("code=");
+            String[] split = url.split(SPLIT_CODE);
             LogUtil.i(split[1]);
-            HashMap<String, Object> params = new HashMap<>();
+            HashMap<String, Object> params = new HashMap<>(16);
             params.put("client_id", BuildConfig.CLIENT_ID);
             params.put("client_secret", BuildConfig.CLIENT_SECRET);
-            params.put("redirect_uri", "http://dawangzai.com");
+            params.put("redirect_uri", BuildConfig.REDIRECT_URL);
             params.put("code", split[1]);
             params.put("grant_type", "authorization_code");
             RxHttpClient.builder()
-                    .url("https://unsplash.com/oauth/token")
+                    .url(ApiService.Oauth.OAUTH_TOKEN)
                     .loader(activity)
                     .params(params)
                     .build()
@@ -66,7 +71,7 @@ class SignInRoute extends BaseRoute {
                             LogUtil.i(code + msg);
                         }
                     });
-        } else if (url.equals("https://unsplash.com/oauth/login")) {
+        } else if (url.equals(LOGIN_URL)) {
             return false;
         } else {
             activity.loadFragment(SignInFragment.create(url));

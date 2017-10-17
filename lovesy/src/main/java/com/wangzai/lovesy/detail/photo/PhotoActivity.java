@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import com.alibaba.fastjson.JSON;
 import com.wangzai.lovesy.Constant;
 import com.wangzai.lovesy.R;
+import com.wangzai.lovesy.api.ApiService;
 import com.wangzai.lovesy.bean.PhotoBean;
 import com.wangzai.lovesy.bean.UrlsBean;
 import com.wangzai.lovesy.core.activity.LoveSyActivity;
@@ -50,9 +51,9 @@ public class PhotoActivity extends LoveSyActivity implements View.OnTouchListene
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState) {
+        initTitle();
         final Bundle bundle = getIntent().getExtras();
         photoId = bundle.getString(Constant.BUNDLE.ONE);
-        initTitle();
         View mDecorView = getWindow().getDecorView();
         mGestureDetector = new GestureDetectorCompat(this, new PhotoGestureListener(mSivPhoto, mDecorView, this));
         mSivPhoto.setTapListener(new PhotoGestureListener(mSivPhoto, mDecorView, this));
@@ -65,7 +66,7 @@ public class PhotoActivity extends LoveSyActivity implements View.OnTouchListene
 
     private void getPhoto() {
         RxHttpClient.builder()
-                .url("photos/" + photoId)
+                .url(ApiService.Photos.PHOTOS + photoId)
                 .loader(this)
                 .build()
                 .get()
@@ -100,34 +101,13 @@ public class PhotoActivity extends LoveSyActivity implements View.OnTouchListene
             mLlContainer.setVisibility(View.VISIBLE);
             mLlContainer.startAnimation(hideAnimation);
         }
-
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.detail_photo, menu);
-//        final MenuItem item = menu.findItem(R.id.menu_refresh);
-//        mRefreshView = (RefreshView) MenuItemCompat.getActionView(item);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.menu_refresh:
-//                mRefreshView.startRefresh();
-////                getPhoto();
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
 
     private void initTitle() {
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(false);
         }
     }
 }

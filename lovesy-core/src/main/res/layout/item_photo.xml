@@ -18,7 +18,7 @@
             android:id="@+id/siv_photo"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            app:placeholderImage="@color/image_place_color" />
+            app:placeholderImage="@color/windowBackground" />
 
         <RelativeLayout
             android:layout_width="match_parent"

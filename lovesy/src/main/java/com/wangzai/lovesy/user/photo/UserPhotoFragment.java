@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.chad.library.adapter.base.listener.SimpleClickListener;
 import com.wangzai.lovesy.Constant;
+import com.wangzai.lovesy.api.ApiService;
 import com.wangzai.lovesy.core.fragment.BaseRefreshFragment;
 import com.wangzai.lovesy.core.ui.recycler.DataConverter;
 import com.wangzai.lovesy.home.index.PhotoDataConvert;
@@ -18,7 +19,7 @@ public class UserPhotoFragment extends BaseRefreshFragment {
     protected String setUrl() {
         final Bundle bundle = getArguments();
         final String username = bundle.getString(Constant.BUNDLE.ONE);
-        return "https://api.unsplash.com/users/" + username + "/photos";
+        return ApiService.User.USERS + username + "/" + ApiService.Photos.PHOTOS;
     }
 
     @Override

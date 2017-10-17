@@ -1,6 +1,7 @@
 package com.wangzai.lovesy.home.collection;
 
 import com.chad.library.adapter.base.listener.SimpleClickListener;
+import com.wangzai.lovesy.api.ApiService;
 import com.wangzai.lovesy.core.fragment.BaseRefreshFragment;
 import com.wangzai.lovesy.core.ui.recycler.DataConverter;
 
@@ -11,7 +12,7 @@ import com.wangzai.lovesy.core.ui.recycler.DataConverter;
 public class CollectionFragment extends BaseRefreshFragment {
     @Override
     protected String setUrl() {
-        return "collections/featured";
+        return ApiService.Collections.COLLECTIONS_FEATURED;
     }
 
     @Override

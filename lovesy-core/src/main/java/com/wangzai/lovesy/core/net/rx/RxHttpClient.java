@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 
 /**
  * Created by wangzai on 2017/9/5
@@ -89,15 +90,11 @@ public class RxHttpClient {
         }
     }
 
+//    public final Observable<ResponseBody> download() {
+//        HttpCreator.getRxHttpService().download(mUrl,PARAMS).
+//    }
+
     private Observable<String> getObservable(HttpMethod method) {
         return request(method).compose(new Transformer(mContext, mLoaderStyle));
     }
-
-//    public final <T> Observable<T> get() {
-//        return getObservable(HttpMethod.GET);
-//    }
-//
-//    private <T> Observable<T> getObservable(HttpMethod method) {
-//        return request(method).compose(new Transformer<T>());
-//    }
 }

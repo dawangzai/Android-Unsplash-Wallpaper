@@ -5,6 +5,7 @@ import java.util.WeakHashMap;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.FieldMap;
@@ -13,6 +14,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.QueryMap;
+import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 
 /**
@@ -40,4 +42,8 @@ public interface RxHttpService {
 
     @DELETE
     Observable<String> delete(@Url String url, @QueryMap HashMap<String, Object> params);
+
+    @Streaming
+    @GET
+    Observable<ResponseBody> download(@Url String url, @QueryMap HashMap<String, Object> params);
 }

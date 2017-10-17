@@ -88,7 +88,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="@string/text_icon_photo"
+                    android:text="@string/text_icon_user_photo"
                     android:textSize="20sp" />
 
                 <TextView
@@ -97,7 +97,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="@string/text_photo"
+                    android:text="@string/text_user_photo"
                     android:textSize="10sp" />
             </LinearLayout>
 
@@ -115,7 +115,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="@string/text_icon_like"
+                    android:text="@string/text_icon_user_like"
                     android:textSize="20sp" />
 
                 <TextView
@@ -124,7 +124,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="@string/text_like"
+                    android:text="@string/text_user_like"
                     android:textSize="10sp" />
             </LinearLayout>
 
@@ -142,7 +142,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="@string/text_icon_album"
+                    android:text="@string/text_icon_user_album"
                     android:textSize="20sp" />
 
                 <TextView
@@ -151,7 +151,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="@string/text_album"
+                    android:text="@string/text_user_album"
                     android:textSize="10sp" />
             </LinearLayout>
 

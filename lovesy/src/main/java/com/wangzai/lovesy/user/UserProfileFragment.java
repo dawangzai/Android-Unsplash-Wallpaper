@@ -45,9 +45,9 @@ public class UserProfileFragment extends BaseTabPageFragment {
         userLikeFragment.setArguments(bundle);
         userCollectionFragment.setArguments(bundle);
 
-        builder.addTab("照片", userPhotoFragment);
-        builder.addTab("喜欢", userLikeFragment);
-        builder.addTab("影集", userCollectionFragment);
+        builder.addTab(getString(R.string.text_photo), userPhotoFragment);
+        builder.addTab(getString(R.string.text_like), userLikeFragment);
+        builder.addTab(getString(R.string.text_album), userCollectionFragment);
         return builder.build();
     }
 }

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.wangzai.lovesy.R;
+import com.wangzai.lovesy.api.ApiService;
 import com.wangzai.lovesy.bean.ProfileImageBean;
 import com.wangzai.lovesy.bean.UserBean;
 import com.wangzai.lovesy.core.account.AccountManager;
@@ -82,7 +83,7 @@ public class UserFragment extends LoveSyFragment implements IUserChecker, View.O
     public void onSignIn() {
         //查用户信息
         RxHttpClient.builder()
-                .url("me")
+                .url(ApiService.Me.ME)
                 .loader(getActivity())
                 .build()
                 .get()

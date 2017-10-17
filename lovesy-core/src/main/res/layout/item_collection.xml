@@ -16,7 +16,7 @@
             android:id="@+id/siv_photo"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:background="@color/colorPrimary" />
+            android:background="@color/windowBackground" />
 
         <TextView
             android:id="@+id/tv_collection_name"

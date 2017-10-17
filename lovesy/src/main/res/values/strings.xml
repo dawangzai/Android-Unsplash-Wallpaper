@@ -16,18 +16,21 @@
     <string name="bottom_collection_title">影集</string>
     <string name="bottom_personal_title">我的</string>
 
-    <string name="text_icon_download">{icon-xiazai}</string>
-    <string name="text_download">本地下载</string>
-    <string name="text_icon_photo">{md-photo}</string>
-    <string name="text_photo">我的摄影</string>
-    <string name="text_icon_like">{icon-xihuan}</string>
-    <string name="text_like">我的喜欢</string>
-    <string name="text_icon_album">{icon-album}</string>
-    <string name="text_album">我的影集</string>
+    <string name="text_icon_user_download">{icon-xiazai}</string>
+    <string name="text_user_download">本地下载</string>
+    <string name="text_icon_user_photo">{md-photo}</string>
+    <string name="text_user_photo">我的照片</string>
+    <string name="text_icon_user_like">{icon-xihuan}</string>
+    <string name="text_user_like">我的喜欢</string>
+    <string name="text_icon_user_album">{icon-album}</string>
+    <string name="text_user_album">我的影集</string>
     <string name="text_user_profile_download">下载</string>
     <string name="text_fragment_user_sign_in">点击登陆/注册</string>
     <string name="text_user">我的</string>
     <string name="text_login">请登录~</string>
 
     <string name="coming_soon">敬请期待 ~~</string>
+    <string name="text_photo">照片</string>
+    <string name="text_like">喜欢</string>
+    <string name="text_album">影集</string>
 </resources>

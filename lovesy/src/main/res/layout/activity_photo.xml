@@ -24,7 +24,7 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/text_icon_download"
+            android:text="@string/text_icon_user_download"
             android:textSize="20sp" />
 
         <com.joanzapata.iconify.widget.IconTextView
@@ -32,7 +32,7 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/text_icon_like"
+            android:text="@string/text_icon_user_like"
             android:textSize="20sp" />
 
         <com.joanzapata.iconify.widget.IconTextView
@@ -40,7 +40,7 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/text_icon_album"
+            android:text="@string/text_icon_user_album"
             android:textSize="20sp" />
 
     </LinearLayout>
