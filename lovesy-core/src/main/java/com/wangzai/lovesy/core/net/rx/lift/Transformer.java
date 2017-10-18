@@ -1,6 +1,5 @@
 package com.wangzai.lovesy.core.net.rx.lift;
 
-import android.app.Notification;
 import android.content.Context;
 
 import com.alibaba.fastjson.JSON;

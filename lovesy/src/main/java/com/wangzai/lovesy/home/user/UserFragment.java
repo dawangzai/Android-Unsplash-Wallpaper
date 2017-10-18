@@ -1,9 +1,14 @@
 package com.wangzai.lovesy.home.user;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.TaskStackBuilder;
+import android.support.v7.app.NotificationCompat;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,10 +25,14 @@ import com.wangzai.lovesy.core.fragment.LoveSyFragment;
 import com.wangzai.lovesy.core.net.rx.RxHttpClient;
 import com.wangzai.lovesy.core.net.rx.observer.ResultObserver;
 import com.wangzai.lovesy.core.ui.image.loader.ImageLoader;
+import com.wangzai.lovesy.core.util.LogUtil;
 import com.wangzai.lovesy.core.widget.SimpleImageView;
+import com.wangzai.lovesy.home.HomeActivity;
 import com.wangzai.lovesy.utils.activity.ActivityUtil;
 
 import butterknife.BindView;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by wangzai on 2017/10/9
@@ -129,7 +138,27 @@ public class UserFragment extends LoveSyFragment implements IUserChecker, View.O
                 if (AccountManager.isSignIn()) {
                     ActivityUtil.startUserProfileActivity(getActivity(), 0, username);
                 } else {
-                    Toast.makeText(getActivity(), getString(R.string.text_login), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), getString(R.string.text_login), Toast.LENGTH_SHORT).show();
+//                    testDownload();
+                    NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getContext());
+                    mBuilder.setSmallIcon(R.mipmap.ic_launcher)
+                            .setContentTitle("正在下载图片")
+                            .setContentText("点击查看");
+                    Intent resultIntent = new Intent(getActivity(), HomeActivity.class);
+
+                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(getContext());
+                    stackBuilder.addParentStack(HomeActivity.class);
+                    stackBuilder.addNextIntent(resultIntent);
+                    PendingIntent resultPendingIntent =
+                            stackBuilder.getPendingIntent(
+                                    0,
+                                    PendingIntent.FLAG_UPDATE_CURRENT
+                            );
+                    mBuilder.setContentIntent(resultPendingIntent);
+                    NotificationManager mNotificationManager =
+                            (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+                    mNotificationManager.notify(001, mBuilder.build());
+
                 }
                 break;
             case R.id.ll_like:
@@ -198,5 +227,33 @@ public class UserFragment extends LoveSyFragment implements IUserChecker, View.O
         } else {
             mTvBio.setVisibility(View.GONE);
         }
+    }
+
+    private void testDownload() {
+        RxHttpClient.builder()
+                .url("http://prem.newegg.cn/android/NeweggCNAndroidPhone.apk")
+                .build()
+                .download()
+                .subscribe(new Observer<Long>() {
+                    @Override
+                    public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
+                        LogUtil.i("onSubscribe");
+                    }
+
+                    @Override
+                    public void onNext(@io.reactivex.annotations.NonNull Long aLong) {
+                        LogUtil.i("onNext---" + aLong);
+                    }
+
+                    @Override
+                    public void onError(@io.reactivex.annotations.NonNull Throwable e) {
+                        LogUtil.i("onError");
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        LogUtil.i("onComplete");
+                    }
+                });
     }
 }

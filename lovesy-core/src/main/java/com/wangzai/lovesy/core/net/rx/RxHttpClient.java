@@ -4,12 +4,16 @@ import android.content.Context;
 
 import com.wangzai.lovesy.core.net.HttpCreator;
 import com.wangzai.lovesy.core.net.HttpMethod;
+import com.wangzai.lovesy.core.net.rx.lift.DownloadTransformer;
 import com.wangzai.lovesy.core.net.rx.lift.Transformer;
 import com.wangzai.lovesy.core.ui.loader.LoaderStyle;
 
+import java.io.InputStream;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Function;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
@@ -90,9 +94,11 @@ public class RxHttpClient {
         }
     }
 
-//    public final Observable<ResponseBody> download() {
-//        HttpCreator.getRxHttpService().download(mUrl,PARAMS).
-//    }
+    public final Observable<Long> download() {
+        return HttpCreator.getRxHttpService()
+                .download(mUrl, PARAMS)
+                .compose(new DownloadTransformer());
+    }
 
     private Observable<String> getObservable(HttpMethod method) {
         return request(method).compose(new Transformer(mContext, mLoaderStyle));
