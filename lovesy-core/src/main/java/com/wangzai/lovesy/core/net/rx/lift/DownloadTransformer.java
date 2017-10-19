@@ -1,12 +1,14 @@
 package com.wangzai.lovesy.core.net.rx.lift;
 
-import android.os.Environment;
+import android.content.Intent;
+import android.net.Uri;
 
+import com.wangzai.lovesy.core.app.LoveSy;
 import com.wangzai.lovesy.core.net.HttpCreator;
 import com.wangzai.lovesy.core.ui.loader.LoveSyLoader;
-import com.wangzai.lovesy.core.util.LogUtil;
 import com.wangzai.lovesy.core.util.file.FileUtil;
 
+import java.io.File;
 import java.io.InputStream;
 
 import io.reactivex.Observable;
@@ -27,8 +29,24 @@ import okhttp3.ResponseBody;
 
 public class DownloadTransformer implements ObservableTransformer<ResponseBody, Long> {
 
-    private static final String SDCARD_DIR = "LoveSy/photo";
-//            Environment.getExternalStorageDirectory().getPath();
+    private final String mDownloadDir;
+    private final String mDownloadName;
+    private final String mDownloadExtension;
+    private File file;
+
+    public DownloadTransformer(String downloadDir,
+                               String downloadName,
+                               String downloadExtension) {
+        if (downloadDir == null || downloadDir.equals("")) {
+            downloadDir = "apk";
+        }
+        if (downloadExtension == null || downloadExtension.equals("")) {
+            downloadExtension = "apk";
+        }
+        this.mDownloadDir = downloadDir;
+        this.mDownloadName = downloadName;
+        this.mDownloadExtension = downloadExtension;
+    }
 
     @Override
     public ObservableSource<Long> apply(@NonNull Observable<ResponseBody> upstream) {
@@ -37,8 +55,11 @@ public class DownloadTransformer implements ObservableTransformer<ResponseBody, 
                     @Override
                     public Long apply(@NonNull ResponseBody responseBody) throws Exception {
                         final InputStream inputStream = responseBody.byteStream();
-                        FileUtil.writeToDisk(inputStream, SDCARD_DIR, "apk", "apk");
-                        LogUtil.i(SDCARD_DIR);
+                        if (mDownloadName == null) {
+                            file = FileUtil.writeToDisk(inputStream, mDownloadDir, mDownloadExtension.toUpperCase(), mDownloadExtension);
+                        } else {
+                            FileUtil.writeToDisk(inputStream, mDownloadDir, mDownloadName);
+                        }
                         return responseBody.contentLength();
                     }
                 })
@@ -66,8 +87,18 @@ public class DownloadTransformer implements ObservableTransformer<ResponseBody, 
                         //清空请求参数容器，供下次请求使用
                         HttpCreator.getParams().clear();
                         LoveSyLoader.stopLoading();
+
+                        autoInstallApk();
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    private void autoInstallApk() {
+            final Intent install = new Intent();
+            install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            install.setAction(Intent.ACTION_VIEW);
+            install.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+            LoveSy.getApplicationContext().startActivity(install);
     }
 }

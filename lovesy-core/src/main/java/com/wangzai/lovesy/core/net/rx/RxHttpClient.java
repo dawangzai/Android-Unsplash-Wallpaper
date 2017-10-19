@@ -8,14 +8,10 @@ import com.wangzai.lovesy.core.net.rx.lift.DownloadTransformer;
 import com.wangzai.lovesy.core.net.rx.lift.Transformer;
 import com.wangzai.lovesy.core.ui.loader.LoaderStyle;
 
-import java.io.InputStream;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Function;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 
 /**
  * Created by wangzai on 2017/9/5
@@ -24,12 +20,24 @@ import okhttp3.ResponseBody;
 public class RxHttpClient {
     private static final HashMap<String, Object> PARAMS = HttpCreator.getParams();
     private final String mUrl;
+    private final String mDownloadDir;
+    private final String mDownloadName;
+    private final String mDownloadExtension;
     private final RequestBody mBody;
     private final Context mContext;
     private final LoaderStyle mLoaderStyle;
 
-    RxHttpClient(String url, RequestBody body, Context context, LoaderStyle loaderStyle) {
+    RxHttpClient(String url,
+                 String downloadDir,
+                 String downloadName,
+                 String downloadExtension,
+                 RequestBody body,
+                 Context context,
+                 LoaderStyle loaderStyle) {
         this.mUrl = url;
+        this.mDownloadDir = downloadDir;
+        this.mDownloadName = downloadName;
+        this.mDownloadExtension = downloadExtension;
         this.mBody = body;
         this.mContext = context;
         this.mLoaderStyle = loaderStyle;
@@ -63,6 +71,7 @@ public class RxHttpClient {
                 observable = service.put(mUrl, PARAMS);
                 break;
             default:
+                PARAMS.clear();
                 break;
         }
         return observable;
@@ -95,9 +104,10 @@ public class RxHttpClient {
     }
 
     public final Observable<Long> download() {
+
         return HttpCreator.getRxHttpService()
                 .download(mUrl, PARAMS)
-                .compose(new DownloadTransformer());
+                .compose(new DownloadTransformer(mDownloadDir, mDownloadName, mDownloadExtension));
     }
 
     private Observable<String> getObservable(HttpMethod method) {

@@ -47,7 +47,7 @@ public class WebViewInitializer {
         settings.setAppCacheEnabled(true);
         settings.setDomStorageEnabled(true);
         settings.setDatabaseEnabled(true);
-        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
 
         return webView;
     }

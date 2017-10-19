@@ -9,6 +9,7 @@ import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
 
 import com.wangzai.lovesy.LoveSyApp;
+import com.wangzai.lovesy.core.app.LoveSy;
 
 import java.lang.reflect.Method;
 import java.net.InetAddress;
@@ -46,9 +47,9 @@ public class NetworkUtil {
      */
     public static void openWirelessSettings() {
         if (android.os.Build.VERSION.SDK_INT > 10) {
-            LoveSyApp.getInstance().startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            LoveSy.getApplicationContext().startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         } else {
-            LoveSyApp.getInstance().startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            LoveSy.getApplicationContext().startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
     }
 
@@ -59,7 +60,7 @@ public class NetworkUtil {
      * @return NetworkInfo
      */
     private static NetworkInfo getActiveNetworkInfo() {
-        return ((ConnectivityManager) LoveSyApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+        return ((ConnectivityManager) LoveSy.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
     }
 
     /**
@@ -98,7 +99,7 @@ public class NetworkUtil {
      */
     public static boolean getDataEnabled() {
         try {
-            TelephonyManager tm = (TelephonyManager) LoveSyApp.getInstance().getSystemService(Context.TELEPHONY_SERVICE);
+            TelephonyManager tm = (TelephonyManager) LoveSy.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
             Method getMobileDataEnabledMethod = tm.getClass().getDeclaredMethod("getDataEnabled");
             if (null != getMobileDataEnabledMethod) {
                 return (boolean) getMobileDataEnabledMethod.invoke(tm);
@@ -117,7 +118,7 @@ public class NetworkUtil {
      */
     public static void setDataEnabled(boolean enabled) {
         try {
-            TelephonyManager tm = (TelephonyManager) LoveSyApp.getInstance().getSystemService(Context.TELEPHONY_SERVICE);
+            TelephonyManager tm = (TelephonyManager) LoveSy.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
             Method setMobileDataEnabledMethod = tm.getClass().getDeclaredMethod("setDataEnabled", boolean.class);
             if (null != setMobileDataEnabledMethod) {
                 setMobileDataEnabledMethod.invoke(tm, enabled);
@@ -146,7 +147,7 @@ public class NetworkUtil {
      */
     public static boolean getWifiEnabled() {
         @SuppressLint("WifiManagerLeak")
-        WifiManager wifiManager = (WifiManager) LoveSyApp.getInstance().getSystemService(Context.WIFI_SERVICE);
+        WifiManager wifiManager = (WifiManager) LoveSy.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         return wifiManager.isWifiEnabled();
     }
 
@@ -158,7 +159,7 @@ public class NetworkUtil {
      */
     public static void setWifiEnabled(boolean enabled) {
         @SuppressLint("WifiManagerLeak")
-        WifiManager wifiManager = (WifiManager) LoveSyApp.getInstance().getSystemService(Context.WIFI_SERVICE);
+        WifiManager wifiManager = (WifiManager) LoveSy.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (enabled) {
             if (!wifiManager.isWifiEnabled()) {
                 wifiManager.setWifiEnabled(true);
@@ -177,7 +178,7 @@ public class NetworkUtil {
      * @return {@code true}: 连接<br>{@code false}: 未连接
      */
     public static boolean isWifiConnected() {
-        ConnectivityManager cm = (ConnectivityManager) LoveSyApp.getInstance()
+        ConnectivityManager cm = (ConnectivityManager) LoveSy.getApplicationContext()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm != null && cm.getActiveNetworkInfo() != null
                 && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
@@ -201,7 +202,7 @@ public class NetworkUtil {
      * @return 运营商名称
      */
     public static String getNetworkOperatorName() {
-        TelephonyManager tm = (TelephonyManager) LoveSyApp.getInstance().getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) LoveSy.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
         return tm != null ? tm.getNetworkOperatorName() : null;
     }
 

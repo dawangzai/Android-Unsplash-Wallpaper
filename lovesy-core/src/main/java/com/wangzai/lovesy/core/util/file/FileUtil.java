@@ -3,6 +3,9 @@ package com.wangzai.lovesy.core.util.file;
 import android.os.Environment;
 import android.webkit.MimeTypeMap;
 
+import com.wangzai.lovesy.core.app.LoveSy;
+import com.wangzai.lovesy.core.util.LogUtil;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -21,8 +24,8 @@ public class FileUtil {
     //格式化的模板
     private static final String TIME_FORMAT = "_yyyyMMdd_HHmmss";
 
-    private static final String SDCARD_DIR =
-            Environment.getExternalStorageDirectory().getPath();
+    private static final File SDCARD_DIR =
+            LoveSy.getApplicationContext().getExternalFilesDir(null);
 
     //默认本地上传图片目录
     public static final String UPLOAD_PHOTO_DIR =
@@ -55,8 +58,7 @@ public class FileUtil {
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private static File createDir(String sdcardDirName) {
         //拼接成SD卡中完整的dir
-        final String dir = SDCARD_DIR + "/" + sdcardDirName + "/";
-        final File fileDir = new File(dir);
+        final File fileDir = new File(SDCARD_DIR, "/" + sdcardDirName + "/");
         if (!fileDir.exists()) {
             fileDir.mkdirs();
         }
@@ -137,6 +139,7 @@ public class FileUtil {
 
     public static File writeToDisk(InputStream is, String dir, String prefix, String extension) {
         final File file = FileUtil.createFileByTime(dir, prefix, extension);
+        LogUtil.i(file.getName());
         BufferedInputStream bis = null;
         FileOutputStream fos = null;
         BufferedOutputStream bos = null;

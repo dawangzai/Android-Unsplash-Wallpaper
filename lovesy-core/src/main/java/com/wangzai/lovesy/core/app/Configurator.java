@@ -1,5 +1,7 @@
 package com.wangzai.lovesy.core.app;
 
+import android.os.Handler;
+
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
 import com.wangzai.lovesy.core.net.HttpCreator;
@@ -18,10 +20,11 @@ public class Configurator {
     private static final HashMap<Object, Object> LOVESY_CONFIGS = new HashMap<>();
     private static final ArrayList<Interceptor> INTERCEPTORS = HttpCreator.getInterceptors();
     private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList<>();
-
+    private static final Handler HANDLER = new Handler();
 
     private Configurator() {
         LOVESY_CONFIGS.put(ConfigKeys.CONFIG_READY, false);
+        LOVESY_CONFIGS.put(ConfigKeys.HANDLER, HANDLER);
     }
 
     public static Configurator getInstance() {

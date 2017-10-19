@@ -1,4 +1,4 @@
-package com.wangzai.lovesy.core.account;
+package com.wangzai.lovesy.account;
 
 /**
  * Created by wangzai on 2017/9/19

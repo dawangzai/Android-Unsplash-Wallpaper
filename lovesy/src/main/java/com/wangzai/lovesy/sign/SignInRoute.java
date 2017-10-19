@@ -4,15 +4,14 @@ import com.alibaba.fastjson.JSON;
 import com.wangzai.lovesy.BuildConfig;
 import com.wangzai.lovesy.api.ApiService;
 import com.wangzai.lovesy.bean.Token;
-import com.wangzai.lovesy.core.account.AccountManager;
 import com.wangzai.lovesy.core.activity.LoveSyActivity;
 import com.wangzai.lovesy.core.fragment.web.Route.BaseRoute;
 import com.wangzai.lovesy.core.net.rx.RxHttpClient;
 import com.wangzai.lovesy.core.net.rx.observer.ResultObserver;
 import com.wangzai.lovesy.core.util.LogUtil;
+import com.wangzai.lovesy.account.AccountManager;
 
 import java.util.HashMap;
-import java.util.WeakHashMap;
 
 import io.reactivex.annotations.NonNull;
 

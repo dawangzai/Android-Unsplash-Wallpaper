@@ -10,5 +10,6 @@ public enum ConfigKeys {
     APPLICATION_CONTEXT,
     API_HOST,
     INTERCEPTOR,
-    LOG_ENABLE
+    LOG_ENABLE,
+    HANDLER
 }

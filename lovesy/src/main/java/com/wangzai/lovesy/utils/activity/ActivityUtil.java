@@ -25,6 +25,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.wangzai.lovesy.Constant;
 import com.wangzai.lovesy.detail.photo.PhotoActivity;
+import com.wangzai.lovesy.home.HomeActivity;
 import com.wangzai.lovesy.sign.SignInActivity;
 import com.wangzai.lovesy.user.UserProfileActivity;
 
@@ -63,6 +64,11 @@ public class ActivityUtil {
         bundle.putString(Constant.BUNDLE.ONE, photoId);
         Intent intent = new Intent(activity, PhotoActivity.class);
         intent.putExtras(bundle);
+        activity.startActivity(intent);
+    }
+
+    public static void startHomeActivity(Activity activity) {
+        Intent intent = new Intent(activity, HomeActivity.class);
         activity.startActivity(intent);
     }
 

@@ -1,4 +1,4 @@
-package com.wangzai.lovesy.core.account;
+package com.wangzai.lovesy.account;
 
 import com.wangzai.lovesy.core.util.storage.LoveSyPreference;
 
@@ -8,7 +8,12 @@ import com.wangzai.lovesy.core.util.storage.LoveSyPreference;
 
 public class AccountManager {
 
+    public static String mUserInfo;
+
     private enum SignTag {
+        /**
+         * 标记登录状态
+         */
         SIGN_TAG
     }
 
@@ -28,6 +33,15 @@ public class AccountManager {
      */
     public static void setAccessToken(String token) {
         LoveSyPreference.addCustomAppProfile("access_token", token);
+    }
+
+    /**
+     * 保存查询到的用户信息
+     *
+     * @param userInfo
+     */
+    public static void setUserInfo(String userInfo) {
+        mUserInfo = userInfo;
     }
 
     /**

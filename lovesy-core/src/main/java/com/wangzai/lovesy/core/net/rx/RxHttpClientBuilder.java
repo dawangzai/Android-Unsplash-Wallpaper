@@ -18,12 +18,30 @@ public class RxHttpClientBuilder {
 
     private static final HashMap<String, Object> PARAMS = HttpCreator.getParams();
     private String mUrl;
+    private String mDownloadDir;
+    private String mDownloadName;
+    private String mDownloadExtension;
     private RequestBody mBody;
     private Context mContext;
     private LoaderStyle mLoaderStyle;
 
     public final RxHttpClientBuilder url(String url) {
         this.mUrl = url;
+        return this;
+    }
+
+    public final RxHttpClientBuilder downloadDir(String downloadDir) {
+        this.mDownloadDir = downloadDir;
+        return this;
+    }
+
+    public final RxHttpClientBuilder downloadName(String downloadName) {
+        this.mDownloadName = downloadName;
+        return this;
+    }
+
+    public final RxHttpClientBuilder downloadExtension(String downloadExtension) {
+        this.mDownloadExtension = downloadExtension;
         return this;
     }
 
@@ -53,6 +71,12 @@ public class RxHttpClientBuilder {
     }
 
     public final RxHttpClient build() {
-        return new RxHttpClient(mUrl, mBody, mContext, mLoaderStyle);
+        return new RxHttpClient(mUrl,
+                mDownloadDir,
+                mDownloadName,
+                mDownloadExtension,
+                mBody,
+                mContext,
+                mLoaderStyle);
     }
 }

@@ -3,19 +3,17 @@ package com.wangzai.lovesy;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.wangzai.lovesy.core.ui.refresh.RefreshHandler;
-import com.wangzai.lovesy.mvp.base.BaseActivity;
-
-import io.reactivex.Flowable;
 
 /**
  * Created by wangzai on 2017/9/7
  */
 
-public class HttpTestActivity extends BaseActivity {
+public class HttpTestActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshLayout;
@@ -37,7 +35,7 @@ public class HttpTestActivity extends BaseActivity {
 //
 //            }
 //        });
-//        HttpClient.getInstance().getSinglePhoto(observer, "pvZrGsVbLd8");
+//        HttpClient.getApplicationContext().getSinglePhoto(observer, "pvZrGsVbLd8");
 
         setContentView(R.layout.activity_test);
 

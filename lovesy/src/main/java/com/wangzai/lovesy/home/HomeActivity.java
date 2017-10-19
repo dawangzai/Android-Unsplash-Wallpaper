@@ -1,5 +1,7 @@
 package com.wangzai.lovesy.home;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.Menu;
 
 import com.wangzai.lovesy.R;
@@ -12,6 +14,8 @@ import com.wangzai.lovesy.core.util.LogUtil;
 import com.wangzai.lovesy.home.collection.CollectionFragment;
 import com.wangzai.lovesy.home.index.IndexFragment;
 import com.wangzai.lovesy.home.user.UserFragment;
+import com.wangzai.lovesy.version.IVersionChecker;
+import com.wangzai.lovesy.version.VersionManager;
 
 import java.util.LinkedHashMap;
 
@@ -19,7 +23,14 @@ import java.util.LinkedHashMap;
  * Created by wangzai on 2017/9/21
  */
 
-public class HomeActivity extends BaseHomeActivity {
+public class HomeActivity extends BaseHomeActivity implements IVersionChecker {
+
+    @Override
+    public void onBindView(@Nullable Bundle savedInstanceState) {
+        super.onBindView(savedInstanceState);
+
+        VersionManager.checkVersion(this);
+    }
 
     @Override
     protected LinkedHashMap<BottomTabBean, LoveSyFragment> setItems(ItemBuilder builder) {
@@ -70,4 +81,13 @@ public class HomeActivity extends BaseHomeActivity {
         return true;
     }
 
+    @Override
+    public void onLatest() {
+
+    }
+
+    @Override
+    public void onNotLatest(String versionInfo) {
+
+    }
 }

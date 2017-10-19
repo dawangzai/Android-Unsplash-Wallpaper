@@ -1,6 +1,7 @@
 package com.wangzai.lovesy.core.app;
 
 import android.content.Context;
+import android.os.Handler;
 
 /**
  * Created by wangzai on 2017/8/18
@@ -23,5 +24,9 @@ public class LoveSy {
 
     public static Context getApplicationContext() {
         return getConfiguration(ConfigKeys.APPLICATION_CONTEXT);
+    }
+
+    public static Handler getHandler() {
+        return getConfiguration(ConfigKeys.HANDLER);
     }
 }
