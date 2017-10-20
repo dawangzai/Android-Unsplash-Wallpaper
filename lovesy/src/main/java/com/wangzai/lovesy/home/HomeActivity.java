@@ -6,16 +6,15 @@ import android.view.Menu;
 
 import com.wangzai.lovesy.R;
 import com.wangzai.lovesy.core.activity.home.BaseHomeActivity;
-import com.wangzai.lovesy.core.activity.home.BaseHomeFragment;
 import com.wangzai.lovesy.core.activity.home.BottomTabBean;
 import com.wangzai.lovesy.core.activity.home.ItemBuilder;
 import com.wangzai.lovesy.core.fragment.LoveSyFragment;
-import com.wangzai.lovesy.core.util.LogUtil;
 import com.wangzai.lovesy.home.collection.CollectionFragment;
 import com.wangzai.lovesy.home.index.IndexFragment;
 import com.wangzai.lovesy.home.user.UserFragment;
-import com.wangzai.lovesy.version.IVersionChecker;
-import com.wangzai.lovesy.version.VersionManager;
+import com.wangzai.lovesy.update.UpdateManager;
+import com.wangzai.lovesy.update.version.IVersionChecker;
+import com.wangzai.lovesy.update.version.VersionManager;
 
 import java.util.LinkedHashMap;
 
@@ -88,6 +87,6 @@ public class HomeActivity extends BaseHomeActivity implements IVersionChecker {
 
     @Override
     public void onNotLatest(String versionInfo) {
-
+        new UpdateManager(this, versionInfo).update();
     }
 }

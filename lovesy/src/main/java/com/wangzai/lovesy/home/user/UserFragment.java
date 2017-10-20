@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,13 +23,17 @@ import com.wangzai.lovesy.core.fragment.LoveSyFragment;
 import com.wangzai.lovesy.core.net.rx.RxHttpClient;
 import com.wangzai.lovesy.core.net.rx.observer.ResultObserver;
 import com.wangzai.lovesy.core.ui.image.loader.ImageLoader;
-import com.wangzai.lovesy.core.util.LogUtil;
+import com.wangzai.lovesy.core.ui.recycler.BaseDivider;
 import com.wangzai.lovesy.core.widget.SimpleImageView;
+import com.wangzai.lovesy.home.user.list.ListAdapter;
+import com.wangzai.lovesy.home.user.list.ListBean;
+import com.wangzai.lovesy.home.user.list.ListItemType;
 import com.wangzai.lovesy.utils.activity.ActivityUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
 
 /**
  * Created by wangzai on 2017/10/9
@@ -48,6 +55,8 @@ public class UserFragment extends LoveSyFragment implements IUserChecker, View.O
     LinearLayout mLlLike;
     @BindView(R.id.ll_photo)
     LinearLayout mLlPhoto;
+    @BindView(R.id.rv_setting)
+    RecyclerView mRvSetting;
 
     @BindView(R.id.ll_container)
     LinearLayout mLlContainer;
@@ -72,6 +81,7 @@ public class UserFragment extends LoveSyFragment implements IUserChecker, View.O
         mLlUserInfo.setOnClickListener(this);
         mLlErrorLayout.setOnClickListener(this);
 
+        initSetting();
         setHasOptionsMenu(true);
     }
 
@@ -137,27 +147,7 @@ public class UserFragment extends LoveSyFragment implements IUserChecker, View.O
                 if (AccountManager.isSignIn()) {
                     ActivityUtil.startUserProfileActivity(getActivity(), 0, username);
                 } else {
-//                    Toast.makeText(getActivity(), getString(R.string.text_login), Toast.LENGTH_SHORT).show();
-                    testDownload();
-//                    NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getContext());
-//                    mBuilder.setSmallIcon(R.mipmap.ic_launcher)
-//                            .setContentTitle("正在下载图片")
-//                            .setContentText("点击查看");
-//                    Intent resultIntent = new Intent(getActivity(), HomeActivity.class);
-//
-//                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(getContext());
-//                    stackBuilder.addParentStack(HomeActivity.class);
-//                    stackBuilder.addNextIntent(resultIntent);
-//                    PendingIntent resultPendingIntent =
-//                            stackBuilder.getPendingIntent(
-//                                    0,
-//                                    PendingIntent.FLAG_UPDATE_CURRENT
-//                            );
-//                    mBuilder.setContentIntent(resultPendingIntent);
-//                    NotificationManager mNotificationManager =
-//                            (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-//                    mNotificationManager.notify(001, mBuilder.build());
-
+                    Toast.makeText(getActivity(), getString(R.string.text_login), Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.ll_like:
@@ -197,6 +187,44 @@ public class UserFragment extends LoveSyFragment implements IUserChecker, View.O
         ImageLoader.loaderImage(mSivAvatar, defaultAvatar);
     }
 
+    private void initSetting() {
+        final ListBean address = new ListBean.Builder()
+                .setItemType(ListItemType.ITEM_NORMAL)
+                .setId(1)
+                .setText("本地下载")
+                .build();
+
+        final ListBean space = new ListBean.Builder()
+                .setItemType(ListItemType.ITEM_SPACE)
+                .setId(2)
+                .build();
+
+        final ListBean loveSy = new ListBean.Builder()
+                .setItemType(ListItemType.ITEM_NORMAL)
+                .setId(3)
+                .setText("关于爱摄影")
+                .build();
+
+        final ListBean unsplash = new ListBean.Builder()
+                .setItemType(ListItemType.ITEM_NORMAL)
+                .setId(4)
+                .setText("关于 Unsplash")
+                .build();
+
+        final List<ListBean> data = new ArrayList<>();
+        data.add(address);
+        data.add(space);
+        data.add(loveSy);
+        data.add(unsplash);
+
+        //设置RecyclerView
+        final LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        mRvSetting.setLayoutManager(manager);
+        mRvSetting.addItemDecoration(BaseDivider.create(ContextCompat.getColor(getContext(), R.color.bg_line), 1));
+        final ListAdapter adapter = new ListAdapter(data);
+        mRvSetting.setAdapter(adapter);
+    }
+
     private void setUserInfo(String userInfo) {
 
         final UserBean userBean = JSON.parseObject(userInfo, UserBean.class);
@@ -226,33 +254,5 @@ public class UserFragment extends LoveSyFragment implements IUserChecker, View.O
         } else {
             mTvBio.setVisibility(View.GONE);
         }
-    }
-
-    private void testDownload() {
-        RxHttpClient.builder()
-                .url("http://prem.newegg.cn/android/NeweggCNAndroidPhone.apk")
-                .build()
-                .download()
-                .subscribe(new Observer<Long>() {
-                    @Override
-                    public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
-                        LogUtil.i("onSubscribe");
-                    }
-
-                    @Override
-                    public void onNext(@io.reactivex.annotations.NonNull Long aLong) {
-                        LogUtil.i("onNext---" + aLong);
-                    }
-
-                    @Override
-                    public void onError(@io.reactivex.annotations.NonNull Throwable e) {
-                        LogUtil.i("onError");
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        LogUtil.i("onComplete");
-                    }
-                });
     }
 }

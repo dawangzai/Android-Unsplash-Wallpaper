@@ -103,7 +103,7 @@ public class RxHttpClient {
         }
     }
 
-    public final Observable<Long> download() {
+    public final Observable<String> download() {
 
         return HttpCreator.getRxHttpService()
                 .download(mUrl, PARAMS)

@@ -27,7 +27,7 @@ import okhttp3.ResponseBody;
  * Created by wangzai on 2017/10/18
  */
 
-public class DownloadTransformer implements ObservableTransformer<ResponseBody, Long> {
+public class DownloadTransformer implements ObservableTransformer<ResponseBody, String> {
 
     private final String mDownloadDir;
     private final String mDownloadName;
@@ -49,18 +49,18 @@ public class DownloadTransformer implements ObservableTransformer<ResponseBody, 
     }
 
     @Override
-    public ObservableSource<Long> apply(@NonNull Observable<ResponseBody> upstream) {
+    public ObservableSource<String> apply(@NonNull Observable<ResponseBody> upstream) {
         return upstream
-                .map(new Function<ResponseBody, Long>() {
+                .map(new Function<ResponseBody, String>() {
                     @Override
-                    public Long apply(@NonNull ResponseBody responseBody) throws Exception {
+                    public String apply(@NonNull ResponseBody responseBody) throws Exception {
                         final InputStream inputStream = responseBody.byteStream();
                         if (mDownloadName == null) {
                             file = FileUtil.writeToDisk(inputStream, mDownloadDir, mDownloadExtension.toUpperCase(), mDownloadExtension);
                         } else {
                             FileUtil.writeToDisk(inputStream, mDownloadDir, mDownloadName);
                         }
-                        return responseBody.contentLength();
+                        return String.valueOf(responseBody.contentLength());
                     }
                 })
                 .subscribeOn(Schedulers.io())
@@ -68,7 +68,6 @@ public class DownloadTransformer implements ObservableTransformer<ResponseBody, 
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(@NonNull Disposable disposable) throws Exception {
-
                     }
                 })
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -95,10 +94,10 @@ public class DownloadTransformer implements ObservableTransformer<ResponseBody, 
     }
 
     private void autoInstallApk() {
-            final Intent install = new Intent();
-            install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            install.setAction(Intent.ACTION_VIEW);
-            install.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
-            LoveSy.getApplicationContext().startActivity(install);
+        final Intent install = new Intent();
+        install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        install.setAction(Intent.ACTION_VIEW);
+        install.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+        LoveSy.getApplicationContext().startActivity(install);
     }
 }

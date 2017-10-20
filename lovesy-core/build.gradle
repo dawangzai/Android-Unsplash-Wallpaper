@@ -51,6 +51,4 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     //字体图标库
     compile 'com.joanzapata.iconify:android-iconify-material:2.2.2'
-    //下载
-//    compile 'zlc.season:rxdownload3:1.0.8'
 }

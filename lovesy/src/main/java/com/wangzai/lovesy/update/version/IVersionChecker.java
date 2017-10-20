@@ -1,4 +1,4 @@
-package com.wangzai.lovesy.version;
+package com.wangzai.lovesy.update.version;
 
 /**
  * Created by wangzai on 2017/10/19
@@ -6,7 +6,6 @@ package com.wangzai.lovesy.version;
 
 public interface IVersionChecker {
 
-    void onLatest();
-
     void onNotLatest(String versionInfo);
+    void onLatest();
 }

@@ -34,7 +34,7 @@ class SignInRoute extends BaseRoute {
         static final SignInRoute INSTANCE = new SignInRoute();
     }
 
-    public static SignInRoute getInstance() {
+    static SignInRoute getInstance() {
         return Holder.INSTANCE;
     }
 

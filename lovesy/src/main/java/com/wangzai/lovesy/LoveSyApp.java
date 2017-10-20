@@ -25,7 +25,7 @@ public class LoveSyApp extends Application {
 
         LoveSy.init(this)
                 .withLogEnable(BuildConfig.LOG_DEBUG, "LoveSyDebug")
-                .withApiHost("https://api.unsplash.com/")
+                .withApiHost(BuildConfig.BASE_URL)
                 .withIcon(new MaterialModule())
                 .withIcon(new FontLoveSyModule())
                 .withInterceptor(new HeaderInterceptor(InterceptorType.INTERCEPTOR))

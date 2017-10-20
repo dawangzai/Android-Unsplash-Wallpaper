@@ -1,11 +1,15 @@
-package com.wangzai.lovesy.version;
+package com.wangzai.lovesy.update.version;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
+import com.wangzai.lovesy.BuildConfig;
+import com.wangzai.lovesy.api.ApiService;
 import com.wangzai.lovesy.core.app.LoveSy;
 import com.wangzai.lovesy.core.net.rx.RxHttpClient;
 import com.wangzai.lovesy.core.net.rx.observer.ResultObserver;
+
+import java.util.HashMap;
 
 import io.reactivex.annotations.NonNull;
 
@@ -16,8 +20,12 @@ import io.reactivex.annotations.NonNull;
 public class VersionManager {
 
     public static void checkVersion(final IVersionChecker checker) {
+        HashMap<String, Object> params = new HashMap<>(16);
+        params.put("id", BuildConfig.FIR_APP_ID);
+        params.put("api_token",BuildConfig.API_TOKEN);
         RxHttpClient.builder()
-                .url("")
+                .url(ApiService.Version.VERSION)
+                .params(params)
                 .build()
                 .get()
                 .subscribe(new ResultObserver() {
