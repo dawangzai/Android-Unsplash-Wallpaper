@@ -44,7 +44,7 @@ android {
             buildConfigField "boolean", "LOG_DEBUG", "false"
             zipAlignEnabled true
             shrinkResources false
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

@@ -176,51 +176,41 @@
 -dontwarn okio.**
 -dontwarn javax.annotation.**
 
-# 微信支付
--dontwarn com.tencent.mm.**
--dontwarn com.tencent.wxop.stat.**
--keep class com.tencent.mm.** {*;}
--keep class com.tencent.wxop.stat.**{*;}
-
-# 新浪微博
--keep class com.sina.weibo.sdk.* { *; }
--keep class android.support.v4.* { *; }
--keep class com.tencent.* { *; }
--keep class com.baidu.* { *; }
--keep class lombok.ast.ecj.* { *; }
--dontwarn android.support.v4.**
--dontwarn com.tencent.**s
--dontwarn com.baidu.**
-
-# 银联
--dontwarn com.unionpay.**
--keep class com.unionpay.** { *; }
-
-
-# 友盟统计分析
--keepclassmembers class * { public <init>(org.json.JSONObject); }
--keepclassmembers enum com.umeng.analytics.** {
-    public static **[] values();
-    public static ** valueOf(java.lang.String);
+# BRVAH
+-keep class com.chad.library.adapter.** {
+*;
+}
+-keep public class * extends com.chad.library.adapter.base.BaseQuickAdapter
+-keep public class * extends com.chad.library.adapter.base.BaseViewHolder
+-keepclassmembers  class **$** extends com.chad.library.adapter.base.BaseViewHolder {
+     <init>(...);
 }
 
-# 支付宝钱包
--dontwarn com.alipay.**
--dontwarn HttpUtils.HttpFetcher
--dontwarn com.ta.utdid2.**
--dontwarn com.ut.device.**
--keep class com.alipay.android.app.IAlixPay{*;}
--keep class com.alipay.android.app.IAlixPay$Stub{*;}
--keep class com.alipay.android.app.IRemoteServiceCallback{*;}
--keep class com.alipay.android.app.IRemoteServiceCallback$Stub{*;}
--keep class com.alipay.sdk.app.PayTask{ public *;}
--keep class com.alipay.sdk.app.AuthTask{ public *;}
--keep class com.alipay.mobilesecuritysdk.*
--keep class com.ut.*
+# Fresco
+-keep,allowobfuscation @interface com.facebook.common.internal.DoNotStrip
+-keep @com.facebook.common.internal.DoNotStrip class *
+-keepclassmembers class * {
+    @com.facebook.common.internal.DoNotStrip *;
+}
+-keepclassmembers class * {
+    native <methods>;
+}
+-dontwarn okio.**
+-dontwarn com.squareup.okhttp.**
+-dontwarn okhttp3.**
+-dontwarn javax.annotation.**
+-dontwarn com.android.volley.toolbox.**
+-dontwarn com.facebook.infer.**
+
+# 友盟统计分析
+#-keepclassmembers class * { public <init>(org.json.JSONObject); }
+#-keepclassmembers enum com.umeng.analytics.** {
+#    public static **[] values();
+#    public static ** valueOf(java.lang.String);
+#}
 
 # 忽略这两个包下的警告，不然打包会失败
--dontwarn com.umeng.**
--dontwarn com.viewpagerindicator.**
+#-dontwarn com.umeng.**
 
 
 
