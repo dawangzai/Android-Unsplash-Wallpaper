@@ -21,8 +21,9 @@ public class VersionManager {
 
     public static void checkVersion(final IVersionChecker checker) {
         HashMap<String, Object> params = new HashMap<>(16);
-        params.put("id", BuildConfig.FIR_APP_ID);
+        params.put("bundle_id", BuildConfig.BUNDLE_ID);
         params.put("api_token",BuildConfig.API_TOKEN);
+        params.put("type","android");
         RxHttpClient.builder()
                 .url(ApiService.Version.VERSION)
                 .params(params)

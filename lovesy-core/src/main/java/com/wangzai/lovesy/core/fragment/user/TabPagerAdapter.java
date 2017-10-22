@@ -3,6 +3,7 @@ package com.wangzai.lovesy.core.fragment.user;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.ViewGroup;
 
 import com.wangzai.lovesy.core.fragment.BaseRefreshFragment;
 
@@ -16,6 +17,7 @@ class TabPagerAdapter extends FragmentPagerAdapter {
 
     private ArrayList<BaseRefreshFragment> mTabItemFragment = new ArrayList<>();
     private ArrayList<String> mTabTitle = new ArrayList<>();
+    private FragmentManager mFragmentManager;
 
     public TabPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -23,6 +25,7 @@ class TabPagerAdapter extends FragmentPagerAdapter {
 
     TabPagerAdapter(ArrayList<String> tabTitle, ArrayList<BaseRefreshFragment> homeFragments, FragmentManager fm) {
         super(fm);
+        this.mFragmentManager = fm;
         this.mTabItemFragment = homeFragments;
         this.mTabTitle = tabTitle;
     }
@@ -40,5 +43,18 @@ class TabPagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         return mTabTitle.get(position);
+    }
+
+    @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+        Fragment fragment = (Fragment) super.instantiateItem(container, position);
+        mFragmentManager.beginTransaction().show(fragment).commit();
+        return fragment;
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        Fragment fragment = mTabItemFragment.get(position);
+        mFragmentManager.beginTransaction().hide(fragment).commit();
     }
 }

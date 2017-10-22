@@ -3,6 +3,8 @@ package com.wangzai.lovesy.home;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.wangzai.lovesy.R;
 import com.wangzai.lovesy.core.activity.home.BaseHomeActivity;
@@ -78,6 +80,24 @@ public class HomeActivity extends BaseHomeActivity implements IVersionChecker {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.home, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        switch (itemId){
+            case R.id.menu_search:
+                Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.menu_photo:
+                Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.menu_setting:
+                Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
