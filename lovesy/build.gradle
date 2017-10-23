@@ -17,6 +17,7 @@ android {
         buildConfigField("String", "CLIENT_ID", "\"${CLIENT_ID}\"")
         buildConfigField("String", "CLIENT_SECRET", "\"${CLIENT_SECRET}\"")
         buildConfigField("String", "REDIRECT_URL", "\"${REDIRECT_URL}\"")
+        buildConfigField("String", "APP_ID", "\"${APP_ID}\"")
         buildConfigField("String", "BUNDLE_ID", "\"${BUNDLE_ID}\"")
         buildConfigField("String", "API_TOKEN", "\"${API_TOKEN}\"")
     }
@@ -38,6 +39,12 @@ android {
         debug {
             signingConfig signingConfigs.debug
             buildConfigField "boolean", "LOG_DEBUG", "true"
+//            signingConfig signingConfigs.release
+//            buildConfigField "boolean", "LOG_DEBUG", "true"
+//            zipAlignEnabled true
+//            shrinkResources false
+//            minifyEnabled true
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
             signingConfig signingConfigs.release

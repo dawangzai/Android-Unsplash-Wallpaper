@@ -9,6 +9,7 @@ import com.wangzai.lovesy.core.net.rx.lift.Transformer;
 import com.wangzai.lovesy.core.ui.loader.LoaderStyle;
 
 import java.util.HashMap;
+import java.util.WeakHashMap;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -18,7 +19,7 @@ import okhttp3.RequestBody;
  */
 
 public class RxHttpClient {
-    private static final HashMap<String, Object> PARAMS = HttpCreator.getParams();
+    private final WeakHashMap<String, Object> mParams;
     private final String mUrl;
     private final String mDownloadDir;
     private final String mDownloadName;
@@ -28,6 +29,7 @@ public class RxHttpClient {
     private final LoaderStyle mLoaderStyle;
 
     RxHttpClient(String url,
+                 WeakHashMap<String, Object> params,
                  String downloadDir,
                  String downloadName,
                  String downloadExtension,
@@ -35,6 +37,7 @@ public class RxHttpClient {
                  Context context,
                  LoaderStyle loaderStyle) {
         this.mUrl = url;
+        this.mParams = params;
         this.mDownloadDir = downloadDir;
         this.mDownloadName = downloadName;
         this.mDownloadExtension = downloadExtension;
@@ -53,25 +56,24 @@ public class RxHttpClient {
 
         switch (method) {
             case GET:
-                observable = service.get(mUrl, PARAMS);
+                observable = service.get(mUrl, mParams);
                 break;
             case POST:
-                observable = service.post(mUrl, PARAMS);
+                observable = service.post(mUrl, mParams);
                 break;
             case POST_RAW:
                 observable = service.postRaw(mUrl, mBody);
                 break;
             case PUT:
-                observable = service.put(mUrl, PARAMS);
+                observable = service.put(mUrl, mParams);
                 break;
             case PUT_RAW:
                 observable = service.putRaw(mUrl, mBody);
                 break;
             case DELETE:
-                observable = service.put(mUrl, PARAMS);
+                observable = service.put(mUrl, mParams);
                 break;
             default:
-                PARAMS.clear();
                 break;
         }
         return observable;
@@ -85,7 +87,7 @@ public class RxHttpClient {
         if (mBody == null) {
             return getObservable(HttpMethod.POST);
         } else {
-            if (!PARAMS.isEmpty()) {
+            if (!mParams.isEmpty()) {
                 throw new RuntimeException("params must be null !");
             }
             return getObservable(HttpMethod.POST_RAW);
@@ -96,7 +98,7 @@ public class RxHttpClient {
         if (mBody == null) {
             return getObservable(HttpMethod.PUT);
         } else {
-            if (!PARAMS.isEmpty()) {
+            if (!mParams.isEmpty()) {
                 throw new RuntimeException("params must be null !");
             }
             return getObservable(HttpMethod.PUT_RAW);
@@ -106,7 +108,7 @@ public class RxHttpClient {
     public final Observable<String> download() {
 
         return HttpCreator.getRxHttpService()
-                .download(mUrl, PARAMS)
+                .download(mUrl, mParams)
                 .compose(new DownloadTransformer(mDownloadDir, mDownloadName, mDownloadExtension));
     }
 

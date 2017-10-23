@@ -24,26 +24,26 @@ import retrofit2.http.Url;
 public interface RxHttpService {
 
     @GET
-    Observable<String> get(@Url String url, @QueryMap HashMap<String, Object> params);
+    Observable<String> get(@Url String url, @QueryMap WeakHashMap<String, Object> params);
 
     @FormUrlEncoded
     @POST
-    Observable<String> post(@Url String url, @FieldMap HashMap<String, Object> params);
+    Observable<String> post(@Url String url, @FieldMap WeakHashMap<String, Object> params);
 
     @POST
     Observable<String> postRaw(@Url String url, @Body RequestBody body);
 
     @FormUrlEncoded
     @PUT
-    Observable<String> put(@Url String url, @FieldMap HashMap<String, Object> params);
+    Observable<String> put(@Url String url, @FieldMap WeakHashMap<String, Object> params);
 
     @PUT
     Observable<String> putRaw(@Url String url, @Body RequestBody body);
 
     @DELETE
-    Observable<String> delete(@Url String url, @QueryMap HashMap<String, Object> params);
+    Observable<String> delete(@Url String url, @QueryMap WeakHashMap<String, Object> params);
 
     @Streaming
     @GET
-    Observable<ResponseBody> download(@Url String url, @QueryMap HashMap<String, Object> params);
+    Observable<ResponseBody> download(@Url String url, @QueryMap WeakHashMap<String, Object> params);
 }

@@ -53,8 +53,6 @@ public class Transformer implements ObservableTransformer<String, String> {
                 .doOnError(new Consumer<Throwable>() {
                     @Override
                     public void accept(@NonNull Throwable throwable) throws Exception {
-                        //清空请求参数容器，供下次请求使用
-                        HttpCreator.getParams().clear();
                         LoveSyLoader.stopLoading();
                         logErrorMessage(throwable);
                     }
@@ -62,8 +60,6 @@ public class Transformer implements ObservableTransformer<String, String> {
                 .doOnComplete(new Action() {
                     @Override
                     public void run() throws Exception {
-                        //清空请求参数容器，供下次请求使用
-                        HttpCreator.getParams().clear();
                         LoveSyLoader.stopLoading();
                     }
                 })

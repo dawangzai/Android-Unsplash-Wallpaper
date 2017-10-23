@@ -18,6 +18,7 @@ import com.wangzai.lovesy.core.ui.refresh.OnRequestListener;
 import com.wangzai.lovesy.core.ui.refresh.RefreshHandler;
 
 import java.util.HashMap;
+import java.util.WeakHashMap;
 
 import butterknife.BindView;
 
@@ -33,7 +34,7 @@ public abstract class BaseRefreshFragment extends LoveSyFragment implements OnRe
 
     private RefreshHandler refreshHandler;
     private String mUrl;
-    protected HashMap<String, Object> mParams = new HashMap<>();
+    protected WeakHashMap<String, Object> mParams = new WeakHashMap<>();
 
     protected abstract String setUrl();
 
@@ -41,7 +42,7 @@ public abstract class BaseRefreshFragment extends LoveSyFragment implements OnRe
 
     protected abstract SimpleClickListener addItemClickListener();
 
-    protected HashMap<String, Object> setParams(HashMap<String, Object> params) {
+    protected WeakHashMap<String, Object> setParams(WeakHashMap<String, Object> params) {
         return params;
     }
 

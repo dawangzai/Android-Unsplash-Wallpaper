@@ -12,6 +12,7 @@ import com.wangzai.lovesy.core.util.LogUtil;
 import com.wangzai.lovesy.account.AccountManager;
 
 import java.util.HashMap;
+import java.util.WeakHashMap;
 
 import io.reactivex.annotations.NonNull;
 
@@ -46,7 +47,7 @@ class SignInRoute extends BaseRoute {
 
             String[] split = url.split(SPLIT_CODE);
             LogUtil.i(split[1]);
-            HashMap<String, Object> params = new HashMap<>(16);
+            WeakHashMap<String, Object> params = new WeakHashMap<>(16);
             params.put("client_id", BuildConfig.CLIENT_ID);
             params.put("client_secret", BuildConfig.CLIENT_SECRET);
             params.put("redirect_uri", BuildConfig.REDIRECT_URL);

@@ -61,7 +61,7 @@ public class UpdateManager {
     private void showNetworkDialog() {
         new AlertDialog.Builder(mContext)
                 .setTitle("版本更新")
-                .setMessage("网络提醒")
+                .setMessage("现在下载将使用流量，是否现在下载")
                 .setPositiveButton("立即下载", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

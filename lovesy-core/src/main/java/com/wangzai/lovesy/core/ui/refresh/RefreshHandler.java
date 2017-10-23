@@ -27,7 +27,7 @@ import io.reactivex.annotations.NonNull;
 public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
         BaseQuickAdapter.RequestLoadMoreListener, View.OnClickListener {
 
-    private static final HashMap<String, Object> mParams = new HashMap<>();
+    private static final WeakHashMap<String, Object> mParams = new WeakHashMap<>();
     private static String mUrl = null;
 
     private final SwipeRefreshLayout mRefreshLayout;
@@ -80,7 +80,7 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
         mListener.onLoadMore();
     }
 
-    public void refresh(String url, HashMap<String, Object> params) {
+    public void refresh(String url, WeakHashMap<String, Object> params) {
         mUrl = url;
         if (!mParams.isEmpty()) {
             mParams.clear();
