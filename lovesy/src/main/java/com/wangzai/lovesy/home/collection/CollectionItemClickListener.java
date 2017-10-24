@@ -44,7 +44,8 @@ public class CollectionItemClickListener extends SimpleClickListener {
         final int id = view.getId();
         switch (id) {
             case R.id.siv_photo:
-                ActivityUtil.startCollectionDetailActivity(mActivity, collection);
+//                ActivityUtil.startCollectionDetailActivity(mActivity, collection);
+                Toast.makeText(mActivity, mActivity.getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
                 break;
             case R.id.siv_avatar:
                 Toast.makeText(mActivity, mActivity.getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();

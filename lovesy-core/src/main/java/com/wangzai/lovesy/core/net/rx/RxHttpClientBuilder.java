@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.wangzai.lovesy.core.ui.loader.LoaderStyle;
 
-import java.util.HashMap;
 import java.util.WeakHashMap;
 
 import okhttp3.MediaType;

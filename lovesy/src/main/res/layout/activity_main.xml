@@ -12,12 +12,12 @@
         android:layout_height="0dp"
         android:layout_weight="5">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="110dp"
-            android:src="@drawable/slogan_text" />
+        <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="110dp"-->
+        <!--android:src="@drawable/slogan_text" />-->
 
     </RelativeLayout>
 

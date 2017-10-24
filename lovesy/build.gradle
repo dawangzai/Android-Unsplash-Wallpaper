@@ -28,7 +28,7 @@ android {
         }
 
         release {
-            storeFile file(System.getProperty("user.home") + "/.android/release.keystore")
+            storeFile file(System.getProperty("user.home") + "/.android/release.jks")
             storePassword "${STORE_PASSWORD}"
             keyAlias "${KEY_ALIAS}"
             keyPassword "${KEY_PASSWORD}"
@@ -39,12 +39,6 @@ android {
         debug {
             signingConfig signingConfigs.debug
             buildConfigField "boolean", "LOG_DEBUG", "true"
-//            signingConfig signingConfigs.release
-//            buildConfigField "boolean", "LOG_DEBUG", "true"
-//            zipAlignEnabled true
-//            shrinkResources false
-//            minifyEnabled true
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
             signingConfig signingConfigs.release
