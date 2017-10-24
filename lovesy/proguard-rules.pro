@@ -119,6 +119,8 @@
     public void *(android.webkit.webView, jav.lang.String);
 }
 
+-keep class com.wangzai.lovesy.bean.** {*;}
+
 # 移除Log类打印各个等级日志的代码，打正式包的时候可以做为禁log使用，这里可以作为禁止log打印的功能使用
 # 记得proguard-android.txt中一定不要加-dontoptimize才起作用
 # 另外的一种实现方案是通过BuildConfig.DEBUG的变量来控制
@@ -158,6 +160,32 @@
 -dontwarn okio.**
 -dontwarn javax.annotation.**
 
+# OkHttp
+-dontwarn okio.**
+-dontwarn okhttp3.**
+-dontwarn javax.annotation.Nullable
+-dontwarn javax.annotation.ParametersAreNonnullByDefault
+
+# Okio
+-dontwarn com.squareup.**
+-dontwarn okio.**
+-keep public class org.codehaus.* { *; }
+-keep public class java.nio.* { *; }
+
+# RxJava RxAndroid
+-dontwarn sun.misc.**
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+    long producerIndex;
+    long consumerIndex;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}
+-dontnote rx.internal.util.PlatformDependent
+
 # BRVAH
 -keep class com.chad.library.adapter.** {
 *;
@@ -177,12 +205,16 @@
 -keepclassmembers class * {
     native <methods>;
 }
-#-dontwarn okio.**
-#-dontwarn com.squareup.okhttp.**
-#-dontwarn okhttp3.**
-#-dontwarn javax.annotation.**
-#-dontwarn com.android.volley.toolbox.**
+-dontwarn okio.**
+-dontwarn com.squareup.okhttp.**
+-dontwarn okhttp3.**
+-dontwarn javax.annotation.**
+-dontwarn com.android.volley.toolbox.**
 -dontwarn com.facebook.infer.**
+
+# AVLoadingIndicatorView
+-keep class com.wang.avi.** { *; }
+-keep class com.wang.avi.indicators.** { *; }
 
 # 友盟统计分析
 #-keepclassmembers class * { public <init>(org.json.JSONObject); }
