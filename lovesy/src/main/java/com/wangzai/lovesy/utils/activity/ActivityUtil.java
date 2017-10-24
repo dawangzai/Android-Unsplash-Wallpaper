@@ -24,6 +24,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.wangzai.lovesy.Constant;
+import com.wangzai.lovesy.bean.CollectionBean;
+import com.wangzai.lovesy.detail.collection.CollectionDetailActivity;
 import com.wangzai.lovesy.detail.photo.PhotoActivity;
 import com.wangzai.lovesy.home.HomeActivity;
 import com.wangzai.lovesy.sign.SignInActivity;
@@ -69,6 +71,14 @@ public class ActivityUtil {
 
     public static void startHomeActivity(Activity activity) {
         Intent intent = new Intent(activity, HomeActivity.class);
+        activity.startActivity(intent);
+    }
+
+    public static void startCollectionDetailActivity(Activity activity, String collection) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constant.BUNDLE.ONE, collection);
+        Intent intent = new Intent(activity, CollectionDetailActivity.class);
+        intent.putExtras(bundle);
         activity.startActivity(intent);
     }
 

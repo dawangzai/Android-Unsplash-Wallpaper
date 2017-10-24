@@ -36,16 +36,6 @@
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:background="@color/windowBackground"
-            android:gravity="center_vertical"
-            android:paddingLeft="20dp"
-            android:text="集合展"
-            android:textColor="@color/color_gray_FF878787"
-            android:textStyle="bold" />
-
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView

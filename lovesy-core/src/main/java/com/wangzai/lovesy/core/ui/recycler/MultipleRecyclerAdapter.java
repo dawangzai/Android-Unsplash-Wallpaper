@@ -51,7 +51,7 @@ public class MultipleRecyclerAdapter extends BaseMultiItemQuickAdapter<MultipleI
         final String userName;
         final int totalLikes;
         final String collectionName;
-        final int collectionPhotoCount;
+        final String collectionPhotoCount;
 
         switch (holder.getItemViewType()) {
             case ItemType.PHOTO:
@@ -90,7 +90,10 @@ public class MultipleRecyclerAdapter extends BaseMultiItemQuickAdapter<MultipleI
                 ImageLoader.loaderImage((SimpleImageView) holder.getView(R.id.siv_photo), photoUrl);
                 holder.setText(R.id.tv_user_name, userName);
                 holder.setText(R.id.tv_collection_name, collectionName);
-                holder.setText(R.id.tv_collection_photo_count, String.valueOf(collectionPhotoCount));
+                holder.setText(R.id.tv_collection_photo_count, collectionPhotoCount);
+                holder.addOnClickListener(R.id.siv_avatar)
+                        .addOnClickListener(R.id.siv_photo)
+                        .addOnClickListener(R.id.tv_user_name);
                 break;
             default:
                 break;

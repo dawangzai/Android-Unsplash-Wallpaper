@@ -2,8 +2,11 @@ package com.wangzai.lovesy.bean;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
-public class CollectionBean {
+import java.io.Serializable;
 
+public class CollectionBean implements Serializable {
+
+    private static final long serialVersionUID = -860109322133555950L;
     private int id;
     private String title;
     private String description;

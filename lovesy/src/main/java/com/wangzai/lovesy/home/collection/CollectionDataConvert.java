@@ -53,7 +53,8 @@ public class CollectionDataConvert extends DataConverter {
                     .setField(MultipleFields.USER_NAME, userName)
                     .setField(MultipleFields.AVATAR_URL, avatarUrl)
                     .setField(MultipleFields.COLLECTION_NAME, collectionName)
-                    .setField(MultipleFields.COLLECTION_PHOTO_COUNT, collectionCount)
+                    .setField(MultipleFields.COLLECTION_PHOTO_COUNT, collectionCount + " photos")
+                    .setField(MultipleFields.RAW_DATA, JSON.toJSONString(collectionBean))
                     .build();
 
             itemEntities.add(entity);

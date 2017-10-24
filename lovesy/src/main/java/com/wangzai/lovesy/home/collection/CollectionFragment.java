@@ -2,6 +2,7 @@ package com.wangzai.lovesy.home.collection;
 
 import com.chad.library.adapter.base.listener.SimpleClickListener;
 import com.wangzai.lovesy.api.ApiService;
+import com.wangzai.lovesy.core.activity.home.BaseHomeFragment;
 import com.wangzai.lovesy.core.fragment.BaseRefreshFragment;
 import com.wangzai.lovesy.core.ui.recycler.DataConverter;
 
@@ -9,7 +10,7 @@ import com.wangzai.lovesy.core.ui.recycler.DataConverter;
  * Created by wangzai on 2017/9/21
  */
 
-public class CollectionFragment extends BaseRefreshFragment {
+public class CollectionFragment extends BaseHomeFragment {
     @Override
     protected String setUrl() {
         return ApiService.Collections.COLLECTIONS_FEATURED;
@@ -22,6 +23,6 @@ public class CollectionFragment extends BaseRefreshFragment {
 
     @Override
     protected SimpleClickListener addItemClickListener() {
-        return new CollectionItemClickListener();
+        return new CollectionItemClickListener(mActivity);
     }
 }

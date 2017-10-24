@@ -4,7 +4,7 @@ package com.wangzai.lovesy.core.ui.refresh;
  * Created by wangzai on 2017/9/4
  */
 
-class PagingBean {
+public class PagingBean {
 
     private int mPageIndex = 1;
     private int mPageSize = 0;
@@ -13,7 +13,7 @@ class PagingBean {
 
     private String mFirstDataId;
 
-    int getPageIndex() {
+    public int getPageIndex() {
         return mPageIndex;
     }
 
@@ -58,7 +58,7 @@ class PagingBean {
         return this;
     }
 
-    PagingBean addIndex() {
+    public PagingBean addIndex() {
         mPageIndex++;
         return this;
     }

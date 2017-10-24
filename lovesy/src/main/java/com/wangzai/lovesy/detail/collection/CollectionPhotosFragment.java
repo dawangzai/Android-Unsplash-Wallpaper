@@ -1,19 +1,19 @@
-package com.wangzai.lovesy.home.index;
+package com.wangzai.lovesy.detail.collection;
 
 import com.chad.library.adapter.base.listener.SimpleClickListener;
 import com.wangzai.lovesy.api.ApiService;
-import com.wangzai.lovesy.core.activity.home.BaseHomeFragment;
+import com.wangzai.lovesy.core.fragment.BaseRefreshFragment;
 import com.wangzai.lovesy.core.ui.recycler.DataConverter;
+import com.wangzai.lovesy.home.index.PhotoDataConvert;
 
 /**
- * Created by wangzai on 2017/9/21
+ * Created by wangzai on 2017/10/24
  */
 
-public class IndexFragment extends BaseHomeFragment {
+public class CollectionPhotosFragment extends BaseRefreshFragment {
     @Override
     protected String setUrl() {
-//        return ApiService.Photos.PHOTOS;
-        return null;
+        return ApiService.Photos.PHOTOS;
     }
 
     @Override
@@ -23,6 +23,6 @@ public class IndexFragment extends BaseHomeFragment {
 
     @Override
     protected SimpleClickListener addItemClickListener() {
-        return new IndexItemClickListener(this);
+        return new CollectionDetailItemClickListener(this) ;
     }
 }

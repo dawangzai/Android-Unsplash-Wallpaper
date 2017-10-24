@@ -1,4 +1,4 @@
-package com.wangzai.lovesy.home.index;
+package com.wangzai.lovesy.detail.collection;
 
 import android.view.View;
 import android.widget.Toast;
@@ -10,17 +10,18 @@ import com.wangzai.lovesy.account.AccountManager;
 import com.wangzai.lovesy.account.IUserChecker;
 import com.wangzai.lovesy.core.ui.recycler.MultipleFields;
 import com.wangzai.lovesy.core.ui.recycler.MultipleItemEntity;
+import com.wangzai.lovesy.home.index.IndexFragment;
 import com.wangzai.lovesy.utils.activity.ActivityUtil;
 
 /**
  * Created by wangzai on 2017/9/22
  */
 
-public class IndexItemClickListener extends SimpleClickListener {
+public class CollectionDetailItemClickListener extends SimpleClickListener {
 
-    private final IndexFragment mFragment;
+    private final CollectionPhotosFragment mFragment;
 
-    IndexItemClickListener(IndexFragment fragment) {
+    CollectionDetailItemClickListener(CollectionPhotosFragment fragment) {
         this.mFragment = fragment;
     }
 

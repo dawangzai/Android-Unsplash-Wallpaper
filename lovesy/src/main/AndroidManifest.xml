@@ -38,6 +38,8 @@
             android:process=":remote"
             android:theme="@style/ThemePhotoActivity" />
 
+        <activity android:name=".detail.collection.CollectionDetailActivity" />
+
     </application>
 
 </manifest>
