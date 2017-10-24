@@ -1,6 +1,6 @@
 package com.wangzai.lovesy.bean;
 
-import com.google.gson.annotations.SerializedName;
+import com.alibaba.fastjson.annotation.JSONField;
 
 public class CollectionBean {
 
@@ -11,7 +11,7 @@ public class CollectionBean {
     private boolean curated;
     private boolean featured;
     private int total_photos;
-    @SerializedName("private")
+    @JSONField(name = "private")
     private boolean privateX;
     private String share_key;
     private CoverPhotoBean cover_photo;

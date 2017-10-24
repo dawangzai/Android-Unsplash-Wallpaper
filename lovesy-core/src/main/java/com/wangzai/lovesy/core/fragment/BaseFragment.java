@@ -1,5 +1,7 @@
 package com.wangzai.lovesy.core.fragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +19,7 @@ import butterknife.Unbinder;
 
 public abstract class BaseFragment extends Fragment {
 
+    protected Activity mActivity;
     protected View rootView;
     private boolean isAlreadyVisible = false;
 
@@ -25,6 +28,12 @@ public abstract class BaseFragment extends Fragment {
     public abstract Object setLayout();
 
     public abstract void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView);
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mActivity = (Activity) context;
+    }
 
     @Nullable
     @Override
@@ -76,4 +85,5 @@ public abstract class BaseFragment extends Fragment {
 
     protected void onFragmentVisible() {
     }
+
 }

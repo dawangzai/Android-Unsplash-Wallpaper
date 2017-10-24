@@ -9,6 +9,7 @@ import com.wangzai.lovesy.core.ui.recycler.DataConverter;
 import com.wangzai.lovesy.core.ui.recycler.ItemType;
 import com.wangzai.lovesy.core.ui.recycler.MultipleFields;
 import com.wangzai.lovesy.core.ui.recycler.MultipleItemEntity;
+import com.wangzai.lovesy.core.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;

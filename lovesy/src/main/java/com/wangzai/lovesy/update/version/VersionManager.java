@@ -37,11 +37,12 @@ public class VersionManager {
                     @SuppressWarnings("ConstantConditions")
                     @Override
                     public void onSuccess(@NonNull String result) {
-                        if (currentVersion() == null) {
+                        final String current = currentVersion();
+                        if (current == null) {
                             return;
                         }
-                        VersionBean versionName = JSON.parseObject(result, VersionBean.class);
-                        if (currentVersion().equals(versionName.getVersionShort())) {
+                        String latest = JSON.parseObject(result, VersionBean.class).getVersionShort();
+                        if (current.equals(latest)) {
                             checker.onLatest();
                         } else {
                             checker.onNotLatest(result);

@@ -2,6 +2,7 @@ package com.wangzai.lovesy.sign;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.wangzai.lovesy.R;
 import com.wangzai.lovesy.api.ApiService;

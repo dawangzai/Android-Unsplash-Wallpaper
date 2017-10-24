@@ -22,8 +22,6 @@ public class MainActivity extends LoveSyActivity implements IUserChecker {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState) {
-        getWindow().getDecorView().
-                setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
         AccountManager.checkAccount(this);
     }
 

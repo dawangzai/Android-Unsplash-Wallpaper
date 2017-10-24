@@ -2,6 +2,7 @@ package com.wangzai.lovesy.detail.photo;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.ActionBar;
 import android.view.MotionEvent;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.alibaba.fastjson.JSON;
 import com.wangzai.lovesy.Constant;
@@ -36,6 +38,8 @@ public class PhotoActivity extends LoveSyActivity implements View.OnTouchListene
     SimpleZoomableImageView mSivPhoto;
     @BindView(R.id.ll_container)
     LinearLayout mLlContainer;
+    @BindView(R.id.rl_background)
+    RelativeLayout mRlBackground;
 
     private GestureDetectorCompat mGestureDetector;
     private Animation hideAnimation;
@@ -97,9 +101,11 @@ public class PhotoActivity extends LoveSyActivity implements View.OnTouchListene
         if (isImmerse) {
             mLlContainer.setVisibility(View.INVISIBLE);
             mLlContainer.startAnimation(showAnimation);
+            mRlBackground.setBackgroundColor(ContextCompat.getColor(this, R.color.bg_black));
         } else {
             mLlContainer.setVisibility(View.VISIBLE);
             mLlContainer.startAnimation(hideAnimation);
+            mRlBackground.setBackgroundColor(ContextCompat.getColor(this, R.color.bg_white));
         }
     }
 

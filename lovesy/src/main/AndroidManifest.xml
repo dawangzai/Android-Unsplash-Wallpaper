@@ -15,7 +15,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/LoveSyTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/ThemeMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,17 +25,18 @@
             </intent-filter>
         </activity>
 
-        <!--<activity android:name="com.wangzai.lovesy.ui.test.TestActivity" />-->
         <activity android:name=".home.HomeActivity" />
 
-        <activity android:name=".sign.SignInActivity" />
+        <activity
+            android:name=".sign.SignInActivity"
+            android:theme="@style/ThemeSignInActivity" />
 
         <activity android:name=".user.UserProfileActivity" />
 
         <activity
             android:name=".detail.photo.PhotoActivity"
             android:process=":remote"
-            android:theme="@style/LoveSyActionBarTheme" />
+            android:theme="@style/ThemePhotoActivity" />
 
     </application>
 

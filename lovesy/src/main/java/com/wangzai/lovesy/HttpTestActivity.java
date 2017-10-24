@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.wangzai.lovesy.core.ui.refresh.RefreshHandler;
 
+import java.util.List;
+
 /**
  * Created by wangzai on 2017/9/7
  */
@@ -49,5 +51,6 @@ public class HttpTestActivity extends AppCompatActivity {
 //        refreshHandler = RefreshHandler.create(refreshLayout, recyclerView, new TestDataConvert());
 //
 //        refreshHandler.refresh();
+
     }
 }
