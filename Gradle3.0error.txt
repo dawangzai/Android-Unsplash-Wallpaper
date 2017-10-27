@@ -1,0 +1,28 @@
+Error:(68, 0) Cannot set the value of read-only property 'outputFile' for ApkVariantOutputImpl_Decorated{apkData=Main{type=MAIN, fullName=googleplayDebug, filters=[]}} of type com.android.build.gradle.internal.api.ApkVariantOutputImpl.
+<a href="openFile:F:\android\project\Android-Unsplash-Wallpaper\lovesy\build.gradle">Open File</a>
+
+Error:Unable to find method 'com.android.build.gradle.api.BaseVariant.getOutputs()Ljava/util/List;'.
+Possible causes for this unexpected error include:<ul><li>Gradle's dependency cache may be corrupt (this sometimes occurs after a network connection timeout.)
+<a href="syncProject">Re-download dependencies and sync project (requires network)</a></li><li>The state of a Gradle build process (daemon) may be corrupt. Stopping all Gradle daemons may solve this problem.
+<a href="stopGradleDaemons">Stop Gradle build processes (requires restart)</a></li><li>Your project may be using a third-party plugin which is not compatible with the other plugins in the project or the version of Gradle requested by the project.</li></ul>In the case of corrupt Gradle processes, you can also try closing the IDE and then killing all Java processes.
+
+
+Error:The specified Android SDK Build Tools version (25.0.3) is ignored, as it is below the minimum supported version (26.0.2) for Android Gradle Plugin 3.0.0.
+Android SDK Build Tools 26.0.2 will be used.
+To suppress this warning, remove "buildToolsVersion '25.0.3'" from your build.gradle file, as each version of the Android Gradle Plugin now has a default version of the build tools.
+<a href="fix.build.tools.version">Update Build Tools version and sync project</a><br><a href="openFile:F:/android/project/Android-Unsplash-Wallpaper/lovesy-core/build.gradle">Open File</a>
+
+
+Error:All flavors must now belong to a named flavor dimension. Learn more at https://d.android.com/r/tools/flavorDimensions-missing-error-message.html
+
+Error:Execution failed for task ':lovesy:preBaiduDebugBuild'.
+> Android dependency 'com.android.support:support-compat' has different version for the compile (25.3.0) and runtime (27.0.0) classpath. You should manually set the same version via DependencyResolution
+
+
+Error:Execution failed for task ':lovesy:preBaiduDebugBuild'.
+> Android dependency 'com.android.support:support-compat' has different version for the compile (25.3.0) and runtime (26.1.0) classpath. You should manually set the same version via DependencyResolution
+
+
+androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })

@@ -16,7 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/LoveSyTheme">
         <activity
+            android:screenOrientation="portrait"
             android:name=".MainActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/ThemeMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,20 +27,33 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".home.HomeActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".home.HomeActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".sign.SignInActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/ThemeSignInActivity" />
 
-        <activity android:name=".user.UserProfileActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".user.UserProfileActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".detail.photo.PhotoActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:process=":remote"
             android:theme="@style/ThemePhotoActivity" />
 
-        <activity android:name=".detail.collection.CollectionDetailActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".detail.collection.CollectionDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
 
     </application>
 

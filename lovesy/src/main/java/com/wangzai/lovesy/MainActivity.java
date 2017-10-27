@@ -3,6 +3,7 @@ package com.wangzai.lovesy;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.Window;
 
 import com.wangzai.lovesy.account.AccountManager;
 import com.wangzai.lovesy.account.IUserChecker;
@@ -22,6 +23,7 @@ public class MainActivity extends LoveSyActivity implements IUserChecker {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState) {
+        final Window window = getWindow();
         AccountManager.checkAccount(this);
     }
 
