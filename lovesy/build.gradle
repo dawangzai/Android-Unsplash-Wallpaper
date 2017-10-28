@@ -61,25 +61,6 @@ android {
     }
 
     applicationVariants.all { variant ->
-//        variant.outputs.each { output ->
-//            if (output.outputFile != null && output.outputFile.name.endsWith('.apk')) {
-//                def flavorName = variant.flavorName.startsWith("_") ? variant.flavorName.substring(1) : variant.flavorName
-//                def apkFile = new File(
-//                        output.outputFile.getParent(),
-//                        "lovesy_${flavorName}_v${variant.versionName}_${buildTime()}.apk")
-//                output.outputFile = apkFile
-//            }
-//        }
-
-//        variant.outputs.all { output ->
-//            def outputFile = output.outputFile
-//            if (outputFile != null && outputFile.name.endsWith('.apk')) {
-//                def fileName = outputFile.name.replace("app",
-//                        "${defaultConfig.applicationId}_${defaultConfig.versionName}_${releaseTime()}")
-//                outputFileName = fileName
-//            }
-//        }
-
         variant.outputs.all {
             outputFileName = "${variant.name}_${variant.versionName}_${buildTime()}.apk"
         }
@@ -100,17 +81,14 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-//    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
     //ButterKnife
-    compile 'com.jakewharton:butterknife:8.8.1'
+    implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    compile project(':lovesy-core')
+    implementation project(':lovesy-core')
 }
 
 static def buildTime() {
