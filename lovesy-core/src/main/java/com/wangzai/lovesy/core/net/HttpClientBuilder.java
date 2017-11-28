@@ -19,7 +19,7 @@ import okhttp3.RequestBody;
 
 public class HttpClientBuilder {
 
-    private static final HashMap<String, Object> PARAMS = HttpCreator.getParams();
+    private WeakHashMap<String, Object> mParams = new WeakHashMap<>(16);
     private String mUrl;
     private RequestBody mBody;
     private IRequest mRequest;
@@ -34,12 +34,12 @@ public class HttpClientBuilder {
     }
 
     public final HttpClientBuilder params(String key, Object value) {
-        PARAMS.put(key, value);
+        mParams.put(key, value);
         return this;
     }
 
     public final HttpClientBuilder params(WeakHashMap<String, Object> params) {
-        PARAMS.putAll(params);
+        mParams.putAll(params);
         return this;
     }
 
@@ -70,6 +70,7 @@ public class HttpClientBuilder {
 
     public final HttpClient build() {
         return new HttpClient(mUrl,
+                mParams,
                 mBody,
                 mRequest,
                 mSuccess,

@@ -24,12 +24,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.wangzai.lovesy.Constant;
-import com.wangzai.lovesy.bean.CollectionBean;
-import com.wangzai.lovesy.detail.collection.CollectionDetailActivity;
-import com.wangzai.lovesy.detail.photo.PhotoActivity;
-import com.wangzai.lovesy.home.HomeActivity;
-import com.wangzai.lovesy.sign.SignInActivity;
-import com.wangzai.lovesy.user.UserProfileActivity;
+import com.wangzai.lovesy.ui.detail.collection.CollectionDetailActivity;
+import com.wangzai.lovesy.ui.detail.photo.PhotoActivity;
+import com.wangzai.lovesy.ui.home.HomeActivity;
+import com.wangzai.lovesy.ui.sign.SignInActivity;
+import com.wangzai.lovesy.test.ViewTestActivity;
+import com.wangzai.lovesy.ui.user.UserProfileActivity;
 
 public class ActivityUtil {
 
@@ -79,6 +79,11 @@ public class ActivityUtil {
         bundle.putSerializable(Constant.BUNDLE.ONE, collection);
         Intent intent = new Intent(activity, CollectionDetailActivity.class);
         intent.putExtras(bundle);
+        activity.startActivity(intent);
+    }
+
+    public static void startViewTestActivity(Activity activity) {
+        Intent intent = new Intent(activity, ViewTestActivity.class);
         activity.startActivity(intent);
     }
 

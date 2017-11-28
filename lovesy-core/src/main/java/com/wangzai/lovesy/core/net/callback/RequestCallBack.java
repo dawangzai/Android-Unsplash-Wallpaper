@@ -1,6 +1,11 @@
 package com.wangzai.lovesy.core.net.callback;
 
-import com.wangzai.lovesy.core.net.HttpCreator;
+import android.support.annotation.NonNull;
+import android.widget.Toast;
+
+import com.wangzai.lovesy.core.app.LoveSy;
+
+import java.net.SocketTimeoutException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,7 +33,7 @@ public class RequestCallBack implements Callback<String> {
     }
 
     @Override
-    public void onResponse(Call<String> call, Response<String> response) {
+    public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
         if (response.isSuccessful()) {
             if (call.isExecuted()) {
                 if (mSuccess != null) {
@@ -55,17 +60,23 @@ public class RequestCallBack implements Callback<String> {
     }
 
     @Override
-    public void onFailure(Call<String> call, Throwable t) {
+    public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
         if (mFailure != null) {
-            mFailure.onFailure("网络不可用！请检查您的网络设置");
+            if (t instanceof SocketTimeoutException) {
+                mFailure.onFailure("连接超时，请稍后重试");
+                Toast.makeText(LoveSy.getApplicationContext(), "连接超时，请稍后重试", Toast.LENGTH_SHORT).show();
+            } else {
+                mFailure.onFailure("网络错误，请稍后重试");
+                Toast.makeText(LoveSy.getApplicationContext(), "网络错误，请稍后重试", Toast.LENGTH_SHORT).show();
+            }
         }
 
         onRequestFinish();
     }
 
     private void onRequestFinish() {
-        //清空请求参数容器，供下次请求使用
-        HttpCreator.getParams().clear();
+//        //清空请求参数容器，供下次请求使用
+//        HttpCreator.getParams().clear();
         if (mRequest != null) {
             mRequest.onRequestEnd();
         }

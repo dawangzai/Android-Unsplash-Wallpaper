@@ -1,5 +1,6 @@
 package com.wangzai.lovesy.core.ui.refresh;
 
+import android.annotation.SuppressLint;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,15 +11,13 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.wangzai.lovesy.core.R;
-import com.wangzai.lovesy.core.net.rx.RxHttpClient;
-import com.wangzai.lovesy.core.net.rx.observer.ResultObserver;
+import com.wangzai.lovesy.core.net.HttpClient;
+import com.wangzai.lovesy.core.net.callback.IError;
+import com.wangzai.lovesy.core.net.callback.ISuccess;
 import com.wangzai.lovesy.core.ui.recycler.DataConverter;
 import com.wangzai.lovesy.core.ui.recycler.MultipleRecyclerAdapter;
 
-import java.util.HashMap;
 import java.util.WeakHashMap;
-
-import io.reactivex.annotations.NonNull;
 
 /**
  * Created by wangzai on 2017/9/2
@@ -27,7 +26,7 @@ import io.reactivex.annotations.NonNull;
 public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
         BaseQuickAdapter.RequestLoadMoreListener, View.OnClickListener {
 
-    private static final WeakHashMap<String, Object> mParams = new WeakHashMap<>();
+    private static final WeakHashMap<String, Object> PARAMS = new WeakHashMap<>();
     private static String mUrl = null;
 
     private final SwipeRefreshLayout mRefreshLayout;
@@ -53,6 +52,7 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
         init();
     }
 
+    @SuppressLint("InflateParams")
     private void init() {
         mRefreshLayout.setOnRefreshListener(this);
         mAdapter = MultipleRecyclerAdapter.create();
@@ -82,36 +82,36 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
 
     public void refresh(String url, WeakHashMap<String, Object> params) {
         mUrl = url;
-        if (!mParams.isEmpty()) {
-            mParams.clear();
+        if (!PARAMS.isEmpty()) {
+            PARAMS.clear();
         }
         params.put("page", 1);
-        mParams.putAll(params);
+        PARAMS.putAll(params);
         mRefreshLayout.setRefreshing(true);
-        RxHttpClient.builder()
+
+        HttpClient.builder()
                 .url(mUrl)
-                .params(mParams)
-                .build()
-                .get()
-                .subscribe(new ResultObserver() {
+                .params(PARAMS)
+                .success(new ISuccess() {
                     @Override
-                    public void onSuccess(@NonNull String result) {
+                    public void onSuccess(String response) {
                         mRefreshLayout.setRefreshing(false);
-                        if (result.equals("[]")) {
+                        if (response.equals("[]")) {
                             mAdapter.setEmptyView(mEmptyView);
                         } else {
                             mConvert.clearData();
                             mPagingBean.reset();
-                            mAdapter.replaceData(mConvert.setJsonData(result).convert());
+                            mAdapter.replaceData(mConvert.setJsonData(response).convert());
                             mPagingBean.addIndex();
                             mAdapter.loadMoreComplete();
-//                        mAdapter.setOnLoadMoreListener(RefreshHandler.this, mRecyclerView);
+                        mAdapter.setOnLoadMoreListener(RefreshHandler.this, mRecyclerView);
                             mPagingBean.setCurrentCount(mAdapter.getData().size());
                         }
                     }
-
+                })
+                .error(new IError() {
                     @Override
-                    public void onFailure(int code, String msg) {
+                    public void onError(int code, String msg) {
                         mRefreshLayout.setRefreshing(false);
                         if (mAdapter.getData().isEmpty()) {
                             final TextView tvErrorMsg = (TextView) mErrorView.getChildAt(0);
@@ -119,31 +119,35 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
                             mAdapter.setEmptyView(mErrorView);
                         }
                     }
-                });
+                })
+                .build()
+                .get();
     }
 
     public void loadMore() {
         final int pageIndex = mPagingBean.getPageIndex();
-        mParams.put("page", pageIndex);
-        RxHttpClient.builder()
+        PARAMS.put("page", pageIndex);
+
+        HttpClient.builder()
                 .url(mUrl)
-                .params(mParams)
-                .build()
-                .get()
-                .subscribe(new ResultObserver() {
+                .params(PARAMS)
+                .success(new ISuccess() {
                     @Override
-                    public void onSuccess(@NonNull String result) {
+                    public void onSuccess(String response) {
                         mConvert.clearData();
-                        mAdapter.addData(mConvert.setJsonData(result).convert());
+                        mAdapter.addData(mConvert.setJsonData(response).convert());
                         mAdapter.loadMoreComplete();
                         mPagingBean.addIndex();
                     }
-
+                })
+                .error(new IError() {
                     @Override
-                    public void onFailure(int code, String msg) {
+                    public void onError(int code, String msg) {
                         mAdapter.loadMoreComplete();
                     }
-                });
+                })
+                .build()
+                .get();
     }
 
     @Override

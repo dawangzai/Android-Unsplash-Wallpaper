@@ -7,6 +7,7 @@ import com.wangzai.lovesy.core.net.callback.ISuccess;
 import com.wangzai.lovesy.core.net.callback.RequestCallBack;
 
 import java.util.HashMap;
+import java.util.WeakHashMap;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -17,7 +18,7 @@ import retrofit2.Call;
 
 public class HttpClient {
 
-    private static final HashMap<String, Object> PARAMS = HttpCreator.getParams();
+    private final WeakHashMap<String, Object> mParams;
     private final String mUrl;
     private final RequestBody mBody;
     private final IRequest mRequest;
@@ -28,6 +29,7 @@ public class HttpClient {
 
     public HttpClient(
             String url,
+            WeakHashMap<String, Object> params,
             RequestBody body,
             IRequest request,
             ISuccess success,
@@ -36,6 +38,7 @@ public class HttpClient {
 //            Context context
     ) {
         this.mUrl = url;
+        this.mParams = params;
         this.mBody = body;
         this.mRequest = request;
         this.mSuccess = success;
@@ -57,22 +60,22 @@ public class HttpClient {
 
         switch (method) {
             case GET:
-                call = service.get(mUrl, PARAMS);
+                call = service.get(mUrl, mParams);
                 break;
             case POST:
-                call = service.post(mUrl, PARAMS);
+                call = service.post(mUrl, mParams);
                 break;
             case POST_RAW:
                 call = service.postRaw(mUrl, mBody);
                 break;
             case PUT:
-                call = service.put(mUrl, PARAMS);
+                call = service.put(mUrl, mParams);
                 break;
             case PUT_RAW:
                 call = service.putRaw(mUrl, mBody);
                 break;
             case DELETE:
-                call = service.put(mUrl, PARAMS);
+                call = service.put(mUrl, mParams);
                 break;
             default:
                 break;
@@ -99,7 +102,7 @@ public class HttpClient {
         if (mBody == null) {
             request(HttpMethod.POST);
         } else {
-            if (!PARAMS.isEmpty()) {
+            if (!mParams.isEmpty()) {
                 throw new RuntimeException("params must be null !");
             }
             request(HttpMethod.POST_RAW);
@@ -110,7 +113,7 @@ public class HttpClient {
         if (mBody == null) {
             request(HttpMethod.PUT);
         } else {
-            if (!PARAMS.isEmpty()) {
+            if (!mParams.isEmpty()) {
                 throw new RuntimeException("params must be null !");
             }
             request(HttpMethod.PUT_RAW);
