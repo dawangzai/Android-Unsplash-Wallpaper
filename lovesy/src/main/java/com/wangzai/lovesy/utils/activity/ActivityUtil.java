@@ -24,6 +24,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.wangzai.lovesy.Constant;
+import com.wangzai.lovesy.HttpTestActivity;
 import com.wangzai.lovesy.ui.detail.collection.CollectionDetailActivity;
 import com.wangzai.lovesy.ui.detail.photo.PhotoActivity;
 import com.wangzai.lovesy.ui.home.HomeActivity;
@@ -84,6 +85,11 @@ public class ActivityUtil {
 
     public static void startViewTestActivity(Activity activity) {
         Intent intent = new Intent(activity, ViewTestActivity.class);
+        activity.startActivity(intent);
+    }
+
+    public static void startHttpTestActivity(Activity activity) {
+        Intent intent = new Intent(activity, HttpTestActivity.class);
         activity.startActivity(intent);
     }
 

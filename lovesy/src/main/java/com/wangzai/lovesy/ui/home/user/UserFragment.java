@@ -156,14 +156,15 @@ public class UserFragment extends LoveSyFragment implements IUserChecker, View.O
                     ActivityUtil.startUserProfileActivity(getActivity(), 1, username);
                 } else {
 //                    Toast.makeText(getActivity(), getString(R.string.text_login), Toast.LENGTH_SHORT).show();
-                    ActivityUtil.startPhotoActivity(mActivity,"Dwu85P9SOIk");
+                    ActivityUtil.startPhotoActivity(mActivity, "Dwu85P9SOIk");
                 }
                 break;
             case R.id.ll_collection:
                 if (AccountManager.isSignIn()) {
                     ActivityUtil.startUserProfileActivity(getActivity(), 2, username);
                 } else {
-                    Toast.makeText(getActivity(), getString(R.string.text_login), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), getString(R.string.text_login), Toast.LENGTH_SHORT).show();
+                    ActivityUtil.startHttpTestActivity(mActivity);
                 }
                 break;
             case R.id.ll_error_layout:

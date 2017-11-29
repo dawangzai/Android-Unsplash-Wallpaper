@@ -18,17 +18,18 @@ public class ThreadDAOImpl implements ThreadDAO {
 
     private static final String SQL_INSERT = "insert into thread_entity(thread_id,url,start,end,finished) values(?,?,?,?,?)";
     private static final String SQL_DELETE = "delete from thread_entity where url = ? and thread_id = ?";
+    private static final String SQL_DELETE_ALL = "delete from thread_entity where url = ?";
     private static final String SQL_UPDATE = "update thread_entity set finished = ? where url = ? and thread_id = ?";
     private static final String SQL_QUERY_ALL = "select * from thread_entity where url = ?";
     private static final String SQL_QUERY_SINGLE = "select * from thread_entity where url = ? and thread_id = ?";
     private DBHelper mHelper;
 
     public ThreadDAOImpl(Context context) {
-        mHelper = new DBHelper(context);
+        mHelper = DBHelper.getInstance(context);
     }
 
     @Override
-    public void insertThread(ThreadEntity threadEntity) {
+    public synchronized void insertThread(ThreadEntity threadEntity) {
         final SQLiteDatabase db = mHelper.getWritableDatabase();
         db.execSQL(SQL_INSERT, new Object[]{threadEntity.getId(),
                 threadEntity.getUrl(),
@@ -39,14 +40,21 @@ public class ThreadDAOImpl implements ThreadDAO {
     }
 
     @Override
-    public void deleteThread(String url, int threadId) {
+    public synchronized void deleteThread(String url, int threadId) {
         final SQLiteDatabase db = mHelper.getWritableDatabase();
         db.execSQL(SQL_DELETE, new Object[]{url, threadId});
         db.close();
     }
 
     @Override
-    public void updateThread(String url, int threadId, int finished) {
+    public synchronized void deleteAllThread(String url) {
+        final SQLiteDatabase db = mHelper.getWritableDatabase();
+        db.execSQL(SQL_DELETE_ALL, new Object[]{url});
+        db.close();
+    }
+
+    @Override
+    public synchronized void updateThread(String url, int threadId, int finished) {
         final SQLiteDatabase db = mHelper.getWritableDatabase();
         db.execSQL(SQL_UPDATE, new Object[]{url, threadId});
         db.close();

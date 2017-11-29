@@ -14,6 +14,8 @@ public interface ThreadDAO {
 
     void deleteThread(String url, int threadId);
 
+    void deleteAllThread(String url);
+
     void updateThread(String url, int threadId, int finished);
 
     List<ThreadEntity> queryAllThread(String url);

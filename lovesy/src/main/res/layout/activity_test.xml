@@ -2,38 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical">
 
-    <!--<LinearLayout-->
-        <!--android:id="@+id/contentFrame"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:orientation="vertical">-->
+    <ProgressBar
+        android:id="@+id/pb_progress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="320dp"
+        android:layout_height="27dp" />
 
-        <!--<Button-->
-            <!--android:id="@+id/btnTest"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="test" />-->
+    <Button
+        android:id="@+id/btn_download"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="下载" />
 
-        <!--<Button-->
-            <!--android:id="@+id/btnTest2"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="test" />-->
-
-    <!--</LinearLayout>-->
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/refreshLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </android.support.v7.widget.RecyclerView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+    <Button
+        android:id="@+id/btn_pause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="暂停" />
 </LinearLayout>

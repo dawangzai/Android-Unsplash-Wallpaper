@@ -10,13 +10,15 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 
 import com.wangzai.lovesy.core.net.download.entities.FileEntity;
+import com.wangzai.lovesy.core.util.LogUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Created by wangzai on 2017/11/28
@@ -29,22 +31,31 @@ public class DownloadService extends Service {
 
     public static final String ACTION_START = "ACTION_START";
     public static final String ACTION_STOP = "ACTION_STOP";
+    public static final String ACTION_UPDATE = "ACTION_UPDATE";
+    public static final String ACTION_FINISH = "ACTION_FINISH";
 
     public static final String EXTRA_FILE = "EXTRA_FILE";
+    public static final String EXTRA_UPDATE = "EXTRA_UPDATE";
+    public static final String EXTRA_ID = "EXTRA_ID";
 
-    public static final int MSG_INIT = 0;
+    public static final int MSG_INIT = 0x1;
 
-    private DownloadTask mTask;
+    //下载任务集合
+    private Map<Integer, DownloadTask> mTasks = new LinkedHashMap<>();
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (ACTION_START.equals(intent.getAction())) {
             FileEntity file = (FileEntity) intent.getSerializableExtra(EXTRA_FILE);
+            LogUtil.i(file.toString());
+//            DownloadTask.sExecutor.execute(new InitThread(file));
             new InitThread(file).start();
         } else if (ACTION_STOP.equals(intent.getAction())) {
             FileEntity file = (FileEntity) intent.getSerializableExtra(EXTRA_FILE);
-            if (mTask != null) {
-                mTask.isPause = true;
+            LogUtil.i(file.toString());
+            DownloadTask task = mTasks.get(file.getId());
+            if (task != null) {
+                task.isPause = true;
             }
         }
         return super.onStartCommand(intent, flags, startId);
@@ -64,9 +75,11 @@ public class DownloadService extends Service {
             switch (msg.what) {
                 case MSG_INIT:
                     FileEntity fileEntity = (FileEntity) msg.obj;
+                    LogUtil.i(fileEntity.toString());
                     //启动下载任务
-                    mTask = new DownloadTask(DownloadService.this, fileEntity);
-                    mTask.download();
+                    DownloadTask task = new DownloadTask(DownloadService.this, fileEntity, 3);
+                    task.download();
+                    mTasks.put(fileEntity.getId(), task);
                     break;
                 default:
                     break;
@@ -86,7 +99,7 @@ public class DownloadService extends Service {
         @SuppressWarnings("ResultOfMethodCallIgnored")
         @Override
         public void run() {
-            super.run();
+//            super.run();
             HttpURLConnection conn = null;
             try {
                 URL url = new URL(mFile.getUrl());
@@ -105,6 +118,7 @@ public class DownloadService extends Service {
                     dir.mkdir();
                 }
                 File file = new File(dir, mFile.getFileName());
+                LogUtil.i(file.getAbsolutePath());
 
                 raf = new RandomAccessFile(file, "rwd");
                 raf.setLength(lenght);

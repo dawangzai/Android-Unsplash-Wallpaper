@@ -1,23 +1,24 @@
 package com.wangzai.lovesy.core.net.download.services;
 
 import android.content.Context;
+import android.content.Intent;
 
-import com.facebook.datasource.FirstAvailableDataSourceSupplier;
 import com.wangzai.lovesy.core.net.download.db.ThreadDAO;
 import com.wangzai.lovesy.core.net.download.db.ThreadDAOImpl;
 import com.wangzai.lovesy.core.net.download.entities.FileEntity;
 import com.wangzai.lovesy.core.net.download.entities.ThreadEntity;
+import com.wangzai.lovesy.core.util.LogUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by wangzai on 2017/11/28
@@ -32,6 +33,7 @@ public class DownloadTask {
     public boolean isPause = false;
     private int mThreadCount = 1;
     private List<DownloadThread> mThreadList;
+    public static ExecutorService sExecutor = Executors.newCachedThreadPool();
 
     public DownloadTask(Context context, FileEntity file, int threadCount) {
         this.mContext = context;
@@ -41,6 +43,7 @@ public class DownloadTask {
     }
 
     public void download() {
+        LogUtil.i("开始下载");
         final List<ThreadEntity> allThread = mThreadDAO.queryAllThread(mFile.getUrl());
         if (allThread.size() == 0) {
 //            threadEntity = new ThreadEntity(0, mFile.getUrl(), 0, mFile.getLength(), 0);
@@ -52,6 +55,8 @@ public class DownloadTask {
                     threadEntity.setEnd(mFile.getLength());
                 }
                 allThread.add(threadEntity);
+
+                mThreadDAO.insertThread(threadEntity);
             }
         }
 
@@ -60,6 +65,7 @@ public class DownloadTask {
         for (ThreadEntity threadEntity : allThread) {
             final DownloadThread downloadThread = new DownloadThread(threadEntity);
             downloadThread.start();
+//            DownloadTask.sExecutor.execute(downloadThread);
 
             mThreadList.add(downloadThread);
         }
@@ -76,7 +82,12 @@ public class DownloadTask {
 
         if (allFinished) {
             //通知下载结束
-            // TODO: 2017/11/28
+            Intent intent = new Intent(DownloadService.ACTION_FINISH);
+            intent.putExtra(DownloadService.EXTRA_UPDATE, mFile);
+            mContext.sendBroadcast(intent);
+
+            //下载完成删除线程信息
+            mThreadDAO.deleteAllThread(mFile.getUrl());
         }
     }
 
@@ -84,6 +95,8 @@ public class DownloadTask {
         private ThreadEntity mThread;
         //标识线程是否执行结束
         public boolean isFinished;
+        private InputStream is;
+        private RandomAccessFile raf;
 
         public DownloadThread(ThreadEntity threadEntity) {
             this.mThread = threadEntity;
@@ -92,41 +105,48 @@ public class DownloadTask {
         @Override
         public void run() {
             super.run();
-
-            //向数据库插入线程信息
-            if (!mThreadDAO.isThreadExists(mFile.getUrl(), mFile.getId())) {
-                mThreadDAO.insertThread(mThread);
-            }
-
+            LogUtil.i("开始下载线程");
             HttpURLConnection conn = null;
             try {
+                LogUtil.i("url");
                 final URL url = new URL(mThread.getUrl());
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setConnectTimeout(3000);
                 conn.setRequestMethod("GET");
-
+                LogUtil.i("url");
                 //设置下载位置
                 int start = mThread.getStart() + mThread.getFinished();
                 conn.setRequestProperty("Range", "bytes=" + start + "-" + mThread.getEnd());
-
+                LogUtil.i("range");
                 //设置写入位置
                 File file = new File(DownloadService.DOWNLOAD_PATH, mFile.getFileName());
-                RandomAccessFile raf = new RandomAccessFile(file, "raw");
+                raf = new RandomAccessFile(file, "raw");
                 raf.seek(start);
-
+                LogUtil.i("seek");
                 mFinished += mThread.getFinished();
+                LogUtil.i("返回码前");
 
                 if (conn.getResponseCode() == 206) {
-                    final InputStream inputStream = conn.getInputStream();
+                    LogUtil.i("返回码" + conn.getResponseCode());
+                    is = conn.getInputStream();
                     byte[] buffer = new byte[1024 * 4];
                     int len = -1;
-                    while ((len = inputStream.read(buffer)) != -1) {
+                    long time = System.currentTimeMillis();
+                    Intent intent = new Intent(DownloadService.ACTION_UPDATE);
+                    while ((len = is.read(buffer)) != -1) {
                         raf.write(buffer, 0, len);
-                        //下载进度更新
-                        // TODO: 2017/11/28
                         mFinished += len;
                         //累加每个线程的完成进度
                         mThread.setFinished(mThread.getFinished() + len);
+                        LogUtil.i("开始更新");
+                        //下载进度更新
+                        if (System.currentTimeMillis() - time > 500) {
+                            time = System.currentTimeMillis();
+                            intent.putExtra(DownloadService.EXTRA_UPDATE, mFinished * 100 / mFile.getLength());
+                            intent.putExtra(DownloadService.EXTRA_ID, mFile.getId());
+                            mContext.sendBroadcast(intent);
+                        }
+
                         //暂停下载
                         if (isPause) {
                             mThreadDAO.updateThread(mThread.getUrl(), mThread.getId(), mThread.getFinished());
@@ -136,11 +156,15 @@ public class DownloadTask {
 
                     isFinished = true;
 
-                    //下载完成删除线程信息
-                    mThreadDAO.deleteThread(mThread.getUrl(), mThread.getId());
                     checkAllThreadFinished();
                 }
             } catch (IOException e) {
+                try {
+                    is.close();
+                    raf.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
                 e.printStackTrace();
             }
         }
