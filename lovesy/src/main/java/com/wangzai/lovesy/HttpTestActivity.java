@@ -50,21 +50,20 @@ public class HttpTestActivity extends AppCompatActivity {
 
     @OnClick({R.id.btn_download, R.id.btn_pause})
     public void onViewClicked(View view) {
-        Intent intent = new Intent();
-        FileEntity fileEntity = new FileEntity(0, "http://imgsrc.baidu.com/image/c0%3Dshijue1%2C0%2C0%2C294%2C40/sign=16f6ff0030292df583cea456d4583615/e1fe9925bc315c60b6b051c087b1cb13495477f3.jpg",
+        FileEntity fileEntity = new FileEntity(0, "https://images.unsplash.com/photo-1511898290398-cee3038fa7a7",
                 "picture.jpg", 0, 0);
         switch (view.getId()) {
             case R.id.btn_download:
-                intent.setClass(this, DownloadService.class);
+                Intent intent = new Intent(this, DownloadService.class);
                 intent.setAction(DownloadService.ACTION_START);
                 intent.putExtra(DownloadService.EXTRA_FILE, fileEntity);
                 startService(intent);
                 break;
             case R.id.btn_pause:
-                intent.setClass(this, DownloadService.class);
-                intent.setAction(DownloadService.ACTION_STOP);
-                intent.putExtra(DownloadService.EXTRA_FILE, fileEntity);
-                startService(intent);
+                Intent intent1 = new Intent(this, DownloadService.class);
+                intent1.setAction(DownloadService.ACTION_STOP);
+                intent1.putExtra(DownloadService.EXTRA_FILE, fileEntity);
+                startService(intent1);
                 break;
             default:
                 break;

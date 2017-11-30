@@ -64,8 +64,8 @@ public class DownloadTask {
 
         for (ThreadEntity threadEntity : allThread) {
             final DownloadThread downloadThread = new DownloadThread(threadEntity);
-            downloadThread.start();
-//            DownloadTask.sExecutor.execute(downloadThread);
+//            downloadThread.start();
+            DownloadTask.sExecutor.execute(downloadThread);
 
             mThreadList.add(downloadThread);
         }
@@ -95,8 +95,6 @@ public class DownloadTask {
         private ThreadEntity mThread;
         //标识线程是否执行结束
         public boolean isFinished;
-        private InputStream is;
-        private RandomAccessFile raf;
 
         public DownloadThread(ThreadEntity threadEntity) {
             this.mThread = threadEntity;
@@ -105,29 +103,24 @@ public class DownloadTask {
         @Override
         public void run() {
             super.run();
-            LogUtil.i("开始下载线程");
             HttpURLConnection conn = null;
+            RandomAccessFile raf = null;
+            InputStream is = null;
             try {
-                LogUtil.i("url");
                 final URL url = new URL(mThread.getUrl());
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setConnectTimeout(3000);
                 conn.setRequestMethod("GET");
-                LogUtil.i("url");
                 //设置下载位置
                 int start = mThread.getStart() + mThread.getFinished();
                 conn.setRequestProperty("Range", "bytes=" + start + "-" + mThread.getEnd());
-                LogUtil.i("range");
                 //设置写入位置
                 File file = new File(DownloadService.DOWNLOAD_PATH, mFile.getFileName());
-                raf = new RandomAccessFile(file, "raw");
+                raf = new RandomAccessFile(file, "rwd");
                 raf.seek(start);
-                LogUtil.i("seek");
                 mFinished += mThread.getFinished();
-                LogUtil.i("返回码前");
 
                 if (conn.getResponseCode() == 206) {
-                    LogUtil.i("返回码" + conn.getResponseCode());
                     is = conn.getInputStream();
                     byte[] buffer = new byte[1024 * 4];
                     int len = -1;
@@ -138,14 +131,13 @@ public class DownloadTask {
                         mFinished += len;
                         //累加每个线程的完成进度
                         mThread.setFinished(mThread.getFinished() + len);
-                        LogUtil.i("开始更新");
                         //下载进度更新
-                        if (System.currentTimeMillis() - time > 500) {
+//                        if (System.currentTimeMillis() - time > 500) {
                             time = System.currentTimeMillis();
                             intent.putExtra(DownloadService.EXTRA_UPDATE, mFinished * 100 / mFile.getLength());
                             intent.putExtra(DownloadService.EXTRA_ID, mFile.getId());
                             mContext.sendBroadcast(intent);
-                        }
+//                        }
 
                         //暂停下载
                         if (isPause) {

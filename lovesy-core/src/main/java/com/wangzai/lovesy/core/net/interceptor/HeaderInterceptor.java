@@ -1,9 +1,11 @@
 package com.wangzai.lovesy.core.net.interceptor;
 
+import com.wangzai.lovesy.core.util.LogUtil;
 import com.wangzai.lovesy.core.util.storage.LoveSyPreference;
 
 import java.io.IOException;
 
+import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -19,7 +21,13 @@ public class HeaderInterceptor extends BaseInterceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-
+        final Request request = chain.request();
+        final HttpUrl httpUrl = request.url();
+        LogUtil.i(httpUrl.encodedQuery());
+        LogUtil.i(httpUrl.encodedPath());
+        LogUtil.i(httpUrl.queryParameterName(0));
+        LogUtil.i(httpUrl.queryParameterValue(0));
+        LogUtil.i(httpUrl.querySize() + "");
         Request.Builder requestBuilder = chain.request().newBuilder();
         final String accessToken = LoveSyPreference.getCustomAppProfile("access_token");
         if (accessToken.isEmpty()) {

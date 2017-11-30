@@ -45,11 +45,17 @@ public class DownloadService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        LogUtil.i(intent.getAction());
         if (ACTION_START.equals(intent.getAction())) {
             FileEntity file = (FileEntity) intent.getSerializableExtra(EXTRA_FILE);
             LogUtil.i(file.toString());
-//            DownloadTask.sExecutor.execute(new InitThread(file));
-            new InitThread(file).start();
+            DownloadTask task = mTasks.get(file.getId());
+            if (task != null) {
+                task.download();
+            } else {
+                DownloadTask.sExecutor.execute(new InitThread(file));
+            }
+//            new InitThread(file).start();
         } else if (ACTION_STOP.equals(intent.getAction())) {
             FileEntity file = (FileEntity) intent.getSerializableExtra(EXTRA_FILE);
             LogUtil.i(file.toString());
