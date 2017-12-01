@@ -2,7 +2,6 @@ package com.wangzai.lovesy.core.download;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 
 import com.wangzai.lovesy.core.download.entities.FileEntity;
@@ -19,8 +18,6 @@ import java.net.URL;
  */
 
 public class DownloadService extends IntentService {
-    public static final String DOWNLOAD_PATH = Environment.getExternalStorageDirectory().
-            getAbsolutePath() + "/download";
 
     public static final String ACTION_START = "ACTION_START";
     public static final String ACTION_STOP = "ACTION_STOP";
@@ -37,7 +34,9 @@ public class DownloadService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-
+        if (intent != null) {
+            final FileEntity fileEntity = (FileEntity) intent.getSerializableExtra(DownloadManager.EXTRA_FILE);
+        }
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
@@ -56,7 +55,7 @@ public class DownloadService extends IntentService {
             if (length <= 0) {
                 return;
             }
-            File dir = new File(DOWNLOAD_PATH);
+            File dir = new File(fileEntity.getDir());
             if (!dir.exists()) {
                 dir.mkdir();
             }

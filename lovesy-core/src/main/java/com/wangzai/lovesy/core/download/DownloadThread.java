@@ -3,6 +3,7 @@ package com.wangzai.lovesy.core.download;
 import android.content.Intent;
 
 import com.wangzai.lovesy.core.download.db.ThreadDao;
+import com.wangzai.lovesy.core.net.download.entities.FileEntity;
 import com.wangzai.lovesy.core.net.download.entities.ThreadEntity;
 
 import java.io.File;
@@ -20,6 +21,7 @@ public class DownloadThread extends Thread {
 
     private ThreadEntity mThreadEntity;
     private ThreadDao mThreadDao;
+    private FileEntity mFileEntity;
 
     @Override
     public void run() {
@@ -35,7 +37,7 @@ public class DownloadThread extends Thread {
             int start = mThreadEntity.getStart() + mThreadEntity.getFinished();
             conn.setRequestProperty("Range", "bytes=" + start + "-" + mThreadEntity.getEnd());
             //设置写入位置
-            File file = new File(DownloadService.DOWNLOAD_PATH, mFile.getFileName());
+            File file = new File(mFileEntity.getDir(), mFileEntity.getFileName());
             raf = new RandomAccessFile(file, "rwd");
             raf.seek(start);
             mFinished += mThreadEntity.getFinished();
@@ -77,6 +79,9 @@ public class DownloadThread extends Thread {
                 }
                 if (raf != null) {
                     raf.close();
+                }
+                if (conn != null) {
+                    conn.disconnect();
                 }
             } catch (IOException e1) {
                 e1.printStackTrace();

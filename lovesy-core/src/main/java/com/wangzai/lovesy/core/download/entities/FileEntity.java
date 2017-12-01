@@ -10,6 +10,7 @@ public class FileEntity implements Serializable {
     private static final long serialVersionUID = -8410832293878744589L;
     private int id;
     private String url;
+    private String dir;
     private String fileName;
     private int length;
     private int finished;
@@ -18,12 +19,21 @@ public class FileEntity implements Serializable {
         super();
     }
 
-    public FileEntity(int id, String url, String fileName, int length, int finished) {
+    public FileEntity(int id, String url, String dir, String fileName, int length, int finished) {
         this.id = id;
         this.url = url;
+        this.dir = dir;
         this.fileName = fileName;
         this.length = length;
         this.finished = finished;
+    }
+
+    public String getDir() {
+        return dir;
+    }
+
+    public void setDir(String dir) {
+        this.dir = dir;
     }
 
     public int getId() {
