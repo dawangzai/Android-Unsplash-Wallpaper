@@ -35,7 +35,7 @@ public class ThreadDAOImpl implements ThreadDAO {
                 threadEntity.getUrl(),
                 threadEntity.getStart(),
                 threadEntity.getEnd(),
-                threadEntity.getFinished()});
+                threadEntity.getProgress()});
         db.close();
     }
 
@@ -71,7 +71,7 @@ public class ThreadDAOImpl implements ThreadDAO {
             thread.setUrl(cursor.getString(cursor.getColumnIndex("url")));
             thread.setStart(cursor.getInt(cursor.getColumnIndex("start")));
             thread.setEnd(cursor.getInt(cursor.getColumnIndex("end")));
-            thread.setFinished(cursor.getInt(cursor.getColumnIndex("finished")));
+            thread.setProgress(cursor.getInt(cursor.getColumnIndex("finished")));
             threadList.add(thread);
         }
         cursor.close();

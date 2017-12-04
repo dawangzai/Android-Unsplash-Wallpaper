@@ -112,13 +112,13 @@ public class DownloadTask {
                 conn.setConnectTimeout(3000);
                 conn.setRequestMethod("GET");
                 //设置下载位置
-                int start = mThread.getStart() + mThread.getFinished();
+                int start = mThread.getStart() + mThread.getProgress();
                 conn.setRequestProperty("Range", "bytes=" + start + "-" + mThread.getEnd());
                 //设置写入位置
                 File file = new File(DownloadService.DOWNLOAD_PATH, mFile.getFileName());
                 raf = new RandomAccessFile(file, "rwd");
                 raf.seek(start);
-                mFinished += mThread.getFinished();
+                mFinished += mThread.getProgress();
 
                 if (conn.getResponseCode() == 206) {
                     is = conn.getInputStream();
@@ -130,7 +130,7 @@ public class DownloadTask {
                         raf.write(buffer, 0, len);
                         mFinished += len;
                         //累加每个线程的完成进度
-                        mThread.setFinished(mThread.getFinished() + len);
+                        mThread.setProgress(mThread.getProgress() + len);
                         //下载进度更新
 //                        if (System.currentTimeMillis() - time > 500) {
                             time = System.currentTimeMillis();
@@ -141,7 +141,7 @@ public class DownloadTask {
 
                         //暂停下载
                         if (isPause) {
-                            mThreadDAO.updateThread(mThread.getUrl(), mThread.getId(), mThread.getFinished());
+                            mThreadDAO.updateThread(mThread.getUrl(), mThread.getId(), mThread.getProgress());
                             return;
                         }
                     }

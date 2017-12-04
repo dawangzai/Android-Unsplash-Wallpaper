@@ -9,17 +9,18 @@ public class ThreadEntity {
     private String url;
     private int start;
     private int end;
-    private int finished;
+    private int progress;
 
     public ThreadEntity() {
         super();
     }
-    public ThreadEntity(int id, String url, int start, int end, int finished) {
+
+    public ThreadEntity(int id, String url, int start, int end, int progress) {
         this.id = id;
         this.url = url;
         this.start = start;
         this.end = end;
-        this.finished = finished;
+        this.progress = progress;
     }
 
     public int getId() {
@@ -32,7 +33,6 @@ public class ThreadEntity {
 
     public String getUrl() {
         return url;
-
     }
 
     public void setUrl(String url) {
@@ -55,12 +55,12 @@ public class ThreadEntity {
         this.end = end;
     }
 
-    public int getFinished() {
-        return finished;
+    public int getProgress() {
+        return progress;
     }
 
-    public void setFinished(int finished) {
-        this.finished = finished;
+    public void setProgress(int progress) {
+        this.progress = progress;
     }
 
     @Override
@@ -70,7 +70,7 @@ public class ThreadEntity {
                 ", url='" + url + '\'' +
                 ", start=" + start +
                 ", end=" + end +
-                ", finished=" + finished +
+                ", progress=" + progress +
                 '}';
     }
 }

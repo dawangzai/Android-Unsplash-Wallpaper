@@ -13,19 +13,19 @@ public class FileEntity implements Serializable {
     private String dir;
     private String fileName;
     private int length;
-    private int finished;
+    private int progress;
 
     public FileEntity() {
         super();
     }
 
-    public FileEntity(int id, String url, String dir, String fileName, int length, int finished) {
+    public FileEntity(int id, String url, String dir, String fileName, int length, int progress) {
         this.id = id;
         this.url = url;
         this.dir = dir;
         this.fileName = fileName;
         this.length = length;
-        this.finished = finished;
+        this.progress = progress;
     }
 
     public String getDir() {
@@ -68,12 +68,12 @@ public class FileEntity implements Serializable {
         this.length = length;
     }
 
-    public int getFinished() {
-        return finished;
+    public int getProgress() {
+        return progress;
     }
 
-    public void setFinished(int finished) {
-        this.finished = finished;
+    public void setProgress(int progress) {
+        this.progress = progress;
     }
 
     @Override
@@ -84,7 +84,7 @@ public class FileEntity implements Serializable {
                 ", dir='" + dir + '\'' +
                 ", fileName='" + fileName + '\'' +
                 ", length=" + length +
-                ", finished=" + finished +
+                ", progress=" + progress +
                 '}';
     }
 }

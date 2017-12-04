@@ -12,20 +12,30 @@ public class FileEntity implements Serializable {
     private String url;
     private String dir;
     private String fileName;
+    private int threadCount;
     private int length;
-    private int finished;
+    private int progress;
 
     public FileEntity() {
         super();
     }
 
-    public FileEntity(int id, String url, String dir, String fileName, int length, int finished) {
+    public FileEntity(int id, String url, String dir, String fileName, int threadCount, int length, int progress) {
         this.id = id;
         this.url = url;
         this.dir = dir;
         this.fileName = fileName;
+        this.threadCount = threadCount;
         this.length = length;
-        this.finished = finished;
+        this.progress = progress;
+    }
+
+    public int getThreadCount() {
+        return threadCount;
+    }
+
+    public void setThreadCount(int threadCount) {
+        this.threadCount = threadCount;
     }
 
     public String getDir() {
@@ -68,12 +78,12 @@ public class FileEntity implements Serializable {
         this.length = length;
     }
 
-    public int getFinished() {
-        return finished;
+    public int getProgress() {
+        return progress;
     }
 
-    public void setFinished(int finished) {
-        this.finished = finished;
+    public void setProgress(int progress) {
+        this.progress = progress;
     }
 
     @Override
@@ -83,7 +93,7 @@ public class FileEntity implements Serializable {
                 ", url='" + url + '\'' +
                 ", fileName='" + fileName + '\'' +
                 ", length=" + length +
-                ", finished=" + finished +
+                ", progress=" + progress +
                 '}';
     }
 }
