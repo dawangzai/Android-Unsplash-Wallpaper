@@ -5,7 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.wangzai.lovesy.core.net.download.entities.ThreadEntity;
+import com.wangzai.lovesy.core.download.entities.ThreadEntity;
 
 import java.util.ArrayList;
 import java.util.List;

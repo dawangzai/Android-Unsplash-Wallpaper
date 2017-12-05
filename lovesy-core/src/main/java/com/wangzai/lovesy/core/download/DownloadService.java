@@ -35,7 +35,9 @@ public class DownloadService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         if (intent != null) {
-            final FileEntity fileEntity = (FileEntity) intent.getSerializableExtra(DownloadManager.EXTRA_FILE);
+            final FileEntity fileEntity = (FileEntity) intent.getSerializableExtra(MultiThreadDownload.EXTRA_FILE);
+//            new DownloadHandler(this, fileEntity);
+            setFileLength(fileEntity);
         }
     }
 
@@ -67,6 +69,7 @@ public class DownloadService extends IntentService {
             fileEntity.setLength(length);
 
             // TODO: 2017/11/30 开始下载
+            new DownloadHandler(this, fileEntity);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

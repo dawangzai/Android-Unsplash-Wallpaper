@@ -1,14 +1,14 @@
 package com.wangzai.lovesy.core.download;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 
 import com.wangzai.lovesy.core.download.callback.IDownloadListener;
 import com.wangzai.lovesy.core.download.db.ThreadDao;
 import com.wangzai.lovesy.core.download.db.ThreadDaoImpl;
 import com.wangzai.lovesy.core.download.entities.FileEntity;
-import com.wangzai.lovesy.core.net.download.entities.ThreadEntity;
+import com.wangzai.lovesy.core.download.entities.ThreadEntity;
+import com.wangzai.lovesy.core.util.LogUtil;
 
 import java.util.List;
 
@@ -20,15 +20,15 @@ public class DownloadHandler implements IDownloadListener {
 
     private final Context mContext;
     private final FileEntity mFileEntity;
-    private final Handler mHandler;
+//    private final Handler mHandler;
 
     private int mProgress;
     private volatile boolean isFinished;
     private ThreadDao mThreadDao;
 
-    public DownloadHandler(Context context, FileEntity fileEntity, Handler handler) {
+    public DownloadHandler(Context context, FileEntity fileEntity) {
         this.mFileEntity = fileEntity;
-        this.mHandler = handler;
+//        this.mHandler = handler;
         this.mContext = context;
         mThreadDao = new ThreadDaoImpl(mContext);
     }
@@ -51,24 +51,26 @@ public class DownloadHandler implements IDownloadListener {
         }
 
         for (ThreadEntity threadEntity : threadList) {
-            final DownloadThread downloadThread = new DownloadThread(threadEntity);
-            execute(downloadThread);
+            final DownloadThread downloadThread = new DownloadThread(threadEntity, mThreadDao, mFileEntity, this);
+//            execute(downloadThread);
         }
     }
 
     @Override
-    public void onProgress(int progress) {
-
+    public synchronized void onProgress(int progress) {
+        mProgress += progress;
+        LogUtil.i("进度=" + mProgress);
     }
 
     @Override
-    public void onFinished() {
-
+    public synchronized void onFinished() {
+        LogUtil.i("finished");
     }
 
     @Override
-    public boolean onPause() {
-        return false;
+    public synchronized boolean onPause() {
+        LogUtil.i("暂停");
+        return true;
     }
 
     private synchronized void checkAllThreadFinished() {

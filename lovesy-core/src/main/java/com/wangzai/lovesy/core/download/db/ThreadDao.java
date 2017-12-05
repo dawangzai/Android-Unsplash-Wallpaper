@@ -1,6 +1,6 @@
 package com.wangzai.lovesy.core.download.db;
 
-import com.wangzai.lovesy.core.net.download.entities.ThreadEntity;
+import com.wangzai.lovesy.core.download.entities.ThreadEntity;
 
 import java.util.List;
 

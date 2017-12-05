@@ -1,11 +1,9 @@
 package com.wangzai.lovesy.core.download;
 
-import android.content.Intent;
-
 import com.wangzai.lovesy.core.download.callback.IDownloadListener;
 import com.wangzai.lovesy.core.download.db.ThreadDao;
-import com.wangzai.lovesy.core.net.download.entities.FileEntity;
-import com.wangzai.lovesy.core.net.download.entities.ThreadEntity;
+import com.wangzai.lovesy.core.download.entities.FileEntity;
+import com.wangzai.lovesy.core.download.entities.ThreadEntity;
 
 import java.io.File;
 import java.io.IOException;

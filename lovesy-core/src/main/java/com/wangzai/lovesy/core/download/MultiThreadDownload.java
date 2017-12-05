@@ -13,7 +13,7 @@ import com.wangzai.lovesy.core.util.file.FileUtil;
  * Created by wangzai on 2017/11/30
  */
 
-public class DownloadManager {
+public class MultiThreadDownload {
     private static final String DIR_IMAGE = Environment.getExternalStorageDirectory().
             getAbsolutePath() + "/lovesy";
 
@@ -34,11 +34,11 @@ public class DownloadManager {
 
     private FileEntity mFileEntity;
 
-    private DownloadManager(Context context,
-                            String url,
-                            String fileName,
-                            String dir,
-                            int threadCount) {
+    private MultiThreadDownload(Context context,
+                                String url,
+                                String fileName,
+                                String dir,
+                                int threadCount) {
         this.mUrl = url;
         this.mFileName = fileName;
         this.mDir = dir;
@@ -48,8 +48,12 @@ public class DownloadManager {
         initFile();
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     private void initFile() {
-        mFileEntity = new FileEntity(0, mUrl, mFileName, 0, 0);
+        mFileEntity = new FileEntity(0, mUrl, mDir, mFileName, mThreadCount, 0, 0);
     }
 
     public void download() {
@@ -63,7 +67,7 @@ public class DownloadManager {
         Intent intent = new Intent(mContext, DownloadService.class);
     }
 
-    public final class Builder {
+    public static final class Builder {
         private String url;
         private String fileName;
         private String extension;
@@ -104,7 +108,7 @@ public class DownloadManager {
         }
 
         @NonNull
-        public DownloadManager build() {
+        public MultiThreadDownload build() {
 
             if (StringUtil.isEmpty(dir)) {
                 this.dir = DIR_IMAGE;
@@ -116,7 +120,7 @@ public class DownloadManager {
                 this.fileName = FileUtil.getFileNameByTime(extension.toUpperCase(), extension);
             }
 
-            return new DownloadManager(
+            return new MultiThreadDownload(
                     context,
                     url,
                     fileName,

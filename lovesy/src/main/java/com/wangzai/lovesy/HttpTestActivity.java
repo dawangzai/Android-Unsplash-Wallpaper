@@ -12,8 +12,9 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.wangzai.lovesy.core.net.download.entities.FileEntity;
-import com.wangzai.lovesy.core.net.download.services.DownloadService;
+import com.wangzai.lovesy.core.download.MultiThreadDownload;
+import com.wangzai.lovesy.core.download.entities.FileEntity;
+import com.wangzai.lovesy.core.download.DownloadService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,20 +51,28 @@ public class HttpTestActivity extends AppCompatActivity {
 
     @OnClick({R.id.btn_download, R.id.btn_pause})
     public void onViewClicked(View view) {
-        FileEntity fileEntity = new FileEntity(0, "https://images.unsplash.com/photo-1511898290398-cee3038fa7a7",
-                "picture.jpg", 0, 0);
+        String url = "https://images.unsplash.com/photo-1511898290398-cee3038fa7a7";
+//        FileEntity fileEntity = new FileEntity(0, "https://images.unsplash.com/photo-1511898290398-cee3038fa7a7",
+//                "picture.jpg", 0, 0);
         switch (view.getId()) {
             case R.id.btn_download:
-                Intent intent = new Intent(this, DownloadService.class);
-                intent.setAction(DownloadService.ACTION_START);
-                intent.putExtra(DownloadService.EXTRA_FILE, fileEntity);
-                startService(intent);
+
+//                Intent intent = new Intent(this, DownloadService.class);
+//                intent.setAction(DownloadService.ACTION_START);
+//                intent.putExtra(DownloadService.EXTRA_FILE, fileEntity);
+//                startService(intent);
+                MultiThreadDownload.builder()
+                        .context(this)
+                        .url(url)
+                        .extension("jpg")
+                        .build()
+                        .download();
                 break;
             case R.id.btn_pause:
-                Intent intent1 = new Intent(this, DownloadService.class);
-                intent1.setAction(DownloadService.ACTION_STOP);
-                intent1.putExtra(DownloadService.EXTRA_FILE, fileEntity);
-                startService(intent1);
+//                Intent intent1 = new Intent(this, DownloadService.class);
+//                intent1.setAction(DownloadService.ACTION_STOP);
+//                intent1.putExtra(DownloadService.EXTRA_FILE, fileEntity);
+//                startService(intent1);
                 break;
             default:
                 break;
