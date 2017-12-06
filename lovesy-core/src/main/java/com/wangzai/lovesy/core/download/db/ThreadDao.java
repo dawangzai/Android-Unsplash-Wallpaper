@@ -20,5 +20,7 @@ public interface ThreadDao {
 
     List<ThreadEntity> queryAllThread(String url);
 
+    boolean isExistsThread(String url);
+
     boolean isThreadExists(String url, int threadId);
 }

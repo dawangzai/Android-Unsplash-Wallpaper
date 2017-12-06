@@ -59,7 +59,6 @@
         <activity android:name=".HttpTestActivity" />
 
 
-        <!--suppress AndroidDomInspection -->
         <service android:name=".core.download.DownloadService"/>
 
     </application>

@@ -91,7 +91,9 @@ public class FileEntity implements Serializable {
         return "FileEntity{" +
                 "id=" + id +
                 ", url='" + url + '\'' +
+                ", dir='" + dir + '\'' +
                 ", fileName='" + fileName + '\'' +
+                ", threadCount=" + threadCount +
                 ", length=" + length +
                 ", progress=" + progress +
                 '}';

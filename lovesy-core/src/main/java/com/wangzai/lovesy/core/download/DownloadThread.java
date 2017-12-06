@@ -63,7 +63,6 @@ public class DownloadThread extends Thread {
 
                     //累加每个线程的完成进度
                     mThreadEntity.setProgress(mThreadEntity.getProgress() + len);
-
                     mListener.onProgress(len);
 
                     //暂停下载

@@ -24,7 +24,7 @@ public class MultiThreadDownload {
 
     public static final String EXTRA_FILE = "EXTRA_FILE";
     public static final String EXTRA_UPDATE = "EXTRA_UPDATE";
-    public static final String EXTRA_ID = "EXTRA_ID";
+    public static final String EXTRA_FILE_ID = "EXTRA_FILE_ID";
 
     private final String mUrl;
     private final String mFileName;
@@ -65,6 +65,9 @@ public class MultiThreadDownload {
 
     public void pause() {
         Intent intent = new Intent(mContext, DownloadService.class);
+        intent.setAction(ACTION_STOP);
+        intent.putExtra(EXTRA_FILE, mFileEntity);
+        mContext.startService(intent);
     }
 
     public static final class Builder {
@@ -118,6 +121,9 @@ public class MultiThreadDownload {
             }
             if (StringUtil.isEmpty(fileName)) {
                 this.fileName = FileUtil.getFileNameByTime(extension.toUpperCase(), extension);
+            }
+            if (threadCount == 0 || threadCount > 5) {
+                this.threadCount = 3;
             }
 
             return new MultiThreadDownload(

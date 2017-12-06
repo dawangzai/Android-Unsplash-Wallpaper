@@ -80,6 +80,16 @@ public class ThreadDaoImpl implements ThreadDao {
     }
 
     @Override
+    public boolean isExistsThread(String url) {
+        final SQLiteDatabase db = mHelper.getWritableDatabase();
+        @SuppressLint("Recycle") final Cursor cursor = db.rawQuery(SQL_QUERY_ALL, new String[]{url});
+        boolean result = cursor.moveToFirst();
+        cursor.close();
+        db.close();
+        return result;
+    }
+
+    @Override
     public boolean isThreadExists(String url, int threadId) {
         final SQLiteDatabase db = mHelper.getWritableDatabase();
         @SuppressLint("Recycle") final Cursor cursor = db.rawQuery(SQL_QUERY_SINGLE, new String[]{url, String.valueOf(threadId)});

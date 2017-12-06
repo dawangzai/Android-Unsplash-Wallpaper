@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Created by wangzai on 2017/11/30
@@ -19,25 +21,32 @@ import java.net.URL;
 
 public class DownloadService extends IntentService {
 
-    public static final String ACTION_START = "ACTION_START";
-    public static final String ACTION_STOP = "ACTION_STOP";
-    public static final String ACTION_UPDATE = "ACTION_UPDATE";
-    public static final String ACTION_FINISH = "ACTION_FINISH";
+    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
+    private Map<Integer, DownloadHandler> mDownloads = new LinkedHashMap<>();
 
-    public static final String EXTRA_FILE = "EXTRA_FILE";
-    public static final String EXTRA_UPDATE = "EXTRA_UPDATE";
-    public static final String EXTRA_ID = "EXTRA_ID";
-
-    public DownloadService(String name) {
-        super(name);
+    public DownloadService() {
+        super("DownloadService");
     }
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         if (intent != null) {
             final FileEntity fileEntity = (FileEntity) intent.getSerializableExtra(MultiThreadDownload.EXTRA_FILE);
-//            new DownloadHandler(this, fileEntity);
-            setFileLength(fileEntity);
+            final DownloadHandler handler = mDownloads.get(fileEntity.getId());
+            LogUtil.i("开始下载DownloadHandler=" + mDownloads.toString());
+            if (MultiThreadDownload.ACTION_START.equals(intent.getAction())) {
+                if (handler == null) {
+                    setFileLength(fileEntity);
+                } else {
+                    handler.download();
+                }
+            } else if (MultiThreadDownload.ACTION_STOP.equals(intent.getAction())) {
+                LogUtil.i("暂停DownloadHandler=" + mDownloads.toString());
+                if (handler != null) {
+                    LogUtil.i("点击暂停下载2");
+                    handler.pause();
+                }
+            }
         }
     }
 
@@ -57,6 +66,7 @@ public class DownloadService extends IntentService {
             if (length <= 0) {
                 return;
             }
+            LogUtil.i("FileLength=" + length);
             File dir = new File(fileEntity.getDir());
             if (!dir.exists()) {
                 dir.mkdir();
@@ -68,8 +78,13 @@ public class DownloadService extends IntentService {
             raf.setLength(length);
             fileEntity.setLength(length);
 
-            // TODO: 2017/11/30 开始下载
-            new DownloadHandler(this, fileEntity);
+            LogUtil.i(fileEntity.toString());
+
+            final DownloadHandler downloadHandler = new DownloadHandler(this, fileEntity);
+            mDownloads.put(fileEntity.getId(), downloadHandler);
+            LogUtil.i(mDownloads.get(fileEntity.getId()).toString());
+            downloadHandler.download();
+
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
