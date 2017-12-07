@@ -50,7 +50,8 @@ public class HttpTestActivity extends AppCompatActivity {
 
     @OnClick({R.id.btn_download, R.id.btn_pause})
     public void onViewClicked(View view) {
-        String url = "https://images.unsplash.com/photo-1511898290398-cee3038fa7a7";
+//        String url = "https://images.unsplash.com/photo-1511898290398-cee3038fa7a7";
+        String url = "https://images.unsplash.com/photo-1512508561942-18fbe6d5d0cf?ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&s=b5f72cbead22d905154fcd500cf558bb";
         final MultiThreadDownload md = MultiThreadDownload.builder()
                 .context(this)
                 .url(url)

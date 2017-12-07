@@ -59,17 +59,17 @@ public class DownloadThread extends Thread {
                 byte[] buffer = new byte[1024 * 4];
                 int len = -1;
                 while ((len = is.read(buffer)) != -1) {
-                    raf.write(buffer, 0, len);
-
-                    //累加每个线程的完成进度
-                    mThreadEntity.setProgress(mThreadEntity.getProgress() + len);
-                    mListener.onProgress(len);
-
                     //暂停下载
                     if (mListener.onPause()) {
                         mThreadDao.updateThread(mThreadEntity.getUrl(), mThreadEntity.getId(), mThreadEntity.getProgress());
                         return;
                     }
+
+                    raf.write(buffer, 0, len);
+                    //累加每个线程的完成进度
+                    mThreadEntity.setProgress(mThreadEntity.getProgress() + len);
+                    mListener.onProgress(len);
+
                 }
 
                 mThreadDao.deleteThread(mThreadEntity.getUrl(), mThreadEntity.getId());

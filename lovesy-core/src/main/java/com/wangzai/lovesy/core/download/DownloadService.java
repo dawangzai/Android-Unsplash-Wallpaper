@@ -1,7 +1,10 @@
 package com.wangzai.lovesy.core.download;
 
+import android.annotation.SuppressLint;
 import android.app.IntentService;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 
 import com.wangzai.lovesy.core.download.entities.FileEntity;
@@ -23,6 +26,13 @@ public class DownloadService extends IntentService {
 
     @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     private Map<Integer, DownloadHandler> mDownloads = new LinkedHashMap<>();
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
 
     public DownloadService() {
         super("DownloadService");
@@ -33,7 +43,6 @@ public class DownloadService extends IntentService {
         if (intent != null) {
             final FileEntity fileEntity = (FileEntity) intent.getSerializableExtra(MultiThreadDownload.EXTRA_FILE);
             final DownloadHandler handler = mDownloads.get(fileEntity.getId());
-            LogUtil.i("开始下载DownloadHandler=" + mDownloads.toString());
             if (MultiThreadDownload.ACTION_START.equals(intent.getAction())) {
                 if (handler == null) {
                     setFileLength(fileEntity);
@@ -41,9 +50,8 @@ public class DownloadService extends IntentService {
                     handler.download();
                 }
             } else if (MultiThreadDownload.ACTION_STOP.equals(intent.getAction())) {
-                LogUtil.i("暂停DownloadHandler=" + mDownloads.toString());
                 if (handler != null) {
-                    LogUtil.i("点击暂停下载2");
+                    LogUtil.i("暂停DownloadHandler=" + mDownloads.toString());
                     handler.pause();
                 }
             }

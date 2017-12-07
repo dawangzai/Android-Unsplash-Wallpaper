@@ -12,6 +12,8 @@ import com.wangzai.lovesy.core.download.entities.ThreadEntity;
 import com.wangzai.lovesy.core.util.LogUtil;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by wangzai on 2017/12/4
@@ -27,6 +29,7 @@ public class DownloadHandler implements IDownloadListener {
     private volatile boolean isPause = false;
     private ThreadDao mThreadDao;
     private Intent mIntent;
+    private ExecutorService mExecutor = Executors.newCachedThreadPool();
 
     public DownloadHandler(Context context, FileEntity fileEntity) {
         this.mFileEntity = fileEntity;
@@ -36,6 +39,7 @@ public class DownloadHandler implements IDownloadListener {
     }
 
     public void download() {
+        isPause = false;
         final List<ThreadEntity> threadList = mThreadDao.queryAllThread(mFileEntity.getUrl());
         if (threadList.size() == 0) {
             //获取每个线程的下载长度
@@ -54,8 +58,8 @@ public class DownloadHandler implements IDownloadListener {
 
         for (ThreadEntity threadEntity : threadList) {
             final DownloadThread downloadThread = new DownloadThread(threadEntity, mThreadDao, mFileEntity, this);
-            downloadThread.start();
-//            execute(downloadThread);
+//            downloadThread.start();
+            mExecutor.execute(downloadThread);
         }
     }
 
