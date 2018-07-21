@@ -38,16 +38,16 @@ class HomePagerAdapter extends FragmentPagerAdapter {
         return mHomeFragments.size();
     }
 
-    @Override
-    public Object instantiateItem(ViewGroup container, int position) {
-        Fragment fragment = (Fragment) super.instantiateItem(container, position);
-        mFragmentManager.beginTransaction().show(fragment).commit();
-        return fragment;
-    }
-
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        Fragment fragment = mHomeFragments.get(position);
-        mFragmentManager.beginTransaction().hide(fragment).commit();
-    }
+//    @Override
+//    public Object instantiateItem(ViewGroup container, int position) {
+//        Fragment fragment = (Fragment) super.instantiateItem(container, position);
+//        mFragmentManager.beginTransaction().show(fragment).commit();
+//        return fragment;
+//    }
+//
+//    @Override
+//    public void destroyItem(ViewGroup container, int position, Object object) {
+//        Fragment fragment = mHomeFragments.get(position);
+//        mFragmentManager.beginTransaction().hide(fragment).commit();
+//    }
 }

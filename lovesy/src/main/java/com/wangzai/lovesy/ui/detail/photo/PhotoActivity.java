@@ -123,16 +123,16 @@ public class PhotoActivity extends LoveSyActivity implements View.OnTouchListene
     @Override
     public void onImmerse(boolean isImmerse) {
         if (isImmerse) {
-//            mLlContainer.setVisibility(View.INVISIBLE);
-//            mLlContainer.startAnimation(showAnimation);
-//            hideAnimator.start();
-            valueAnimator.start();
+            mLlContainer.setVisibility(View.INVISIBLE);
+            mLlContainer.startAnimation(showAnimation);
+            hideAnimator.start();
+//            valueAnimator.start();
             mRlBackground.setBackgroundColor(ContextCompat.getColor(this, R.color.bg_black));
         } else {
-//            mLlContainer.setVisibility(View.VISIBLE);
-//            mLlContainer.startAnimation(hideAnimation);
-//            showAnimator.start();
-            valueAnimator.start();
+            mLlContainer.setVisibility(View.VISIBLE);
+            mLlContainer.startAnimation(hideAnimation);
+            showAnimator.start();
+//            valueAnimator.start();
             mRlBackground.setBackgroundColor(ContextCompat.getColor(this, R.color.bg_white));
         }
     }

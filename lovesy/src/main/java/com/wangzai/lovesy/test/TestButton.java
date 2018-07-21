@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 
 import com.wangzai.lovesy.core.util.LogUtil;
 
@@ -70,5 +71,10 @@ public class TestButton extends AppCompatTextView {
         mLastX = x;
         mLastY = y;
         return true;
+    }
+
+    @Override
+    public void computeScroll() {
+        super.computeScroll();
     }
 }

@@ -1,9 +1,10 @@
-package com.wangzai.lovesy.core.download;
+package com.wangzai.lovesy.core.download.thread;
 
 import com.wangzai.lovesy.core.download.callback.IDownloadListener;
-import com.wangzai.lovesy.core.download.db.ThreadDao;
-import com.wangzai.lovesy.core.download.entities.FileEntity;
-import com.wangzai.lovesy.core.download.entities.ThreadEntity;
+import com.wangzai.lovesy.core.download.db.thread.ThreadDao;
+import com.wangzai.lovesy.core.download.entities.FileInfo;
+import com.wangzai.lovesy.core.download.entities.ThreadInfo;
+import com.wangzai.lovesy.core.util.LogUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,19 +19,19 @@ import java.net.URL;
 
 public class DownloadThread extends Thread {
 
-    private final ThreadEntity mThreadEntity;
+    private final ThreadInfo mThreadInfo;
     private final ThreadDao mThreadDao;
-    private final FileEntity mFileEntity;
+    private final FileInfo mFileInfo;
     private final IDownloadListener mListener;
 
     public DownloadThread(
-            ThreadEntity threadEntity,
+            ThreadInfo threadInfo,
             ThreadDao threadDao,
-            FileEntity fileEntity,
+            FileInfo fileInfo,
             IDownloadListener listener) {
-        this.mThreadEntity = threadEntity;
+        this.mThreadInfo = threadInfo;
         this.mThreadDao = threadDao;
-        this.mFileEntity = fileEntity;
+        this.mFileInfo = fileInfo;
         this.mListener = listener;
     }
 
@@ -40,19 +41,19 @@ public class DownloadThread extends Thread {
         RandomAccessFile raf = null;
         InputStream is = null;
         try {
-            final URL url = new URL(mThreadEntity.getUrl());
+            final URL url = new URL(mThreadInfo.getUrl());
             conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(3000);
             conn.setRequestMethod("GET");
             //设置下载位置
-            int start = mThreadEntity.getStart() + mThreadEntity.getProgress();
-            conn.setRequestProperty("Range", "bytes=" + start + "-" + mThreadEntity.getEnd());
+            int start = mThreadInfo.getStart() + mThreadInfo.getProgress();
+            conn.setRequestProperty("Range", "bytes=" + start + "-" + mThreadInfo.getEnd());
             //设置写入位置
-            File file = new File(mFileEntity.getDir(), mFileEntity.getFileName());
+            File file = new File(mFileInfo.getDir(), mFileInfo.getFileName());
             raf = new RandomAccessFile(file, "rwd");
             raf.seek(start);
 
-            mListener.onProgress(mThreadEntity.getProgress());
+            mListener.onProgress(mThreadInfo.getProgress());
 
             if (conn.getResponseCode() == 206) {
                 is = conn.getInputStream();
@@ -60,19 +61,21 @@ public class DownloadThread extends Thread {
                 int len = -1;
                 while ((len = is.read(buffer)) != -1) {
                     //暂停下载
-                    if (mListener.onPause()) {
-                        mThreadDao.updateThread(mThreadEntity.getUrl(), mThreadEntity.getId(), mThreadEntity.getProgress());
-                        return;
-                    }
+//                    if (mListener.onPause()) {
+//                        mThreadDao.updateThread(mThreadInfo.getUrl(), mThreadInfo.getId(), mThreadInfo.getProgress());
+//                        return;
+//                    }
+                    checkPause();
 
                     raf.write(buffer, 0, len);
                     //累加每个线程的完成进度
-                    mThreadEntity.setProgress(mThreadEntity.getProgress() + len);
+                    mThreadInfo.setProgress(mThreadInfo.getProgress() + len);
                     mListener.onProgress(len);
 
                 }
 
-                mThreadDao.deleteThread(mThreadEntity.getUrl(), mThreadEntity.getId());
+                mThreadDao.deleteThread(mThreadInfo.getUrl(), mThreadInfo.getId());
+                LogUtil.i("删除线程==" + mThreadInfo.getId());
                 mListener.onFinished();
             }
         } catch (IOException e) {
@@ -89,6 +92,13 @@ public class DownloadThread extends Thread {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
+        }
+    }
+
+    private void checkPause() {
+        if (mFileInfo.isPause()) {
+            mListener.onPause();
+            return;
         }
     }
 }

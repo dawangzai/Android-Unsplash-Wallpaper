@@ -6,8 +6,18 @@ import java.io.Serializable;
  * Created by wangzai on 2017/11/28
  */
 
-public class FileEntity implements Serializable {
+public class FileInfo implements Serializable {
     private static final long serialVersionUID = -8410832293878744589L;
+
+    public static final int STATUS_NONE = 0;
+    public static final int STATUS_PREPARE_DOWNLOAD = 1;
+    public static final int STATUS_DOWNLOADING = 2;
+    public static final int STATUS_WAIT = 3;
+    public static final int STATUS_PAUSED = 4;
+    public static final int STATUS_COMPLETED = 5;
+    public static final int STATUS_ERROR = 6;
+    public static final int STATUS_REMOVED = 7;
+
     private int id;
     private String url;
     private String dir;
@@ -16,11 +26,13 @@ public class FileEntity implements Serializable {
     private int length;
     private int progress;
 
-    public FileEntity() {
+    private int status;
+
+    public FileInfo() {
         super();
     }
 
-    public FileEntity(int id, String url, String dir, String fileName, int threadCount, int length, int progress) {
+    public FileInfo(int id, String url, String dir, String fileName, int threadCount, int length, int progress) {
         this.id = id;
         this.url = url;
         this.dir = dir;
@@ -86,9 +98,17 @@ public class FileEntity implements Serializable {
         this.progress = progress;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
-        return "FileEntity{" +
+        return "FileInfo{" +
                 "id=" + id +
                 ", url='" + url + '\'' +
                 ", dir='" + dir + '\'' +
@@ -97,5 +117,11 @@ public class FileEntity implements Serializable {
                 ", length=" + length +
                 ", progress=" + progress +
                 '}';
+    }
+
+    public boolean isPause() {
+        return status == STATUS_PAUSED ||
+                status == STATUS_ERROR ||
+                status == STATUS_REMOVED;
     }
 }

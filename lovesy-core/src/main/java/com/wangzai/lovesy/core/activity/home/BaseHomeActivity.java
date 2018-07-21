@@ -99,6 +99,7 @@ public abstract class BaseHomeActivity extends LoveSyActivity implements ViewPag
         HomePagerAdapter adapter = new HomePagerAdapter(mHomeFragments, getSupportFragmentManager());
         mVpContainer.setAdapter(adapter);
         mVpContainer.setCurrentItem(mIndexPage);
+        mVpContainer.setOffscreenPageLimit(mHomeFragments.size());
         mVpContainer.addOnPageChangeListener(this);
     }
 

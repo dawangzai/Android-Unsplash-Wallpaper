@@ -1,11 +1,12 @@
-package com.wangzai.lovesy.core.download.db;
+package com.wangzai.lovesy.core.download.db.thread;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.wangzai.lovesy.core.download.entities.ThreadEntity;
+import com.wangzai.lovesy.core.download.db.DatabaseHelper;
+import com.wangzai.lovesy.core.download.entities.ThreadInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,13 +30,13 @@ public class ThreadDaoImpl implements ThreadDao {
     }
 
     @Override
-    public synchronized void insertThread(ThreadEntity threadEntity) {
+    public synchronized void insertThread(ThreadInfo threadInfo) {
         final SQLiteDatabase db = mHelper.getWritableDatabase();
-        db.execSQL(SQL_INSERT, new Object[]{threadEntity.getId(),
-                threadEntity.getUrl(),
-                threadEntity.getStart(),
-                threadEntity.getEnd(),
-                threadEntity.getProgress()});
+        db.execSQL(SQL_INSERT, new Object[]{threadInfo.getId(),
+                threadInfo.getUrl(),
+                threadInfo.getStart(),
+                threadInfo.getEnd(),
+                threadInfo.getProgress()});
         db.close();
     }
 
@@ -56,17 +57,17 @@ public class ThreadDaoImpl implements ThreadDao {
     @Override
     public synchronized void updateThread(String url, int threadId, int finished) {
         final SQLiteDatabase db = mHelper.getWritableDatabase();
-        db.execSQL(SQL_UPDATE, new Object[]{url, threadId});
+        db.execSQL(SQL_UPDATE, new Object[]{finished, url, threadId});
         db.close();
     }
 
     @Override
-    public List<ThreadEntity> queryAllThread(String url) {
+    public List<ThreadInfo> queryAllThread(String url) {
         final SQLiteDatabase db = mHelper.getWritableDatabase();
         @SuppressLint("Recycle") final Cursor cursor = db.rawQuery(SQL_QUERY_ALL, new String[]{url});
-        final List<ThreadEntity> threadList = new ArrayList<>();
+        final List<ThreadInfo> threadList = new ArrayList<>();
         while (cursor.moveToNext()) {
-            ThreadEntity thread = new ThreadEntity();
+            ThreadInfo thread = new ThreadInfo();
             thread.setId(cursor.getInt(cursor.getColumnIndex("thread_id")));
             thread.setUrl(cursor.getString(cursor.getColumnIndex("url")));
             thread.setStart(cursor.getInt(cursor.getColumnIndex("start")));

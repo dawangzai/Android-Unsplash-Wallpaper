@@ -4,18 +4,18 @@ package com.wangzai.lovesy.core.download.entities;
  * Created by wangzai on 2017/11/28
  */
 
-public class ThreadEntity {
+public class ThreadInfo {
     private int id;
     private String url;
     private int start;
     private int end;
     private int progress;
 
-    public ThreadEntity() {
+    public ThreadInfo() {
         super();
     }
 
-    public ThreadEntity(int id, String url, int start, int end, int progress) {
+    public ThreadInfo(int id, String url, int start, int end, int progress) {
         this.id = id;
         this.url = url;
         this.start = start;
@@ -66,7 +66,7 @@ public class ThreadEntity {
 
     @Override
     public String toString() {
-        return "ThreadEntity{" +
+        return "ThreadInfo{" +
                 "id=" + id +
                 ", url='" + url + '\'' +
                 ", start=" + start +

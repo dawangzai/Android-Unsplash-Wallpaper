@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 
-import com.wangzai.lovesy.core.download.entities.FileEntity;
+import com.wangzai.lovesy.core.download.callback.IError;
+import com.wangzai.lovesy.core.download.callback.IFailure;
+import com.wangzai.lovesy.core.download.callback.IProgress;
+import com.wangzai.lovesy.core.download.entities.FileInfo;
 import com.wangzai.lovesy.core.util.StringUtil;
 import com.wangzai.lovesy.core.util.file.FileUtil;
 
@@ -32,18 +35,28 @@ public class MultiThreadDownload {
     private final int mThreadCount;
     private final Context mContext;
 
-    private FileEntity mFileEntity;
+    private final IProgress mIProgress;
+    private final IError mIError;
+    private final IFailure mIFailure;
+
+    private FileInfo mFileInfo;
 
     private MultiThreadDownload(Context context,
                                 String url,
                                 String fileName,
                                 String dir,
-                                int threadCount) {
+                                int threadCount,
+                                IProgress progress,
+                                IError error,
+                                IFailure failure) {
         this.mUrl = url;
         this.mFileName = fileName;
         this.mDir = dir;
         this.mThreadCount = threadCount;
         this.mContext = context;
+        this.mIProgress = progress;
+        this.mIError = error;
+        this.mIFailure = failure;
 
         initFile();
     }
@@ -53,21 +66,20 @@ public class MultiThreadDownload {
     }
 
     private void initFile() {
-        mFileEntity = new FileEntity(0, mUrl, mDir, mFileName, mThreadCount, 0, 0);
+        mFileInfo = new FileInfo(mUrl.hashCode(), mUrl, mDir, mFileName, mThreadCount, 0, 0);
     }
 
     public void download() {
-        Intent intent = new Intent(mContext, DownloadService.class);
-        intent.setAction(ACTION_START);
-        intent.putExtra(EXTRA_FILE, mFileEntity);
-        mContext.startService(intent);
+
+        DownloadService.getDownloadManager().download(mFileInfo, mIProgress, mIError, mIFailure);
     }
 
     public void pause() {
-        Intent intent = new Intent(mContext, DownloadService.class);
-        intent.setAction(ACTION_STOP);
-        intent.putExtra(EXTRA_FILE, mFileEntity);
-        mContext.startService(intent);
+        
+    }
+
+    public void delete() {
+
     }
 
     public static final class Builder {
@@ -77,6 +89,10 @@ public class MultiThreadDownload {
         private String dir;
         private int threadCount = 0;
         private Context context;
+
+        private IProgress progress;
+        private IError error;
+        private IFailure failure;
 
         public Builder threadCount(int threadCount) {
             this.threadCount = threadCount;
@@ -110,6 +126,21 @@ public class MultiThreadDownload {
             return this;
         }
 
+        public Builder progress(IProgress progress) {
+            this.progress = progress;
+            return this;
+        }
+
+        public Builder error(IError error) {
+            this.error = error;
+            return this;
+        }
+
+        public Builder failure(IFailure failure) {
+            this.failure = failure;
+            return this;
+        }
+
         @NonNull
         public MultiThreadDownload build() {
 
@@ -131,7 +162,10 @@ public class MultiThreadDownload {
                     url,
                     fileName,
                     dir,
-                    threadCount);
+                    threadCount,
+                    progress,
+                    error,
+                    failure);
         }
     }
 }

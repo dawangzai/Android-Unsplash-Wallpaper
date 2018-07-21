@@ -1,6 +1,6 @@
-package com.wangzai.lovesy.core.download.db;
+package com.wangzai.lovesy.core.download.db.thread;
 
-import com.wangzai.lovesy.core.download.entities.ThreadEntity;
+import com.wangzai.lovesy.core.download.entities.ThreadInfo;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ThreadDao {
 
-    void insertThread(ThreadEntity threadEntity);
+    void insertThread(ThreadInfo threadInfo);
 
     void deleteThread(String url, int threadId);
 
@@ -18,7 +18,7 @@ public interface ThreadDao {
 
     void updateThread(String url, int threadId, int finished);
 
-    List<ThreadEntity> queryAllThread(String url);
+    List<ThreadInfo> queryAllThread(String url);
 
     boolean isExistsThread(String url);
 

@@ -12,8 +12,8 @@ import com.wangzai.lovesy.core.ui.recycler.DataConverter;
 public class IndexFragment extends BaseHomeFragment {
     @Override
     protected String setUrl() {
-//        return ApiService.Photos.PHOTOS;
-        return null;
+        return ApiService.Photos.PHOTOS;
+//        return null;
     }
 
     @Override

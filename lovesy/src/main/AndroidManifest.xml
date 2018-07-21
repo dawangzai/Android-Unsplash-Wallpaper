@@ -58,8 +58,10 @@
         <activity android:name=".test.ViewTestActivity" />
         <activity android:name=".HttpTestActivity" />
 
+        <activity android:name=".test.TestFragmentActivity" />
 
-        <service android:name=".core.download.DownloadService"/>
+
+        <service android:name=".core.download.DownloadService" />
 
     </application>
 

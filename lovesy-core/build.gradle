@@ -51,4 +51,6 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     //字体图标库
     api 'com.joanzapata.iconify:android-iconify-material:2.2.2'
+
+    api 'com.zhihu.android:matisse:0.4.3'
 }

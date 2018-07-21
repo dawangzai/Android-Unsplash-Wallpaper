@@ -1,23 +1,27 @@
 package com.wangzai.lovesy;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
+import android.app.Activity;
+import android.content.pm.ActivityInfo;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.view.Window;
+import android.widget.ImageView;
 
-import com.wangzai.lovesy.core.download.MultiThreadDownload;
+import com.wangzai.lovesy.test.TestView;
+import com.wangzai.lovesy.utils.LogUtil;
+import com.zhihu.matisse.Matisse;
+import com.zhihu.matisse.MimeType;
+import com.zhihu.matisse.engine.impl.GlideEngine;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by wangzai on 2017/9/7
@@ -26,12 +30,19 @@ import butterknife.OnClick;
 public class HttpTestActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.pb_progress)
-    ProgressBar mPbProgress;
-    @BindView(R.id.btn_download)
-    Button mBtnDownload;
-    @BindView(R.id.btn_pause)
-    Button mBtnPause;
+    //    @BindView(R.id.pb_progress)
+//    ProgressBar mPbProgress;
+//    @BindView(R.id.btn_download)
+//    Button mBtnDownload;
+//    @BindView(R.id.btn_pause)
+//    Button mBtnPause;
+    @BindView(R.id.iv_test_photo)
+    ImageView ivTestPhoto;
+    @BindView(R.id.iv_test)
+    TestView tvTest;
+
+    private BitmapFactory.Options options;
+    private Uri uri;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,53 +50,45 @@ public class HttpTestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
         ButterKnife.bind(this);
 
-        mPbProgress.setMax(100);
+        tvTest.setClickable(true);
 
-        final IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(MultiThreadDownload.ACTION_UPDATE);
-        intentFilter.addAction(MultiThreadDownload.ACTION_FINISH);
-        LocalBroadcastManager.getInstance(this).registerReceiver(mBroadcastReceiver, intentFilter);
+
+//        options = new BitmapFactory.Options();
+//        options.inJustDecodeBounds = true;
+//        BitmapFactory.decodeResource(getResources(), R.drawable.ic_bitmap_test, options);
+//
+//
+//        final int reqHeight = ivTestPhoto.getHeight();
+//        final int reqWidth = ivTestPhoto.getWidth();
+//        LogUtil.i("reqWidth=" + reqWidth + "---reqHeight=" + reqHeight);
+//        Matisse.from(this)
+//                .choose(MimeType.ofAll(), false) // 选择 mime 的类型
+//                .countable(true)
+//                .maxSelectable(9) // 图片选择的最多数量
+//                .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
+//                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+//                .thumbnailScale(0.85f) // 缩略图的比例
+//                .imageEngine(new GlideEngine()) // 使用的图片加载引擎
+//                .forResult(REQUEST_CODE_CHOOSE); // 设置作为标记的请求码
+
 
     }
 
-    @OnClick({R.id.btn_download, R.id.btn_pause})
-    public void onViewClicked(View view) {
-//        String url = "https://images.unsplash.com/photo-1511898290398-cee3038fa7a7";
-        String url = "https://images.unsplash.com/photo-1512508561942-18fbe6d5d0cf?ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&s=b5f72cbead22d905154fcd500cf558bb";
-        final MultiThreadDownload md = MultiThreadDownload.builder()
-                .context(this)
-                .url(url)
-                .extension("jpg")
-                .build();
-        switch (view.getId()) {
-            case R.id.btn_download:
-                md.download();
-                break;
-            case R.id.btn_pause:
-                md.pause();
-                break;
-            default:
-                break;
+    private int computerInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        final int outWidth = options.outWidth;
+        final int outHeight = options.outHeight;
+        int inSimpleSize = 1;
+
+        if (outWidth >= reqWidth || outHeight >= reqHeight) {
+
         }
+        return inSimpleSize;
     }
+
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mBroadcastReceiver);
     }
 
-    BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (MultiThreadDownload.ACTION_UPDATE.equals(intent.getAction())) {
-                //更新进度
-                final int finished = intent.getIntExtra(MultiThreadDownload.EXTRA_UPDATE, 0);
-                int id = intent.getIntExtra(MultiThreadDownload.EXTRA_FILE_ID, 0);
-                mPbProgress.setProgress(finished);
-            } else if (MultiThreadDownload.ACTION_FINISH.equals(intent.getAction())) {
-                Toast.makeText(context, "下载完成", Toast.LENGTH_SHORT).show();
-            }
-        }
-    };
 }

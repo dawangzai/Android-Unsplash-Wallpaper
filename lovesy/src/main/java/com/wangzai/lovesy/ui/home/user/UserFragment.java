@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,11 +21,16 @@ import com.wangzai.lovesy.bean.UserBean;
 import com.wangzai.lovesy.account.AccountManager;
 import com.wangzai.lovesy.account.IUserChecker;
 import com.wangzai.lovesy.core.fragment.LoveSyFragment;
+import com.wangzai.lovesy.core.net.HttpClient;
+import com.wangzai.lovesy.core.net.callback.IError;
+import com.wangzai.lovesy.core.net.callback.IFailure;
+import com.wangzai.lovesy.core.net.callback.ISuccess;
 import com.wangzai.lovesy.core.net.rx.RxHttpClient;
 import com.wangzai.lovesy.core.net.rx.observer.ResultObserver;
 import com.wangzai.lovesy.core.ui.image.loader.ImageLoader;
 import com.wangzai.lovesy.core.ui.recycler.BaseDivider;
 import com.wangzai.lovesy.core.widget.SimpleImageView;
+import com.wangzai.lovesy.test.TestFragmentActivity;
 import com.wangzai.lovesy.ui.home.user.list.ListAdapter;
 import com.wangzai.lovesy.ui.home.user.list.ListBean;
 import com.wangzai.lovesy.ui.home.user.list.ListItemType;
@@ -163,8 +169,10 @@ public class UserFragment extends LoveSyFragment implements IUserChecker, View.O
                 if (AccountManager.isSignIn()) {
                     ActivityUtil.startUserProfileActivity(getActivity(), 2, username);
                 } else {
-//                    Toast.makeText(getActivity(), getString(R.string.text_login), Toast.LENGTH_SHORT).show();
-                    ActivityUtil.startHttpTestActivity(mActivity);
+                    Toast.makeText(getActivity(), getString(R.string.text_login), Toast.LENGTH_SHORT).show();
+//                    ActivityUtil.startHttpTestActivity(mActivity);
+                    Intent intent = new Intent(getActivity(), TestFragmentActivity.class);
+                    startActivity(intent);
                 }
                 break;
             case R.id.ll_error_layout:

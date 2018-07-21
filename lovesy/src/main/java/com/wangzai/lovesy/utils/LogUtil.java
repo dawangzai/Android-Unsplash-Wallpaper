@@ -3,7 +3,7 @@ package com.wangzai.lovesy.utils;
 import android.util.Log;
 
 /**
- * Created by wangzai on 2017/01/17.
+ * Created by wangzai on 2017/01/17
  */
 public class LogUtil {
     public static boolean DEBUG;
